@@ -5,10 +5,17 @@
   <title>Angular7Cake</title>
   <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0, viewport-fit = cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    const $html = document.getElementsByTagName('html');
+    const clientW = document.documentElement.clientWidth || document.body.clientWidth;
+    $html[0].style.fontSize = clientW / 375 * 100 + 'px';
+  </script>
 </body>
 </html>

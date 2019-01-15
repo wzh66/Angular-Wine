@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  width: 100%;
+  .banner {
+    .img-box {
+      display: block;
+      //width: 88% !important;
+      //margin: 0.1rem 0.05rem;
+      //border-radius: 0.04rem;
+      img {
+        display: block;
+        width: 100%;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+
+      }
+    }
+  }
+
+  .menus {
+    background: #fff;
+    .weui-grid__icon {
+      width: 0.44rem;
+      height: 0.44rem;
+    }
+    .weui-grid__label {
+      font-size: 0.11rem;
+      margin-top: 0.1rem;
+      line-height: 1;
+      color: #666;
+    }
+  }
+}

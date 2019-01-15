@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "sass/icon";
+@import "app/@theme/theme";
+
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  margin: 0;
+  font-size: 0.13rem;
+}

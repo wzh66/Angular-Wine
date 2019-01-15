@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "sudo ng serve --disable-host-check --proxy-config proxy.conf.json --port 80",
+    "build": "ng build --prod --aot --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~7.2.0",
+    "@angular/cdk": "^7.2.1",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
@@ -20,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
+    "ngx-swiper-wrapper": "^7.2.1",
+    "ngx-weui": "^7.0.0-rc.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

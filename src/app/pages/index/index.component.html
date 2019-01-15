@@ -1,0 +1,48 @@
+<app-header [show]="true" [title]="'主页'"></app-header>
+<div class="banner">
+  <swiper [config]="config" [index]="1" fxFlex="auto">
+          <span class="img-box swiper-slide" *ngFor="let img of imgs">
+            <img src="{{img}}">
+          </span>
+  </swiper>
+</div>
+<div class="menus">
+  <div class="weui-flex">
+    <a href="http://www.pgyer.com/gRGJ" class="weui-flex__item">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/index/icons/download.png" alt="">
+      </div>
+      <p class="weui-grid__label">App下载</p>
+    </a>
+    <div routerLink="/front/article/list" class="weui-flex__item">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/index/icons/guide.png" alt="">
+      </div>
+      <p class="weui-grid__label">常见问题</p>
+    </div>
+    <div routerLink="/front/share" class="weui-flex__item">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/index/icons/order.png" alt="">
+      </div>
+      <p class="weui-grid__label">最新晒单</p>
+    </div>
+    <div class="weui-flex__item">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/index/icons/service.png" alt="">
+      </div>
+      <p class="weui-grid__label">联系客服</p>
+    </div>
+    <div routerLink="/admin/account/fund/add" class="weui-flex__item">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/index/icons/recharge.png" alt="">
+      </div>
+      <p class="weui-grid__label">账户充值</p>
+    </div>
+  </div>
+</div>
+
+<div style="height: 2000px">
+
+  您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>
+</div>
+<app-footer></app-footer>

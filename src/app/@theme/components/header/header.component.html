@@ -1,0 +1,14 @@
+<nav class="black animated" [ngClass]="{'fadeOutUp':direction === 'down','fadeInDown':direction === 'up'}" *ngIf="show">
+  <div class="nav-group">
+    <a (click)="back()" class="nav-item"><span class="icon-arrow-left-alt"></span></a>
+  </div>
+
+  <div class="title-page">
+    {{title}}
+  </div>
+
+  <div class="nav-group right">
+    <!--<a class="nav-item" href="javascript:;"><span class="icon-cog"></span></a>-->
+    <a class="logout nav-item" href="javascript:;"><span class="icon-power"></span></a>
+  </div>
+</nav>

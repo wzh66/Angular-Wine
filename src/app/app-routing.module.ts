@@ -1,22 +1,25 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {IndexComponent} from './pages/index/index.component';
-import {FrontComponent} from './pages/front/front.component';
-import {AdminComponent} from './pages/admin/admin.component';
 import {CacheComponent} from './pages/cache/cache.component';
 
 const routes: Routes = [
+  {
+    path: '', redirectTo: 'index', pathMatch: 'full'
+  },
   {
     path: 'index',
     component: IndexComponent
   },
   {
     path: 'front',
-    component: FrontComponent
+    loadChildren: './pages/front/front.module#FrontModule',
+    data: {state: 'front'}
   },
   {
     path: 'admin',
-    component: AdminComponent
+    loadChildren: './pages/admin/admin.module#AdminModule',
+    data: {state: 'admin'}
   },
   {
     path: 'cache',

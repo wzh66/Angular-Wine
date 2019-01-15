@@ -7,18 +7,12 @@ import {SwiperModule} from 'ngx-swiper-wrapper';
 import {WeUiModule} from 'ngx-weui';
 import {ThemeModule} from './@theme/theme.module';
 import {AppComponent} from './app.component';
-import {IndexComponent} from './pages/index/index.component';
-import {FrontComponent} from './pages/front/front.component';
-import {AdminComponent} from './pages/admin/admin.component';
-import {CacheComponent} from './pages/cache/cache.component';
+import {PAGES} from './pages';
 
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent,
-    FrontComponent,
-    AdminComponent,
-    CacheComponent
+    ...PAGES
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ export const FOOTER_NAV_ITEMS: Nav[] = [
     badge: 0
   },
   {
-    page: '/front',
+    page: '/front/list',
     icon: 'icon-list-unordered',
     selectedIcon: 'icon-list-unordered',
     name: '所有商品',
@@ -18,7 +18,7 @@ export const FOOTER_NAV_ITEMS: Nav[] = [
     badge: 0
   },
   {
-    page: '/admin',
+    page: '/admin/order/list',
     icon: 'icon-admin',
     selectedIcon: 'icon-admin',
     name: '购物车',

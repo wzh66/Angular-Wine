@@ -1,23 +1,9 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {Slide} from '../../@theme/animates/router.animation';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-front',
   templateUrl: './front.component.html',
-  styleUrls: ['./front.component.scss'],
-  animations: [Slide]
+  styleUrls: ['./front.component.scss']
 })
-export class FrontComponent implements OnInit {
-  // 路由动画 开始
-  @HostBinding('@slide') get slide() {
-    return 'left';
-  }
-
-  // 路由动画 结束
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
+export class FrontComponent {
 }

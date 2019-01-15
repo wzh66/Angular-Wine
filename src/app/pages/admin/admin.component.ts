@@ -1,23 +1,10 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {Slide} from '../../@theme/animates/router.animation';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
-  animations: [Slide]
+  styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit {
-  // 路由动画 开始
-  @HostBinding('@slide') get slide() {
-    return 'right';
-  }
 
-  // 路由动画 结束
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
+export class AdminComponent {
 }

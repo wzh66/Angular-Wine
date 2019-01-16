@@ -1,0 +1,5 @@
+<div *ngIf="state && autoHeight" (click)="hide()" class="weui-mask"></div>
+<div class="overlay"
+     [ngClass]="{'auto':autoHeight,'overlay_toggle':state}">
+  <ng-content></ng-content>
+</div>

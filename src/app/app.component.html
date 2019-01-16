@@ -1,5 +1,5 @@
 <div class="weui-tab">
-  <div class="weui-tab__panel" (scroll)="onScroll($event)" [@routerAnimation]="getState(appOutlet)">
+  <div class="weui-tab__panel" [@routerAnimation]>
     <router-outlet #appOutlet="outlet"></router-outlet>
   </div>
 </div>

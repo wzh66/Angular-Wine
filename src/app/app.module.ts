@@ -5,7 +5,11 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {WeUiModule} from 'ngx-weui';
+
 import {ThemeModule} from './@theme/theme.module';
+
+import {INTERCEPTORS} from './@core/interceptors';
+
 import {AppComponent} from './app.component';
 import {PAGES} from './pages';
 
@@ -22,7 +26,7 @@ import {PAGES} from './pages';
     WeUiModule.forRoot(),
     ThemeModule.forRoot()
   ],
-  providers: [],
+  providers: [INTERCEPTORS],
   bootstrap: [AppComponent]
 })
 export class AppModule {

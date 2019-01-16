@@ -1,0 +1,19 @@
+.overlay {
+  background-image: linear-gradient(to bottom, rgba(232, 234, 241, 0.97), rgba(243, 243, 244, 0.97) 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  transform: translate(0, 100%);
+  backface-visibility: hidden;
+  z-index: 1001;
+  width: 100%;
+  transition: transform .3s;
+  &.auto {
+    top: auto;
+  }
+}
+
+.overlay_toggle {
+  transform: translate(0, 0);
+}

@@ -1,0 +1,190 @@
+:host {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: deepskyblue;
+}
+
+.close-btn {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  vertical-align: center;
+  height: 100%;
+}
+
+.close-btn Image {
+  width: 12px;
+  height: 12px;
+  padding: 12px;
+}
+
+.item-details {
+  horizontal-align: center;
+  vertical-align: bottom;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 28px;
+  color: #FF7761;
+  text-align: center;
+}
+
+.sub-title {
+  opacity: 0.5;
+  font-size: 16px;
+  color: #4A535D;
+  text-align: center;
+  font-family: "Dosis"
+}
+
+.item-detail {
+  width: 100%;
+  horizontal-align: center;
+}
+
+.deselected {
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+  animation-name: reduce;
+  transform: scale(0.8, 0.8)
+}
+
+.selected {
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+  animation-name: enlarge;
+}
+
+@keyframes enlarge {
+  from { transform: scale(0.8, 0.8) }
+  to { transform: scale(1, 1) }
+}
+
+@keyframes reduce {
+  from { transform: scale(1, 1) }
+  to { transform: scale(0.8, 0.8) }
+}
+
+.item-detail TextField {
+  border-bottom-color: #FF7761;
+  border-bottom-width: 2px;
+  text-align: center;
+  color: #FF7761;
+  placeholder-color: #FF7761;
+  padding: 0;
+}
+
+.item-detail .item-name {
+  width: 200px;
+}
+
+.item-detail .quantity {
+  width: 50px;
+}
+
+.item-detail .price {
+  width: 70px;
+}
+
+.input-group {
+  horizontal-align: center;
+  vertical-align: bottom;
+}
+
+.input-group StackLayout {
+  opacity: 0.75;
+  font-size: 15px;
+  color: #4A535D;
+  vertical-align: bottom;
+}
+
+.units Label, .currency Label {
+  font-weight: 500;
+}
+
+.units {
+  margin-left: 80px;
+}
+
+.currency {
+  margin-left: 90px;
+  font-weight: 500;
+}
+
+.btn-container {
+  height: 60px;
+  vertical-align: center;
+  border-radius: 6px;
+}
+
+.btn-container Image {
+  width: 20px;
+  height: 14px;
+  margin-left: 120px;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-name: fade-in;
+}
+
+
+Button {
+  height: 60px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.05px;
+}
+
+.save-order, .new-item {
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-name: fade-in;
+  border-radius: 6px;
+}
+
+.save-order {
+  color: #FFFFFF;
+  background-color: #FF7761;
+}
+
+.new-item {
+  background-color: #FFFFFF;
+  color: #FF7761;
+  border-width: 1px;
+  border-color: #FF7761;
+}
+
+.person-selector-container {
+  height: 80px;
+  width: 100%;
+  horizontal-align: center;
+  vertical-align: top;
+}
+
+.overlay {
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%,rgba(255,255,255,1) 102%);
+}
+
+.person-selector-container .selector {
+  width: 46px;
+  height: 46px;
+  border-color: #FF7761;
+  border-width: 2px;
+  border-radius: 46px;
+}
+
+.unselected-overlay {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.80) 0%,rgba(255,255,255,0.80) 3%,rgba(255,255,255,0.73) 50%,rgba(255,255,255,0.6) 99%,rgba(255,255,255,0.6) 100%);
+}
+
+.person, .selected-item {
+  font-weight: 600;
+}
+
+@keyframes fade-in {
+  from { transform: scale(0, 0); opacity: 0 }
+  to { transform: scale(1, 1); opacity: 1 }
+}

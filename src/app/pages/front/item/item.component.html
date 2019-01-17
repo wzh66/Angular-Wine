@@ -1,3 +1,118 @@
-<p>
-  item works!
-</p>
+<app-header [show]="true" [title]="'front/list'"></app-header>
+<app-content [paddingFooter]="true" [paddingHeader]="true">
+  <!-- start -->
+
+  <div class="main-container">
+    <div row="1">
+      <div style="width: 100%" #container>
+        <div rows="auto, auto" columns="*" class="item-detail"
+                    (tap)="setActiveInput('profile')" height="150">
+          <div [ngClass]="{'deselected': !isSelected('profile') }">
+            <label class="title">{{getSelectedPerson()}}</label>
+            <label class="sub-title">Select the person for this order</label>
+            <div class="m-t-10">
+              <div paddingTop="2" orientation="horizontal" hight="60"
+                           #personsContainer>
+                <div *ngFor="let person of persons"></div>
+              </div>
+              <div class="center person-selector-container"
+                           [class.overlay]="isSelected('profile')" (pan)="onPanEvent($event, personsContainer)">
+                <div class="selector"></div>
+              </div>
+            </div>
+          </div>
+          <div rowSpan="2" *ngIf="currentDetailType !== 'profile'"
+                       class="unselected-overlay"></div>
+        </div>
+
+        <div rows="auto, auto, auto" class="item-detail" (tap)="selectItemDetail(name, 'name')"
+                    [ngClass]="{'selected': isSelected('name'), 'deselected': !isSelected('name') }"
+                    height="100">
+          <label row="0" class="title">ITEM</label>
+          <label row="1" class="sub-title">
+            <div>
+              <span>Type what </span>
+              <span class="person">{{getSelectedPerson()}}</span>
+              <span> will order?</span>
+            </div>
+          </label>
+          <input class="item-name" row="2" [(ngModel)]='item.name'
+                     returnKeyType="next" #name (returnPress)="selectItemDetail(qty)"
+                     (focus)="selectItemDetail(name, 'name')" autocorrect="false"
+                     autocapitalizationType="none">
+          <div rowSpan="3" *ngIf="currentDetailType !== 'name'"
+                       class="unselected-overlay"></div>
+        </div>
+
+        <div rows="auto, auto, auto" class="item-detail" (tap)="selectItemDetail(qty, 'quantity')"
+                    [ngClass]="{'selected': isSelected('quantity'), 'deselected': !isSelected('quantity') }"
+                    height="100">
+          <label row="0" colSpan="2" class="title">QUANTITY</label>
+          <label row="1" colSpan="2" class="sub-title">
+            <div>
+              <span>How many</span>
+              <span class="selected-item">{{(item.name || 'item')}}</span>
+              <span>will be ordered?</span>
+            </div>
+          </label>
+          <div row="2" class="input-group">
+            <input class="quantity" [(ngModel)]='item.quantity'
+                       keyboardType="phone" returnKeyType="next" #qty
+                       (returnPress)="selectItemDetail(price)" (focus)="selectItemDetail(qty, 'quantity')"
+                       autocorrect="false" autocapitalizationType="none">
+            <div class="units">
+              <label>units</label>
+            </div>
+          </div>
+          <div rowSpan="3" *ngIf="currentDetailType !== 'quantity'"
+                       class="unselected-overlay"></div>
+        </div>
+
+        <div rows="auto, auto, auto" class="item-detail" (tap)="selectItemDetail(price, 'price')"
+                    [ngClass]="{'selected': isSelected('price'), 'deselected': !isSelected('price') }"
+                    height="100">
+          <label row="0" class="title">PRICE</label>
+          <label row="1" class="sub-title">
+            <div>
+              <span>How much each </span>
+              <span class="selected-item">(item.name || 'item')</span>
+              <span> costs?</span>
+            </div>
+          </label>
+          <div row="2" class="input-group">
+            <input class="price" [(ngModel)]='item.price'
+                       keyboardType="phone" returnKeyType="next" #price
+                       (focus)="selectItemDetail(price, 'price')"
+                       autocorrect="false" autocapitalizationType="none">
+            <div class="currency">
+              <label>kr.</label>
+            </div>
+          </div>
+          <div rowSpan="3" *ngIf="currentDetailType !== 'price'"
+                       class="unselected-overlay"></div>
+        </div>
+
+        <div *ngIf="currentDetailType === 'price'">
+          <div class="m-x-15 m-y-5 save-order btn-container save">
+            <button (tap)="saveOrder(item)">SAVE ORDER</button>
+            <img [class.fade-out]="!opening" src="~/assets/nightlight.png">
+          </div>
+          <div class="btn-container new-item m-x-15 m-t-5 m-b-15">
+            <button (tap)="newItem(item)">ADD ANOTHER ITEM</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-action-bar" columns="*, 50">
+      <div class="center" colSpan="2">
+        <label class="text-center">Create an Order</label>
+      </div>
+      <div col="1" class="close-btn" (tap)="close()">View summary
+        <img [src]="'~/assets/close.png'">
+      </div>
+    </div>
+  </div>
+
+  <!-- end -->
+</app-content>
+<app-footer></app-footer>

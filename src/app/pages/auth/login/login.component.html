@@ -1,0 +1,43 @@
+<div class="page">
+  <div class="form">
+    <img class="logo" src="/assets/images/logo.png">
+    <label class="header">APP NAME</label>
+
+    <div>
+      <div rows="auto, auto, auto">
+        <div row="0" class="input-field">
+          <input class="input" hint="Email" [disabled]="!processing"
+                     keyboardType="email" autocorrect="false"
+                     autocapitalizationType="none" [(ngModel)]="user.email" (returnPress)="focusPassword()">
+          <div class="hr-light"></div>
+        </div>
+
+        <div row="1" class="input-field">
+          <input #password class="input" [disabled]="!processing"
+                     hint="Password" secure="true" [(ngModel)]="user.password" (returnPress)="focusConfirmPassword()">
+          <div class="hr-light"></div>
+        </div>
+
+        <div row="2" *ngIf="!isLoggingIn" class="input-field">
+          <input #confirmPassword class="input" [disabled]="!processing"
+                     hint="Confirm password" secure="true" [(ngModel)]="user.confirmPassword">
+          <div class="hr-light"></div>
+        </div>
+
+        <!--<div rowSpan="3" [busy]="processing"></div>-->
+      </div>
+    </div>
+
+    <button [disabled]="!processing"
+            (tap)="submit()" class="btn btn-primary m-t-20">{{isLoggingIn ? 'Log In' : 'Sign Up'}}</button>
+    <label *ngIf="isLoggingIn" class="login-label"
+           (tap)="forgotPassword()">Forgot your password?</label>
+  </div>
+
+  <label class="login-label sign-up-label" (tap)="toggleForm()">
+    <div>
+      <span>{{isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'}}</span>
+      <span class="bold">{{isLoggingIn ? 'Sign up' : ''}}</span>
+    </div>
+  </label>
+</div>

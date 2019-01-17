@@ -1,5 +1,5 @@
-<app-header [show]="true" [title]="'主页'"></app-header>
-<div [monitor]="'scroll'" class="content-scrollable">
+<app-header [showMenu]="'left'" [show]="true" [title]="'主页'"></app-header>
+<app-content [paddingHeader]="false" [paddingFooter]="true" [monitor]="'scroll'">
   <div class="banner">
     <swiper [config]="config" [index]="1" fxFlex="auto">
           <span class="img-box swiper-slide" *ngFor="let img of imgs">
@@ -9,7 +9,7 @@
   </div>
   <div class="menus">
     <div class="weui-flex">
-      <a href="javascript:;" [userTrack]="'App下载'" class="weui-flex__item">
+      <a href="javascript:;" (click)="open()" [userTrack]="'App下载'" class="weui-flex__item">
         <div class="weui-grid__icon">
           <img src="/assets/images/index/icons/download.png" alt="">
         </div>
@@ -46,7 +46,7 @@
 
     您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>
   </div>
-</div>
+</app-content>
 
 <app-fab class="animated" [ngClass]="{'fadeOutRight':direction === 'down','fadeInRight':direction === 'up'}">
   <app-fab-trigger>
@@ -61,11 +61,6 @@
 </app-fab>
 
 <app-overlay>
-  <nav>
-    <div class="nav-group right">
-      <a class="logout nav-item" href="javascript:;"><span class="icons icons-close"></span></a>
-    </div>
-  </nav>
   <div class="content-scrollable">
     <div class="txt-box">
       haha

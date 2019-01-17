@@ -1,5 +1,11 @@
-<div class="weui-tab">
-  <div class="weui-tab__panel" [@routerAnimation]>
-    <router-outlet #appOutlet="outlet"></router-outlet>
+<div id="container" [ngClass]="{'menu-open':menuShow}">
+  <app-menu></app-menu>
+  <div (click)="menu()" class="content-overlay"></div>
+  <div id="content-container">
+    <div class="weui-tab">
+      <div class="weui-tab__panel" [@routerAnimation]>
+        <router-outlet #appOutlet="outlet"></router-outlet>
+      </div>
+    </div>
   </div>
 </div>

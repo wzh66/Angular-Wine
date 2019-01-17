@@ -1,7 +1,7 @@
 nav {
   background: rgba(255, 255, 255, 0.97) none repeat scroll 0 0;
   bottom: auto;
-  height: 0.45rem;
+  height: 0.48rem;
   left: 0;
   position: absolute;
   right: 0;
@@ -16,7 +16,7 @@ nav {
   z-index: 10;
   .nav-group {
     bottom: auto;
-    height: 0.45rem;
+    height: 0.48rem;
     font-size: 0.14rem;
     left: 0;
     position: absolute;
@@ -33,15 +33,15 @@ nav {
     color: #333333;
     display: inline-block;
     font-size: 0.18rem;
-    height: 0.45rem;
-    line-height: 0.45rem;
-    width: 0.45rem;
+    height: 0.48rem;
+    line-height: 0.48rem;
+    width: 0.48rem;
     &:active {
       opacity: 0.5;
     }
     [class^="icon-"],
     [class*=" icon-"] {
-      line-height: 0.3rem;
+      line-height: 0.48rem;
       vertical-align: middle;
     }
   }
@@ -55,7 +55,7 @@ nav {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 100%);
       bottom: auto;
       content: "";
-      height: 0.35rem;
+      height: 0.48rem;
       left: 0;
       position: absolute;
       right: 0;
@@ -93,7 +93,7 @@ nav {
     .subtext-page {
       color: #aaaaaa;
       display: block;
-      font-size: 10px;
+      font-size: 0.1rem;
       font-weight: 700;
       letter-spacing: 0;
       line-height: 1;

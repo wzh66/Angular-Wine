@@ -2,12 +2,17 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {AdminCartComponent} from './cart/cart.component';
+import {AdminHomeComponent} from './home/home.component';
 import {AdminOrderListComponent} from './order/list/list.component';
 import {AdminOrderItemComponent} from './order/item/item.component';
 
 const routes: Routes = [
   {
     path: '', redirectTo: 'order/list', pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: AdminHomeComponent,
   },
   {
     path: 'cart',

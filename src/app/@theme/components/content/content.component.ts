@@ -9,6 +9,7 @@ import {DirectionService} from '../../animates/direction.service';
 export class ContentComponent {
   @Input() paddingHeader = false;
   @Input() paddingFooter = false;
+  @Input() monitor = '';
 
   scrollTop = 0;
 
@@ -16,15 +17,15 @@ export class ContentComponent {
   }
 
   onScroll(e) {
-    e.preventDefault();
-    const top = e.target.scrollTop;
-    let direction = '';
-    if (top > this.scrollTop) {
-      direction = 'down';
-    } else {
-      direction = 'up';
+    if (this.monitor === 'scroll') {
+      e.preventDefault();
+      this.directionSvc.set({
+        direction: e.target.scrollTop > this.scrollTop ? 'down' : 'up', // 滚动方向 '上' 或者 '下'
+        scrollTop: e.target.scrollTop, // 滚动位置到顶端的距离
+        clientHeight: e.target.clientHeight, // 容器的高度
+        scrollHeight: e.target.scrollHeight // 内容高度
+      });
+      this.scrollTop = e.target.scrollTop;
     }
-    this.directionSvc.setScrollingStatus(direction);
-    this.scrollTop = top;
   }
 }

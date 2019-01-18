@@ -18,8 +18,8 @@ export class FooterComponent {
     footer.get().subscribe(items => {
       this.items = items;
     });
-    directionSvc.getScrollingStatus().subscribe(res => {
-      this.direction = res;
+    directionSvc.get().subscribe(res => {
+      this.direction = res.direction;
     });
   }
 }

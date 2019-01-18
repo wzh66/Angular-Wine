@@ -3,30 +3,21 @@ import {BehaviorSubject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class DirectionService {
-  private direction: string;
-  private routeHistory = [];
-  private scrollingStatus = new BehaviorSubject('');
+  private status = new BehaviorSubject({
+    direction: '',
+    scrollTop: 0,
+    scrollHeight: '',
+    clientHeight: ''
+  });
 
   constructor() {
   }
 
   get() {
-    return this.direction;
+    return this.status.asObservable();
   }
 
-  set(direction) {
-    this.direction = direction;
-  }
-
-  push(path) {
-    this.routeHistory.push(path);
-  }
-
-  getScrollingStatus() {
-    return this.scrollingStatus.asObservable();
-  }
-
-  setScrollingStatus(status) {
-    this.scrollingStatus.next(status);
+  set(status) {
+    this.status.next(status);
   }
 }

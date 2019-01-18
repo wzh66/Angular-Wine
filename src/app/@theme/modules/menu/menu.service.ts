@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class MenuService {
 
   private subject = new Subject<boolean>();

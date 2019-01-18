@@ -21,13 +21,12 @@ export class HeaderComponent {
               private directionSvc: DirectionService,
               private menuSvc: MenuService) {
     titleService.setTitle(this.title);
-    directionSvc.getScrollingStatus().subscribe(res => {
-      this.direction = res;
+    directionSvc.get().subscribe(res => {
+      this.direction = res.direction;
     });
   }
 
   menu() {
-    console.log('open');
     this.menuSvc.show();
   }
 

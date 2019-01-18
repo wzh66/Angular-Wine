@@ -35,8 +35,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   constructor(private location: LocationStrategy,
               private directionSvc: DirectionService,
               private overlaySvc: OverlayService) {
-    this.directionSvc.getScrollingStatus().subscribe(res => {
-      this.direction = res;
+    this.directionSvc.get().subscribe(res => {
+      this.direction = res.direction;
     });
   }
 

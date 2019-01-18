@@ -1,0 +1,19 @@
+.user-info {
+  position: relative;
+  height: 2rem;
+  background-image: url("/assets/images/home/homeBg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.order-status {
+  .weui-grid__icon {
+    width: 0.28rem;
+    height: 0.28rem;
+    text-align: center;
+    i {
+      font-size: 0.18rem;
+      line-height: 0.28rem;
+    }
+  }
+}

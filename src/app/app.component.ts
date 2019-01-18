@@ -32,8 +32,4 @@ export class AppComponent {
   menu() {
     this.menuSvc.hide();
   }
-
-  /*getState(outlet) {
-    return outlet.activatedRouteData['page'] || 'start';
-  }*/
 }

@@ -21,6 +21,8 @@ import {DOCUMENT} from '@angular/common';
 
 const Z_INDEX_ITEM = 23;
 
+import {DirectionService} from '../../animates/direction.service';
+
 export type Direction = 'up' | 'down' | 'left' | 'right';
 export type AnimationMode = 'fling' | 'scale';
 
@@ -110,7 +112,7 @@ export class FabActionsComponent implements AfterContentInit {
 @Component({
   selector: 'app-fab',
   template: `
-    <div class="fab-container">
+    <div class="fab-container animated" [ngClass]="{'fadeOutRight':states.direction === 'down','fadeInRight':states.direction === 'up'}">
       <ng-content select="app-fab-trigger"></ng-content>
       <ng-content select="app-fab-actions"></ng-content>
     </div>
@@ -125,6 +127,7 @@ export class FabComponent implements OnDestroy, AfterContentInit {
   private _animationMode: AnimationMode = 'fling';
   private _fixed = false;
   private _documentClickUnlistener: (() => void) | null = null;
+  states;
 
   /**
    * Whether this speed dial is fixed on screen (user cannot change it by clicking)
@@ -202,7 +205,13 @@ export class FabComponent implements OnDestroy, AfterContentInit {
 
   @ContentChild(FabActionsComponent) _childActions: FabActionsComponent;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2,
+              @Inject(DOCUMENT) private document: Document,
+              private directionSvc: DirectionService) {
+    directionSvc.get().subscribe(res => {
+      this.states = res;
+    });
   }
 
   ngAfterContentInit(): void {

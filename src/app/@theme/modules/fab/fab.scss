@@ -27,7 +27,6 @@
 
 app-fab {
   display: inline-block;
-
   &.opened {
     .fab-container {
       app-fab-trigger.eco-spin {
@@ -52,6 +51,12 @@ app-fab {
     -webkit-align-items: center;
     align-items: center;
     z-index: 20;
+    &.animated {
+      display: none;
+      &.fadeOutRight,&.fadeInRight {
+        display: flex;
+      }
+    }
 
     app-fab-trigger {
       pointer-events: auto;

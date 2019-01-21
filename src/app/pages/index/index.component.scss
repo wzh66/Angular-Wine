@@ -65,15 +65,37 @@
 
   .menus {
     background: #fff;
+    padding: 0.15rem 0;
     .weui-grid__icon {
       width: 0.44rem;
       height: 0.44rem;
+      font-size: 0.44rem;
+      .icons {
+        display: block;
+      }
     }
     .weui-grid__label {
       font-size: 0.11rem;
       margin-top: 0.1rem;
       line-height: 1;
       color: #666;
+    }
+  }
+}
+
+app-overlay {
+  .close {
+    position: absolute;
+    width: 0.48rem;
+    height: 0.48rem;
+    line-height: 0.48rem;
+    right: 0;
+    top: 0;
+    text-align: center;
+    i {
+      display: inline-block;
+      font-size: 0.18rem;
+      vertical-align: middle;
     }
   }
 }

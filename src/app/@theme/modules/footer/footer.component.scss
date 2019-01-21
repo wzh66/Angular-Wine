@@ -1,1 +1,22 @@
 
+:host {
+  .weui-tabbar__item {
+    padding: 0.05rem 0 0;
+
+    .weui-tabbar__icon {
+      width: 0.27rem;
+      height: 0.27rem;
+
+      & > i {
+        font-size: 0.27rem;
+        display: block;
+        &:before {
+          display: inline-block;
+        }
+      }
+    }
+    .weui-tabbar__label {
+      font-size: 0.1rem;
+    }
+  }
+}

@@ -11,31 +11,41 @@
     <div class="weui-flex">
       <a href="javascript:;" (click)="open()" [userTrack]="'App下载'" class="weui-flex__item">
         <div class="weui-grid__icon">
-          <img src="/assets/images/index/icons/download.png" alt="">
+          <svg class="icons" aria-hidden="true">
+            <use xlink:href="#icons-statistics"></use>
+          </svg>
         </div>
         <p class="weui-grid__label">App下载</p>
       </a>
       <div [userTrack]="'常见问题'" class="weui-flex__item">
         <div class="weui-grid__icon">
-          <img src="/assets/images/index/icons/guide.png" alt="">
+          <svg class="icons" aria-hidden="true">
+            <use xlink:href="#icons-edit"></use>
+          </svg>
         </div>
         <p class="weui-grid__label">常见问题</p>
       </div>
       <div [userTrack]="'最新晒单'" class="weui-flex__item">
         <div class="weui-grid__icon">
-          <img src="/assets/images/index/icons/order.png" alt="">
+          <svg class="icons" aria-hidden="true">
+            <use xlink:href="#icons-notice"></use>
+          </svg>
         </div>
         <p class="weui-grid__label">最新晒单</p>
       </div>
       <div [userTrack]="'联系客服'" class="weui-flex__item">
         <div class="weui-grid__icon">
-          <img src="/assets/images/index/icons/service.png" alt="">
+          <svg class="icons" aria-hidden="true">
+            <use xlink:href="#icons-service"></use>
+          </svg>
         </div>
         <p class="weui-grid__label">联系客服</p>
       </div>
       <div [userTrack]="'账户充值'" class="weui-flex__item">
         <div class="weui-grid__icon">
-          <img src="/assets/images/index/icons/recharge.png" alt="">
+          <svg class="icons" aria-hidden="true">
+            <use xlink:href="#icons-setting"></use>
+          </svg>
         </div>
         <p class="weui-grid__label">账户充值</p>
       </div>
@@ -62,6 +72,9 @@
 
 <app-overlay>
   <div class="content-scrollable">
+    <span (click)="close()" class="close">
+      <i class=" icon-cross"></i>
+    </span>
     <div class="txt-box">
       haha
     </div>

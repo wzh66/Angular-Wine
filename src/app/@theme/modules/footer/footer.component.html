@@ -1,7 +1,8 @@
 <div class="weui-tabbar animated" [ngClass]="{'fadeOutDown':direction === 'down','fadeInUp':direction === 'up'}">
-  <a *ngFor="let item of items" [routerLink]="[item.page]" class="weui-tabbar__item">
+  <a *ngFor="let item of items" [routerLink]="[item.page]" class="weui-tabbar__item"
+     [ngClass]="{'selected':item.selected}">
       <span class="weui-tabbar__icon">
-        <i class="icons {{item.selected ? item.icon : item.selectedIcon}}"></i>
+        <i class="icons {{item.selected ? item.selectedIcon : item.icon}}"></i>
       </span>
     <p class="weui-tabbar__label">{{item.name}}</p>
   </a>

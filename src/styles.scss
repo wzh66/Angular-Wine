@@ -2,6 +2,7 @@
 @import "sass/icon";
 @import "app/@theme/theme";
 @import "sass/mixin.scss";
+@import "sass/swipe";
 
 
 html, body {
@@ -19,4 +20,13 @@ ul, li {
 body {
   margin: 0;
   font-size: 0.13rem;
+}
+
+.icons {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  font-size: inherit;
 }

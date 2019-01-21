@@ -112,7 +112,9 @@ export class FabActionsComponent implements AfterContentInit {
 @Component({
   selector: 'app-fab',
   template: `
-    <div class="fab-container animated" [ngClass]="{'fadeOutRight':states.direction === 'down','fadeInRight':states.direction === 'up'}">
+    <div class="fab-container animated"
+         [ngClass]="{'fadeOutRight':states.direction === 'up' || states.scrollTop < states.clientHeight,
+         'fadeInRight':(states.direction === 'down' && states.scrollTop > states.clientHeight)}">
       <ng-content select="app-fab-trigger"></ng-content>
       <ng-content select="app-fab-actions"></ng-content>
     </div>
@@ -211,6 +213,7 @@ export class FabComponent implements OnDestroy, AfterContentInit {
               private directionSvc: DirectionService) {
     directionSvc.get().subscribe(res => {
       this.states = res;
+      console.log(this.states);
     });
   }
 

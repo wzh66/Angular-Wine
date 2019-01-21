@@ -3,32 +3,32 @@ import {Nav} from './footer.service';
 export const FOOTER_NAV_ITEMS: Nav[] = [
   {
     page: '/index',
-    icon: 'icon-home',
-    selectedIcon: 'icon-home',
+    icon: 'icons-home',
+    selectedIcon: 'icons-home_fill',
     name: '首页',
     selected: false,
     badge: 0
   },
   {
     page: '/front/list',
-    icon: 'icon-list-unordered',
-    selectedIcon: 'icon-list-unordered',
+    icon: 'icons-newshot',
+    selectedIcon: 'icons-newshot_fill',
     name: '所有商品',
     selected: false,
     badge: 0
   },
   {
     page: '/admin/order/list',
-    icon: 'icon-admin',
-    selectedIcon: 'icon-admin',
+    icon: 'icons-cart',
+    selectedIcon: 'icons-cart_fill',
     name: '购物车',
     selected: false,
     badge: 0
   },
   {
     page: '/cache',
-    icon: 'icon-category',
-    selectedIcon: 'icon-category',
+    icon: 'icons-people',
+    selectedIcon: 'icons-people_fill',
     name: '我的',
     selected: false,
     badge: 0

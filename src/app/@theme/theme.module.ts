@@ -36,7 +36,7 @@ import {COMPONENTS, DIRECTIVES} from './index';
     ...COMPONENTS
   ],
   declarations: [...DIRECTIVES, ...COMPONENTS],
-  entryComponents: [],
+  entryComponents: [COMPONENTS],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

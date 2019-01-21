@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {LocationStrategy} from '@angular/common';
 import {DirectionService} from '../../animates/direction.service';
-import {MenuService} from '../../modules/menu/menu.service';
+import {MenuService} from '../menu/menu.service';
 
 @Component({
   selector: 'app-header',

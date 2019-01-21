@@ -11,6 +11,9 @@ const THIRD_PART = [MatButtonModule, MatIconModule, FabModule];
 
 import {OverlayModule} from './modules/overlay';
 import {MenuModule} from './modules/menu/menu.module';
+import {HeaderModule} from './modules/header/header.module';
+import {FooterModule} from './modules/footer/footer.module';
+import {ContentModule} from './modules/content/content.module';
 
 import {COMPONENTS, DIRECTIVES} from './index';
 
@@ -22,6 +25,9 @@ import {COMPONENTS, DIRECTIVES} from './index';
     RouterModule,
     THIRD_PART,
     MenuModule.forRoot(),
+    HeaderModule.forRoot(),
+    FooterModule.forRoot(),
+    ContentModule.forRoot(),
     OverlayModule.forRoot()
   ],
   exports: [
@@ -31,6 +37,9 @@ import {COMPONENTS, DIRECTIVES} from './index';
     RouterModule,
     THIRD_PART,
     MenuModule,
+    HeaderModule,
+    FooterModule,
+    ContentModule,
     OverlayModule,
     ...DIRECTIVES,
     ...COMPONENTS

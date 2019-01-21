@@ -1,17 +1,17 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {OverlayComponent} from './overlay.component';
+import {ContentComponent} from './content.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
-  declarations: [OverlayComponent],
-  exports: [OverlayComponent],
-  entryComponents: [OverlayComponent],
+  declarations: [ContentComponent],
+  exports: [ContentComponent],
+  entryComponents: [ContentComponent],
   providers: []
 })
-export class OverlayModule {
+export class ContentModule {
   public static forRoot(): ModuleWithProviders {
-    return {ngModule: OverlayModule, providers: []};
+    return {ngModule: ContentModule, providers: []};
   }
 }

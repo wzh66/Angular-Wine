@@ -1,32 +1,32 @@
 <app-header [showMenu]="'left'" [show]="true" [title]="'会员中心'"></app-header>
-<app-content>
+<app-content [paddingHeader]="false" [paddingFooter]="true" [monitor]="'scroll'">
   <div class="user-info"></div>
-  <div class="weui-panel weui-panel_access" style="margin-top: 0">
-    <div class="weui-panel__hd">图文组合列表</div>
+  <div class="order weui-panel weui-panel_access" style="margin-top: 0">
+    <div class="weui-panel__hd"><img src="/assets/images/home/orders.png"><span>我的订单</span></div>
     <div class="weui-panel__bd">
       <div class="weui-media-box">
         <div class="order-status weui-flex">
           <div class="weui-flex__item">
             <div class="weui-grid__icon">
-              <i class="icon-check"></i>
+              <img src="/assets/images/home/waiting.png">
             </div>
             <p class="weui-grid__label">待付款</p>
           </div>
           <div class="weui-flex__item">
             <div class="weui-grid__icon">
-              <i class="icon-cross"></i>
+              <img src="/assets/images/home/shipped.png">
             </div>
             <p class="weui-grid__label">待发货</p>
           </div>
           <div class="weui-flex__item">
             <div class="weui-grid__icon">
-              <i class="icon-cross"></i>
+              <img src="/assets/images/home/arrived.png">
             </div>
             <p class="weui-grid__label">待收货</p>
           </div>
           <div class="weui-flex__item">
             <div class="weui-grid__icon">
-              <i class="icon-cross"></i>
+              <img src="/assets/images/home/finished.png">
             </div>
             <p class="weui-grid__label">已完成</p>
           </div>
@@ -38,17 +38,19 @@
   <div class="weui-cells">
 
     <a class="weui-cell weui-cell_access" href="javascript:;">
-      <div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__hd"><img src="/assets/images/home/profile.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
         <p>我的资料</p>
       </div>
       <div class="weui-cell__ft">
-        <span style="vertical-align:middle; font-size: 17px;">详细信息</span>
+        <span style="vertical-align:middle;">详细信息</span>
         <span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
       </div>
     </a>
     <a class="weui-cell weui-cell_access" href="javascript:;">
-      <div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__hd"><img src="/assets/images/home/addr.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">收货地址</span>
         <span class="weui-badge" style="margin-left: 5px;">8</span>
@@ -56,5 +58,62 @@
       <div class="weui-cell__ft">广东省广州市...</div>
     </a>
   </div>
+
+  <div class="weui-cells">
+
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/agent.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <p>申请代理</p>
+      </div>
+      <div class="weui-cell__ft">现在充值<em>￥600</em>元即可成为金牌代理</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/withdraw.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <span style="vertical-align: middle">存款提现</span>
+      </div>
+      <div class="weui-cell__ft">余额：<em>￥504</em></div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/red.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <span style="vertical-align: middle">红包记录</span>
+      </div>
+      <div class="weui-cell__ft">本月共收取红包：<em>￥54</em></div>
+    </a>
+  </div>
+
+  <div class="weui-cells">
+
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/seller.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <p>申请入驻</p>
+      </div>
+      <div class="weui-cell__ft"></div>
+    </a>
+  </div>
+
+  <div class="weui-cells">
+
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/code.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <p>我要推广</p>
+      </div>
+      <div class="weui-cell__ft">您已发展了<em>5</em>名成员</div>
+    </a>
+  </div>
+
+  <div class="weui-btn-area">
+    <a class="weui-btn weui-btn_default" href="javascript:">退出登录</a>
+  </div>
+
 </app-content>
 <app-footer></app-footer>

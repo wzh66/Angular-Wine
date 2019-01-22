@@ -48,6 +48,7 @@
   width: 100%;
   height: 100%;
   background-color: rebeccapurple;
+
   .banner {
     .img-box {
       display: block;
@@ -65,20 +66,119 @@
 
   .menus {
     background: #fff;
-    padding: 0.15rem 0;
+
+    .weui-grids {
+      .weui-grid {
+        width: 20%;
+      }
+    }
+
     .weui-grid__icon {
       width: 0.44rem;
       height: 0.44rem;
       font-size: 0.44rem;
+
       .icons {
         display: block;
       }
     }
+
     .weui-grid__label {
       font-size: 0.11rem;
       margin-top: 0.1rem;
       line-height: 1;
       color: #666;
+    }
+  }
+}
+
+.hot, .new {
+  background: none;
+  margin-top: 0.1rem;
+
+  &:before, &:after {
+    display: none;
+  }
+
+  .weui-panel__hd {
+    padding: 0.05rem 0.15rem 0;
+
+    &:after {
+      display: none;
+    }
+
+    .weui-badge {
+      font-size: 0.12rem;
+      background: #f4ebe2;
+      color: #541217;
+      line-height: 1;
+      padding: 0.05rem 0.125rem;
+    }
+  }
+
+  .weui-media-box {
+    padding: 0;
+  }
+
+  .swiper-slide {
+    width: 25% !important;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0.04rem;
+    margin: 0.1rem 0.075rem;
+
+    &:first-child {
+      margin-left: 0.15rem;
+    }
+
+    &:last-child {
+      margin-right: 0.15rem;
+    }
+  }
+}
+
+.new {
+  .item-box {
+    background: #fff;
+    border-top-left-radius: 0.08rem;
+    border-top-right-radius: 0.08rem;
+    margin: 0.1rem 0.15rem;
+
+    .item-img {
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    .item-text {
+      padding: 0.1rem;
+
+      .title, .price, .units {
+        display: inline-block;
+        vertical-align: baseline;
+      }
+
+      .title {
+        color: #541217;
+        font-size: 0.14rem;
+      }
+
+      .price {
+        font-size: 0.16rem;
+        color: #c69c6d;
+        margin-left: 0.15rem;
+      }
+
+      .units {
+        font-size: 0.12rem;
+        color: #999;
+        margin-left: 0.05rem;
+      }
+
+      .desc {
+        font-size: 0.12rem;
+        color: #999;
+      }
     }
   }
 }
@@ -92,6 +192,7 @@ app-overlay {
     right: 0;
     top: 0;
     text-align: center;
+
     i {
       display: inline-block;
       font-size: 0.18rem;

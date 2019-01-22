@@ -4,6 +4,8 @@
 @import "sass/mixin.scss";
 @import "sass/swipe";
 
+@import "sass/weui/panel";
+
 
 html, body {
   height: 100%;
@@ -15,6 +17,22 @@ ul, li {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+em {
+  color: #F43530;
+  &.money {
+    .rmb {
+      font-size: 75%;
+    }
+    .decimal {
+      font-size: 75%;
+    }
+  }
+}
+
+.right {
+  float: right;
 }
 
 body {
@@ -29,4 +47,10 @@ body {
   fill: currentColor;
   overflow: hidden;
   font-size: inherit;
+}
+
+.weui-grids, .weui-grid {
+  &:before, &:after {
+    display: none;
+  }
 }

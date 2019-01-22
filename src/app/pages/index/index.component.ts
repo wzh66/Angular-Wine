@@ -13,9 +13,9 @@ import {DirectionService} from '../../@theme/animates/direction.service';
 })
 export class IndexComponent implements OnInit, OnDestroy {
   // 路由动画 开始
-  @HostBinding('@slide') get slide() {
+  /*@HostBinding('@slide') get slide() {
     return 'left';
-  }
+  }*/
 
   // 路由动画 结束
 
@@ -29,7 +29,19 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
   };
 
-  imgs = ['/assets/images/banner/2.png', '/assets/images/banner/3.png'];
+  albumConfig = {
+    grabCursor: true,
+    centeredSlides: false,
+    slidesPerView: 'auto',
+    pagination: true
+  };
+
+  imgs = ['/assets/images/banner/1.png'];
+  hots = ['/assets/images/hots/1.png', '/assets/images/hots/2.png', '/assets/images/hots/3.png', '/assets/images/hots/4.png'];
+  news = [
+    {title: '草莓奶油蛋糕', desc: '甜润奶油，与草莓的自然甜度搭配', price: '228', unit: '元/2.0磅', img: '/assets/images/news/1.png'},
+    {title: '百利甜情人', desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露', price: '228', unit: '元/2.0磅', img: '/assets/images/news/2.png'}
+  ];
   direction;
 
   constructor(private location: LocationStrategy,

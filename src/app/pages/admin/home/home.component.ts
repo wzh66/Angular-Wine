@@ -9,7 +9,7 @@ import {DialogService} from 'ngx-weui';
 export class AdminHomeComponent implements OnInit {
 
   constructor(private dialogSvc: DialogService) {
-    this.dialogSvc.show({title: '系统提示', content: '去死吧', cancel: '返回', confirm: '确定'}).subscribe();
+    /*this.dialogSvc.show({title: '系统提示', content: '去死吧', cancel: '返回', confirm: '确定'}).subscribe();*/
   }
 
   ngOnInit() {

@@ -6,6 +6,23 @@
   background-repeat: no-repeat;
 }
 
+.order {
+  .weui-panel__hd {
+    font-size: 0.14rem;
+    line-height: 0.2rem;
+    color: #333;
+    img,span {
+      display: inline-block;
+      vertical-align: middle;
+      height: 0.2rem;
+    }
+    img {
+      width: 0.2rem;
+      margin-right: 0.08rem;
+    }
+  }
+}
+
 .order-status {
   .weui-grid__icon {
     width: 0.28rem;
@@ -16,4 +33,22 @@
       line-height: 0.28rem;
     }
   }
+  .weui-grid__label {
+    color: #999;
+    margin-top: 0.05rem;
+    font-size: 0.14rem;
+  }
+}
+
+.weui-cells {
+  font-size: 0.14rem;
+  margin-top: 0.1rem;
+  color: #333 !important;
+  .weui-cell {
+    padding: 0.15rem;
+  }
+}
+
+.weui-btn-area {
+  padding: 0.25rem 0.15rem 0.3rem;
 }

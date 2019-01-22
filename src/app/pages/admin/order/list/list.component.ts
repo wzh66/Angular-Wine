@@ -9,9 +9,9 @@ import {Slide} from '../../../../@theme/animates/router.animation';
 })
 export class AdminOrderListComponent implements OnInit {
 // 路由动画 开始
-  @HostBinding('@slide') get slide() {
+  /*@HostBinding('@slide') get slide() {
     return 'right';
-  }
+  }*/
 
   // 路由动画 结束
   constructor() {

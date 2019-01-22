@@ -3,12 +3,16 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
+import {SwiperModule} from 'ngx-swiper-wrapper';
+import {WeUiModule} from 'ngx-weui';
 import {MatButtonModule, MatIconModule} from '@angular/material';
+
+const THIRD_PART = [MatButtonModule, MatIconModule, SwiperModule];
+
+import {WxModule} from './modules/wx';
 import {FabModule} from './modules/fab/fab.module';
-
-const THIRD_PART = [MatButtonModule, MatIconModule, FabModule];
-
 import {OverlayModule} from './modules/overlay';
 import {MenuModule} from './modules/menu/menu.module';
 import {HeaderModule} from './modules/header/header.module';
@@ -23,7 +27,11 @@ import {COMPONENTS, DIRECTIVES} from './index';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    HttpClientModule,
+    WeUiModule.forRoot(),
     THIRD_PART,
+    FabModule,
+    WxModule.forRoot(),
     MenuModule.forRoot(),
     HeaderModule.forRoot(),
     FooterModule.forRoot(),
@@ -35,7 +43,11 @@ import {COMPONENTS, DIRECTIVES} from './index';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    HttpClientModule,
+    WeUiModule,
     THIRD_PART,
+    FabModule,
+    WxModule,
     MenuModule,
     HeaderModule,
     FooterModule,

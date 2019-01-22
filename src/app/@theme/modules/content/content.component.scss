@@ -6,7 +6,7 @@
   left: 0;
   width: auto;
   height: auto;
-  background: #f8f8f8;
+  background: #fafafa;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -15,6 +15,7 @@
   }
   &.padding-footer {
     &:after {
+      content: '';
       display: block;
       height: 0.5rem;
     }

@@ -26,7 +26,7 @@ export const FOOTER_NAV_ITEMS: Nav[] = [
     badge: 0
   },
   {
-    page: '/cache',
+    page: '/admin/home',
     icon: 'icons-people',
     selectedIcon: 'icons-people_fill',
     name: '我的',

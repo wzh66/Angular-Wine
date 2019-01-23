@@ -1,8 +1,8 @@
-<nav class="black animated"
+<nav class="{{className}} animated"
      [ngClass]="{'fadeOutUp':direction === 'down','fadeInDown':direction === 'up'}" *ngIf="show">
   <div class="nav-group">
-    <a *ngIf="showMenu === 'left'" (click)="menu()" class="nav-item"><span class="icon-menu"></span></a>
-    <a *ngIf="!(showMenu === 'left')" (click)="back()" class="nav-item"><span class="icon-arrow-left-alt"></span></a>
+    <a *ngIf="leftNav === 'menu'" (click)="menu()" class="nav-item"><span class="icon-menu"></span></a>
+    <a *ngIf="leftNav === 'back'" (click)="back()" class="nav-item"><span class="icon-arrow-left-alt"></span></a>
   </div>
 
   <div class="title-page">
@@ -11,7 +11,8 @@
 
   <div class="nav-group right">
     <!--<a class="nav-item" href="javascript:;"><span class="icon-cog"></span></a>-->
-    <a *ngIf="!(showMenu === 'right') && showShare" (click)="share()" class="logout nav-item" href="javascript:;"><span class="icon-share"></span></a>
-    <a *ngIf="showMenu === 'right'" (click)="menu()" class="nav-item"><span class="icon-menu"></span></a>
+    <a *ngIf="rightNav === 'share'" (click)="share()" class="logout nav-item" href="javascript:;"><span class="icon-share"></span></a>
+    <a *ngIf="rightNav === 'menu'" (click)="menu()" class="nav-item"><span class="icon-menu"></span></a>
+    <a *ngIf="rightNav === 'search'" (click)="search()" class="nav-item"><span class="icon-search"></span></a>
   </div>
 </nav>

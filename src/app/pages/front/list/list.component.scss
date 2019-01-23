@@ -4,4 +4,32 @@
   width: 100%;
   height: 100%;
   background-color: deepskyblue;
+
+  .categories {
+    background: #fff;
+    .swiper-slide {
+      width: 20%;
+      text-align: center;
+      color: #999;
+      line-height: 1;
+      padding: 0.15rem 0 0.2rem;
+      &.selected {
+        color: #541217;
+      }
+    }
+  }
+
+  .weui-grids {
+    padding: 0.05rem;
+    .weui-grid {
+      width: 50%;
+      padding: 0.05rem;
+      .item {
+        overflow: hidden;
+        border-top-left-radius: 0.04rem;
+        border-top-right-radius: 0.04rem;
+        background: #fff;
+      }
+    }
+  }
 }

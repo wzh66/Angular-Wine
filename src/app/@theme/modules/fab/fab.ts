@@ -213,7 +213,6 @@ export class FabComponent implements OnDestroy, AfterContentInit {
               private directionSvc: DirectionService) {
     directionSvc.get().subscribe(res => {
       this.states = res;
-      console.log(this.states);
     });
   }
 

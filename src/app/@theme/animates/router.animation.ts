@@ -4,9 +4,13 @@ export const RouterAnimation = trigger('routerAnimation', [
   transition('* => *', [
     sequence([
       query(':leave', [
+        style({opacity: 1}),
+        animate('0.5s ease-out', style({opacity: 0})),
         animateChild({delay: '0.3s'})
       ], {optional: true}),
       query(':enter', [
+        style({opacity: 0}),
+        animate('0.5s ease-in', style({opacity: 1})),
         animateChild({delay: '0.3s'})
       ], {optional: true})
     ])

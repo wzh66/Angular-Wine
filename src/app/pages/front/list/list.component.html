@@ -1,5 +1,27 @@
-<app-header [show]="true" [title]="'front/list'"></app-header>
+<app-header [className]="''" [show]="true" [title]="'所有商品'"></app-header>
 <app-content [paddingFooter]="true" [paddingHeader]="true">
-  <a routerLink="/front/item/123">去下单</a>
+  <div class="categories">
+    <swiper [config]="config" [index]="0" fxFlex="auto">
+      <span class="swiper-slide" *ngFor="let slide of slides;let i = index" (click)="select(slide)"
+            [ngClass]="{'selected':i === 0}">{{slide}}</span>
+    </swiper>
+  </div>
+  <div class="items">
+    <div class="weui-grids">
+      <div *ngFor="let item of items" class="weui-grid">
+        <div class="item">
+          <div class="item-img">
+            <div class="img-box">
+              <img src="{{item.img}}">
+            </div>
+          </div>
+          <div class="item-txt">
+            <div class="title">{{item.title}}</div>
+            <div class="desc">￥<em>{{item.price}}</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </app-content>
 <app-footer></app-footer>

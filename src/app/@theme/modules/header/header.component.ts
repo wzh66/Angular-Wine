@@ -13,8 +13,9 @@ import {WxService} from '../wx';
 export class HeaderComponent implements OnInit {
   @Input() show;
   @Input() title;
-  @Input() showMenu = '';
-  @Input() showShare = false;
+  @Input() leftNav = 'back';
+  @Input() rightNav = '';
+  @Input() className = 'black';
 
   direction;
 
@@ -40,6 +41,10 @@ export class HeaderComponent implements OnInit {
 
   menu() {
     this.menuSvc.show();
+  }
+
+  search() {
+    console.log('search');
   }
 
   back() {

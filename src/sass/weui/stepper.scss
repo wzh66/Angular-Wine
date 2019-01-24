@@ -1,0 +1,37 @@
+@mixin stepperItem() {
+  height: 0.2rem;
+  line-height: 0.2rem;
+  text-align: center;
+}
+
+weui-stepper {
+  display: inline-block;
+  margin-top: 0.05rem;
+
+  .minus, .input, .plus {
+    display: inline-block;
+    vertical-align: middle;
+    @include stepperItem();
+  }
+
+  .minus, .plus {
+    width: 0.2rem;
+    text-align: center;
+    border-radius: 100%;
+
+    em {
+      display: block;
+      font-size: 0.12rem;
+      @include stepperItem();
+      width: 100%;
+    }
+  }
+
+  .input {
+    width: 0.4rem;
+    input {
+      @include stepperItem();
+      font-size: 0.12rem;
+    }
+  }
+}

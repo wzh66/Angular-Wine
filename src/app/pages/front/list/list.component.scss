@@ -29,6 +29,23 @@
         border-top-left-radius: 0.04rem;
         border-top-right-radius: 0.04rem;
         background: #fff;
+        .item-txt {
+          padding: 0.1rem;
+          .title {
+            font-size: 0.14rem;
+            color: #541217;
+          }
+          .desc {
+            font-size: 0.12rem;
+            color: #bb9772;
+            em {
+              color: inherit;
+            }
+            .units {
+              margin-left: 0.05rem;
+            }
+          }
+        }
       }
     }
   }

@@ -1,14 +1,14 @@
 <app-header [className]="''" [show]="true" [title]="'所有商品'"></app-header>
 <app-content [paddingFooter]="true" [paddingHeader]="true">
   <div class="categories">
-    <swiper [config]="config" [index]="0" fxFlex="auto">
+    <swiper [config]="config" [index]="selected.id" fxFlex="auto">
       <span class="swiper-slide" *ngFor="let slide of slides;let i = index" (click)="select(slide)"
-            [ngClass]="{'selected':i === 0}">{{slide}}</span>
+            [ngClass]="{'selected':slide.id === selected.id}">{{slide.name}}</span>
     </swiper>
   </div>
   <div class="items">
     <div class="weui-grids">
-      <div *ngFor="let item of items" class="weui-grid">
+      <div *ngFor="let item of items" [routerLink]="['/front/item',item.id]" class="weui-grid">
         <div class="item">
           <div class="item-img">
             <div class="img-box">
@@ -17,7 +17,8 @@
           </div>
           <div class="item-txt">
             <div class="title">{{item.title}}</div>
-            <div class="desc">￥<em>{{item.price}}</em></div>
+            <div class="desc"><em class="money">{{item.price}}<i class="decimal">.00</i></em><span
+              class="units">{{item.unit}}</span></div>
           </div>
         </div>
       </div>

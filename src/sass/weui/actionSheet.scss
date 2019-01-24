@@ -1,0 +1,20 @@
+@import "../variables";
+
+weui-actionsheet {
+  .weui-actionsheet__cell {
+    font-size: 0.14rem;
+    padding: 0.1rem 0;
+    color: $color-primary;
+  }
+  .weui-actionsheet__title {
+    height: 0.65rem;
+    padding: 0 0.2rem;
+    font-size: 0.14rem;
+  }
+  .weui-actionsheet__menu {
+  }
+
+  .weui-actionsheet__action {
+    margin-top: 0.06rem;
+  }
+}

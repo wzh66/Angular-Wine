@@ -18,7 +18,7 @@ export const FOOTER_NAV_ITEMS: Nav[] = [
     badge: 0
   },
   {
-    page: '/admin/order/list',
+    page: '/admin/cart',
     icon: 'icons-cart',
     selectedIcon: 'icons-cart_fill',
     name: '购物车',

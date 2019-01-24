@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {LocationStrategy} from '@angular/common';
 import {DirectionService} from '../../animates/direction.service';
@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
   @Input() leftNav = 'back';
   @Input() rightNav = '';
   @Input() className = 'black';
+  @Input() custom = '';
+  @Output() onCustom;
 
   direction;
 

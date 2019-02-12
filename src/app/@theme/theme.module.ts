@@ -18,6 +18,7 @@ import {MenuModule} from './modules/menu/menu.module';
 import {HeaderModule} from './modules/header/header.module';
 import {FooterModule} from './modules/footer/footer.module';
 import {ContentModule} from './modules/content/content.module';
+import {FooterBtnModule} from './modules/footer-btn/footer-btn.module';
 
 import {COMPONENTS, DIRECTIVES} from './index';
 
@@ -36,7 +37,8 @@ import {COMPONENTS, DIRECTIVES} from './index';
     HeaderModule.forRoot(),
     FooterModule.forRoot(),
     ContentModule.forRoot(),
-    OverlayModule.forRoot()
+    OverlayModule.forRoot(),
+    FooterBtnModule.forRoot()
   ],
   exports: [
     CommonModule,
@@ -53,6 +55,7 @@ import {COMPONENTS, DIRECTIVES} from './index';
     FooterModule,
     ContentModule,
     OverlayModule,
+    FooterBtnModule,
     ...DIRECTIVES,
     ...COMPONENTS
   ],

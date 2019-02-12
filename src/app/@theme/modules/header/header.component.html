@@ -14,6 +14,6 @@
     <a *ngIf="rightNav === 'share'" (click)="share()" class="logout nav-item" href="javascript:;"><span class="icon-share"></span></a>
     <a *ngIf="rightNav === 'menu'" (click)="menu()" class="nav-item"><span class="icon-menu"></span></a>
     <a *ngIf="rightNav === 'search'" (click)="search()" class="nav-item"><span class="icon-search"></span></a>
-    <a *ngIf="rightNav === 'custom'" (click)="custom()" class="nav-item">{{custom}}</a>
+    <a *ngIf="rightNav === 'custom'" (click)="onCustomEvent(custom)" class="custom nav-item">{{custom}}</a>
   </div>
 </nav>

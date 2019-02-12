@@ -92,4 +92,8 @@ export class AdminCartComponent implements OnInit {
     });
   }
 
+  onCustom(e) {
+    console.log(e);
+  }
+
 }

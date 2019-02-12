@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {LocationStrategy} from '@angular/common';
 import {DirectionService} from '../../animates/direction.service';
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   @Input() rightNav = '';
   @Input() className = 'black';
   @Input() custom = '';
-  @Output() onCustom;
+  @Output() onCustom = new EventEmitter<any>();
 
   direction;
 
@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
   }
 
   share() {
-    console.log('show');
     this.wxSvc.show({}).subscribe(res => {
     });
   }
@@ -47,6 +46,10 @@ export class HeaderComponent implements OnInit {
 
   search() {
     console.log('search');
+  }
+
+  onCustomEvent(e) {
+    this.onCustom.emit(e);
   }
 
   back() {

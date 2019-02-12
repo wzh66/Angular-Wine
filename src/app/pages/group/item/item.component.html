@@ -1,0 +1,25 @@
+<app-header [show]="false" [title]="'团购'" [rightNav]="'share'"></app-header>
+<app-content [paddingFooter]="true" [paddingHeader]="false" [monitor]="'scroll'">
+  <div class="banner">
+    <swiper [config]="config" [index]="1" fxFlex="auto">
+          <span class="img-box swiper-slide" *ngFor="let img of imgs">
+            <img src="{{img}}">
+          </span>
+    </swiper>
+  </div>
+
+  <article class="weui-article">
+    <h2>活动说明</h2>
+    <p>活动时间：2013年7月2日——2013</p>
+    <section>
+      <h3>活动说明</h3>
+      <p>活动时间：2013年7月2日——2013</p>
+      <p>
+        <img src="./images/pic_article.png" alt="">
+        <img src="./images/pic_article.png" alt="">
+      </p>
+    </section>
+  </article>
+</app-content>
+<app-footer-btn [loading]="loading" [title]="'确定'" (clicked)="onClick($event)"></app-footer-btn>
+<!--<app-footer></app-footer>-->

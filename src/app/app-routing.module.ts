@@ -17,6 +17,11 @@ const routes: Routes = [
     data: {state: 'front'}
   },
   {
+    path: 'group',
+    loadChildren: './pages/group/group.module#GroupModule',
+    data: {state: 'front'}
+  },
+  {
     path: 'auth',
     loadChildren: './pages/auth/auth.module#AuthModule',
     data: {state: 'admin'}

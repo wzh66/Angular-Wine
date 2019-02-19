@@ -21,7 +21,7 @@ import {PAGES} from './pages';
     AppRoutingModule,
     ThemeModule.forRoot()
   ],
-  providers: [INTERCEPTORS],
+  providers: [INTERCEPTORS, {provide: 'PREFIX_URL', useValue: '/api/interface/call.html?action='}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

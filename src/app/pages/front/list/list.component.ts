@@ -1,5 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {Slide} from '../../../@theme/animates/router.animation';
+import {CategoryService} from '../../../@core/data/category.service';
+import {ListService} from './list.service';
 
 @Component({
   selector: 'app-front-list',
@@ -31,7 +33,13 @@ export class FrontListComponent implements OnInit {
     {id: 3, title: '小重组(迷迭香套餐)', desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露', price: '268', unit: '元/2.0磅', img: '/assets/images/items/4.jpg'}
   ];
 
-  constructor() {
+  constructor(private categorySvc: CategoryService, private listSvc: ListService) {
+    categorySvc.get().subscribe(res => {
+      console.log(res);
+    });
+    listSvc.get('', '', '', 1).subscribe(res => {
+      console.log(res);
+    });
   }
 
   ngOnInit() {

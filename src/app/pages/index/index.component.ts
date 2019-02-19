@@ -4,6 +4,7 @@ import {Slide} from '../../@theme/animates/router.animation';
 
 import {OverlayService} from '../../@theme/modules/overlay';
 import {DirectionService} from '../../@theme/animates/direction.service';
+import {IndexService} from './index.service';
 
 @Component({
   selector: 'app-index',
@@ -46,9 +47,13 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   constructor(private location: LocationStrategy,
               private directionSvc: DirectionService,
-              private overlaySvc: OverlayService) {
+              private overlaySvc: OverlayService,
+              private indexSvc: IndexService) {
     this.directionSvc.get().subscribe(res => {
       this.direction = res.direction;
+    });
+    this.indexSvc.get().subscribe(res => {
+      console.log(res);
     });
   }
 

@@ -1,5 +1,7 @@
 export class AuthModel {
-  email: string;
-  password: string;
-  confirmPassword: string;
+  loginid: string;
+  pwd: string;
+  validCode: string;
+  openid: string;
+  usid: string;
 }

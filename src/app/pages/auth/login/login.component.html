@@ -1,37 +1,94 @@
-<div class="auth-page">
-  <div class="auth-content">
-    <div class="form">
-      <img class="logo" src="/assets/images/logo.png">
-      <label class="header">APP NAME</label>
+<div #container class="auth-content content-scrollable">
+  <div #userinfo class="userinfo">
+    <img class="userinfo-avatar" src="/assets/images/logo.png"/>
+    <!--<div class="userinfo-nickname">优聚专享</div>
+    <div class="userinfo-service">欢迎来到优聚专享</div>-->
+  </div>
+  <div #auth class="auth" [ngStyle]="{'height':authHeight}">
 
-      <div>
-        <div rows="auto, auto, auto">
-          <div class="input-field">
-            <input class="weui-input" [disabled]="processing" [(ngModel)]="user.email" (returnPress)="focusPassword()">
+    <form [ngClass]="{'show':type === 'signIn'}" novalidate [formGroup]="signInForm">
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell" [ngClass]="{'weui-cell_warn':signInForm.get('loginid').invalid && isSignInFormSubmit}">
+          <div class="weui-cell__hd">
+            <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/user.png">
           </div>
-
-          <div class="input-field">
-            <input #password class="weui-input" [disabled]="processing"
-                   hint="Password" secure="true" [(ngModel)]="user.password" (returnPress)="focusConfirmPassword()">
+          <div class="weui-cell__bd">
+            <input class="weui-input" type="number" pattern="[0-9]*" formControlName="loginid" placeholder="请输入手机号">
           </div>
-
-          <div *ngIf="!isLoggingIn" class="input-field">
-            <input #confirmPassword class="weui-input" [disabled]="processing" [(ngModel)]="user.confirmPassword">
+          <div class="weui-cell__ft">
+            <span class="weui-icon-warn"></span>
           </div>
-
-          <!--<div rowSpan="3" [busy]="processing"></div>-->
+        </div>
+        <div class="weui-cell" [ngClass]="{'weui-cell_warn':signInForm.get('pwd').invalid && isSignInFormSubmit}">
+          <div class="weui-cell__hd">
+            <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
+          </div>
+          <div class="weui-cell__bd">
+            <input class="weui-input" type="password" formControlName="pwd" placeholder="请输入密码">
+          </div>
+          <div class="weui-cell__ft">
+            <span class="weui-icon-warn"></span>
+          </div>
         </div>
       </div>
 
-      <button [disabled]="processing" (tap)="submit()" class="btn btn-primary">{{isLoggingIn ? 'Log In' : 'Sign Up'}}</button>
-      <label *ngIf="isLoggingIn" class="login-label" (tap)="forgotPassword()">Forgot your password?</label>
-    </div>
-
-    <label class="login-label sign-up-label" (tap)="toggleForm()">
-      <div>
-        <span>{{isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'}}</span>
-        <span class="bold">{{isLoggingIn ? 'Sign up' : ''}}</span>
+      <div class="weui-btn-area">
+        <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary" (click)="signIn()">登录
+        </button>
       </div>
-    </label>
+      <div class="weui-cells__tips"><a (click)="type='signUp'" href="javascript:;">我要注册</a><a class="right" routerLink="/auth/forgot">忘记密码？</a></div>
+    </form>
+
+    <form [ngClass]="{'show':type === 'signUp'}" novalidate [formGroup]="signUpForm" (submit)="signUp()">
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('loginid').invalid && isSignUpFormSubmit}">
+          <div class="weui-cell__hd">
+            <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/user.png">
+          </div>
+          <div class="weui-cell__bd">
+            <input class="weui-input" type="number" pattern="[0-9]*" formControlName="loginid" placeholder="请输入手机号">
+          </div>
+          <div class="weui-cell__ft">
+            <span class="weui-icon-warn"></span>
+          </div>
+        </div>
+        <div class="weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('pwd').invalid && isSignUpFormSubmit}">
+          <div class="weui-cell__hd">
+            <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
+          </div>
+          <div class="weui-cell__bd">
+            <input class="weui-input" type="password" formControlName="pwd" placeholder="请输入密码">
+          </div>
+          <div class="weui-cell__ft">
+            <span class="weui-icon-warn"></span>
+          </div>
+        </div>
+        <div class="valid-code weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('validCode').invalid && isSignUpFormSubmit}">
+          <div class="weui-cell__hd">
+            <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/code.png">
+          </div>
+          <div class="weui-cell__bd">
+            <input class="weui-input" type="number" formControlName="validCode" placeholder="请输入验证码">
+          </div>
+          <div class="weui-cell__ft" [ngClass]="{'show' : signUpForm.get('loginid').valid}">
+            <span class="sendValidCode" id="sendValidCode" (click)="sendValidCode()">{{activeText}}</span>
+          </div>
+        </div>
+      </div>
+
+      <label for="weuiAgree" class="weui-agree" [ngClass]="{'weui-cell_warn':signUpForm.get('agree').invalid && isSignUpFormSubmit}">
+        <input formControlName="agree" id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+        <span class="weui-agree__text">
+                我已阅读并同意<a routerLink="/auth/agreement">《优聚专享用户协议》</a>
+            </span>
+      </label>
+
+      <div class="weui-btn-area">
+        <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary">新会员注册</button>
+      </div>
+      <div class="weui-cells__tips"><a (click)="type='signIn'" href="javascript:;">我要登录</a></div>
+    </form>
   </div>
 </div>
+
+<div id="popup-captcha"></div>

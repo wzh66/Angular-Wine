@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpResponse, HttpErrorResponse, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 import {Router} from '@angular/router';
 
-import {Observable, of} from 'rxjs';
+import {Observable, of as observableOf} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 @Injectable()

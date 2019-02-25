@@ -58,6 +58,10 @@ nav {
     }
   }
 
+  &.none {
+    background: transparent none repeat scroll 0 0;
+  }
+
   &.black {
     background: transparent none repeat scroll 0 0;
     color: white;
@@ -90,6 +94,9 @@ nav {
 
     .nav-item {
       color: #333333;
+    }
+    .custom {
+      color: #333;
     }
   }
 

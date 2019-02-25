@@ -1,18 +1,18 @@
 <app-header [show]="true" [title]="'草莓奶油蛋糕'" [rightNav]="'share'"></app-header>
-<app-content [paddingFooter]="true" [paddingHeader]="false" [monitor]="'scroll'">
+<app-content *ngIf="product" [paddingFooter]="true" [paddingHeader]="false" [monitor]="'scroll'">
   <div class="banner">
     <swiper [config]="config" [index]="1" fxFlex="auto">
           <span class="img-box swiper-slide" *ngFor="let img of imgs">
-            <img src="{{img}}">
+            <img src="/api{{product.headimage}}">
           </span>
     </swiper>
   </div>
   <div class="weui-panel weui-panel_access">
     <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">草莓奶油蛋糕<span class="right"><del>价格：￥188</del><span>促销价：</span><em
-          class="money"><i class="rmb">￥</i>188<i class="decimal">.00</i></em></span></h4>
-        <p class="weui-media-box__desc">简单的搭配水果装扮，一改传统的蛋糕的华丽的外观，但却充满温馨的味道。</p>
+        <h4 class="weui-media-box__title">草莓奶油蛋糕<span class="right"><del>价格：￥{{spec.originalprice}}</del><span>促销价：</span><em
+          class="money"><i class="rmb">￥</i>{{spec.price}}<i class="decimal">.00</i></em></span></h4>
+        <p class="weui-media-box__desc">{{product.synopsis}}</p>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
@@ -21,29 +21,8 @@
         <div class="weui-media-box__bd">
           <div class="pounds">
             <div class="weui-grids">
-              <div class="weui-grid">
-                <span class="weui-grid__label selected">1磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">2磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">3磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">4磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">5磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">6磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">7磅</span>
-              </div>
-              <div class="weui-grid">
-                <span class="weui-grid__label">8磅</span>
+              <div *ngFor="let item of specs" class="weui-grid">
+                <span class="weui-grid__label" [ngClass]="{'selected':item.id === spec.id}">1磅</span>
               </div>
             </div>
           </div>
@@ -54,7 +33,7 @@
           重量
         </div>
         <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">≈450g</p>
+          <p class="weui-media-box__desc">≈{{spec.count * 450}}g</p>
         </div>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
@@ -62,7 +41,7 @@
           体积
         </div>
         <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">约13x21x8cm</p>
+          <p class="weui-media-box__desc">约{{spec.spec}}</p>
         </div>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
@@ -84,4 +63,5 @@
     </div>
   </div>
 </app-content>
-<app-footer></app-footer>
+<app-footer-btn [title]="'确定'" [loading]="loading" (clicked)="checkout($event)"></app-footer-btn>
+<!--<app-footer></app-footer>-->

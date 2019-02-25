@@ -65,6 +65,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
     this.signUpForm = new FormGroup({
       loginid: new FormControl('', [Validators.required, Validators.min(10000000000), Validators.max(19999999999)]),
       pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
+      tradepwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
       validCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{4}$/)]),
       openid: new FormControl('', []),
       usid: new FormControl('', []),

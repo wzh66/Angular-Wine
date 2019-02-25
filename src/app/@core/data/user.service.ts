@@ -5,16 +5,18 @@ import {mergeMap as observableMargeMap, catchError as observableCatchError} from
 
 import {DialogService} from 'ngx-weui';
 
+import {UserDto} from '../dto/user.dto';
+
 @Injectable({providedIn: 'root'})
 export class UserService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  get(key): Observable<any> {
-    return this.http.get(this.prefix_url + 'getMember' + '?key=' + key)
+  get(key): Observable<UserDto> {
+    return this.http.get(this.prefix_url + 'getMember' + '&key=' + key)
       .pipe(observableMargeMap((res: any) => {
-      return this.processResult(res);
-    }));
+        return this.processResult(res);
+      }));
   }
 
   protected processResult(res): Observable<any> {

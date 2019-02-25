@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   requestAuth() {
-    if (this.router.url.indexOf('signIn') !== -1) {
+    if (this.router.url.indexOf('login') !== -1) {
       return false;
     }
     if (this.redirectUrl) {
@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     this.redirectUrl = this.router.url;
-    window.location.href = '/auth/signIn?callbackUrl=' + this.redirectUrl;
+    window.location.href = '/auth/login?callbackUrl=' + this.redirectUrl;
   }
 
   getUid() {
@@ -75,12 +75,12 @@ export class AuthService {
         } else if (this.route.snapshot.queryParams['openid']) {// url中存在openId;
           openid = this.route.snapshot.queryParams['openid'];
           this.storageSvc.set('openid', openid);
-          return this.router.navigate(['/auth/signIn'], {queryParams: {openid: openid}});
+          return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
         } else {// url中不存在openId;
           window.location.href = '/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         }
       } else {// 非微信环境
-        this.router.navigate(['/auth/signIn'], {queryParams: {callbackUrl: this.router.url}});
+        this.router.navigate(['/auth/login'], {queryParams: {callbackUrl: this.router.url}});
       }
     }
   }

@@ -1,0 +1,47 @@
+<app-header [show]="true" [title]="'成为代理'" [rightNav]="'search'"></app-header>
+<div class="content-scrollable">
+  <div class="banner">
+    <img src="/assets/images/join/banner.jpg">
+  </div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="text" placeholder="请输入您的姓名">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">地址</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="text" placeholder="请输入你的地址">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">联系号码</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入您的联系号码">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="weui-cells__title">说明</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" placeholder="请输入说明" rows="3"></textarea>
+        <div class="weui-textarea-counter"><span>0</span>/200</div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer-btn [title]="'申请'"></app-footer-btn>
+</div>

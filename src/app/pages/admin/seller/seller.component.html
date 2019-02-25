@@ -1,0 +1,80 @@
+<app-header className="none" [show]="true" [title]="'成为代理'" [rightNav]="'search'"></app-header>
+<div class="content-scrollable padding-header">
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="text" placeholder="请输入商家名称">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><label class="weui-label">行业</label></div>
+      <div class="weui-cell__bd">
+        <p>请选择行业</p>
+      </div>
+      <div class="weui-cell__ft">选择</div>
+    </a>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">联系人</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="text" placeholder="请输入联系人名称">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">联系号码</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入您的联系号码">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">管理密码</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="初始密码为手机号">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label">地址</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" type="text" placeholder="请输入地址">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" placeholder="请输入简介" rows="3"></textarea>
+        <div class="weui-textarea-counter"><span>0</span>/200</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="weui-cells weui-cells_form">
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>商家LOGO</p>
+      </div>
+      <div class="weui-cell__ft">上传</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>商家门面</p>
+      </div>
+      <div class="weui-cell__ft">上传</div>
+    </a>
+  </div>
+
+  <app-footer-btn [title]="'申请'"></app-footer-btn>
+</div>

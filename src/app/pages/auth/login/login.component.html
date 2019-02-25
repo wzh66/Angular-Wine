@@ -74,6 +74,17 @@
             <span class="sendValidCode" id="sendValidCode" (click)="sendValidCode()">{{activeText}}</span>
           </div>
         </div>
+        <div class="weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('tradepwd').invalid && isSignUpFormSubmit}">
+          <div class="weui-cell__hd">
+            <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
+          </div>
+          <div class="weui-cell__bd">
+            <input class="weui-input" type="password" formControlName="tradepwd" placeholder="请输入交易密码">
+          </div>
+          <div class="weui-cell__ft">
+            <span class="weui-icon-warn"></span>
+          </div>
+        </div>
       </div>
 
       <label for="weuiAgree" class="weui-agree" [ngClass]="{'weui-cell_warn':signUpForm.get('agree').invalid && isSignUpFormSubmit}">

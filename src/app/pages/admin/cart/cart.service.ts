@@ -1,7 +1,10 @@
 import {Injectable, Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, throwError as observableThrow, of as observableOf} from 'rxjs';
-import {mergeMap as observableMargeMap, catchError as observableCatchError} from 'rxjs/operators';
+import {Observable, of as observableOf} from 'rxjs';
+import {mergeMap as observableMargeMap} from 'rxjs/operators';
+import {formData} from '../../../utils/utils';
+import {CartDto, AddRemarkCartDto} from '../../../@core/dto/cart.dto';
+import {CartProductDto} from '../../../@core/dto/cart.dto';
 
 import {DialogService} from 'ngx-weui';
 
@@ -10,16 +13,40 @@ export class CartService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  count() {
+  get(key): Observable<CartProductDto[]> {
+    return this.http.get(this.prefix_url + 'getCarts' + '?key=' + key).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
   }
 
-  get(key): Observable<any> {
+  count(key): Observable<number> {
     return this.http.get(this.prefix_url + 'cartCount' + '?key=' + key).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));
   }
 
-  add() {
+  save(body: CartDto): Observable<any> {
+    return this.http.post(this.prefix_url + 'addCart', formData(body)).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
+  }
+
+  remove(body: CartDto): Observable<any> {
+    return this.http.post(this.prefix_url + 'removeCart', formData(body)).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
+  }
+
+  clear(key): Observable<any> {
+    return this.http.post(this.prefix_url + 'clearCart', {key: key}).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
+  }
+
+  saveMark(body: AddRemarkCartDto): Observable<any> {
+    return this.http.post(this.prefix_url + 'addRemarkCart', formData(body)).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
   }
 
   protected processResult(res): Observable<any> {

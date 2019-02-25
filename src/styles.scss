@@ -66,3 +66,28 @@ body {
     display: none;
   }
 }
+
+.content-scrollable {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  background: #fafafa;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  &.padding-header {
+    padding-top: 0.48rem;
+  }
+  &.padding-footer {
+    &:after {
+      content: '';
+      display: block;
+      height: 0.5rem;
+    }
+  }
+}
+

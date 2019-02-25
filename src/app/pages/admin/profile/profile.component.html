@@ -1,0 +1,36 @@
+<app-header [leftNav]="'back'" [show]="true" [title]="'会员中心'" rightNav="search"></app-header>
+<div class="content-scrollable">
+  <div class="content-scrollable">
+    <div class="banner">
+      <img src="/assets/images/join/banner.jpg">
+    </div>
+    <div [formGroup]="profileForm" class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" formControlName="username" type="text" placeholder="请输入您的姓名">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-warn"></i>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">联系号码</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" formControlName="phone" type="number" pattern="[0-9]*" placeholder="请输入您的联系号码">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-warn"></i>
+        </div>
+      </div>
+      <a (click)="showPicker()" class="weui-cell weui-cell_access">
+        <div class="weui-cell__hd"><label class="weui-label">收货地址</label></div>
+        <div class="weui-cell__bd">
+          <p>{{selectedAddress ? selectedAddress : '请选择默认收货地址'}}</p>
+        </div>
+        <div class="weui-cell__ft">{{selectedAddress ? '更改' : '选择'}}</div>
+      </a>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

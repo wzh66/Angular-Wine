@@ -1,0 +1,29 @@
+export class UserDto {
+  userid: number;
+  username: string;
+  userpwd: string;
+  tradepwd: string;
+  phone: string;
+  weixinopenid: string;
+  faceimg: string;
+  ipAddress: string;
+  ipLocation: string;
+  olddate: string;
+  newdate: string;
+  invite: number;
+  amountCount: number;
+  amountBalance: number;
+  amountMention: number;
+  qrImgUrl: string;
+  isSign: number;
+  signDays: number;
+  isLock: number;
+  signDate: number;
+  isRecharge: any;
+  invitePath: string;
+  sourceChannel: string;
+  shortLinks: string;
+  x: string;
+  y: string;
+  leayingCount: number;
+}

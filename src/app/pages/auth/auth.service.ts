@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     this.redirectUrl = this.router.url;
-    window.location.href = '/auth/login?callbackUrl=' + this.redirectUrl;
+    // window.location.href = '/auth/login?callbackUrl=' + this.redirectUrl;
   }
 
   getUid() {

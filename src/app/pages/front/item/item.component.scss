@@ -91,3 +91,21 @@
     }
   }
 }
+.btns-group {
+  bottom: 0.5rem;
+  &.animated {
+    opacity: 1 !important;
+  }
+}
+
+@keyframes slideOutDown {
+  0% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  100% {
+    -webkit-transform: translate3d(0,100%,0);
+    transform: translate3d(0,100%,0);
+    /* visibility: hidden; */
+  }
+}

@@ -9,59 +9,11 @@
   </div>
   <div class="menus">
     <div class="weui-grids">
-      <div class="weui-grid">
+      <div *ngFor="let category of categories" class="weui-grid">
         <div class="weui-grid__icon">
-          <img src="/assets/images/categories/sugar.png">
+          <img src="/api{{category.imageurl}}">
         </div>
-        <p class="weui-grid__label">翻糖蛋糕</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/cream.png">
-        </div>
-        <p class="weui-grid__label">奶油蛋糕</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/mousse.png">
-        </div>
-        <p class="weui-grid__label">慕斯蛋糕</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/tower.png">
-        </div>
-        <p class="weui-grid__label">塔形蛋糕</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/west.png">
-        </div>
-        <p class="weui-grid__label">西点</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/drink.png">
-        </div>
-        <p class="weui-grid__label">饮品</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/bake.png">
-        </div>
-        <p class="weui-grid__label">现烤面包</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/chocolates.png">
-        </div>
-        <p class="weui-grid__label">巧克力</p>
-      </div>
-      <div class="weui-grid">
-        <div class="weui-grid__icon">
-          <img src="/assets/images/categories/cookies.png">
-        </div>
-        <p class="weui-grid__label">饼干</p>
+        <p class="weui-grid__label">{{category.typename}}</p>
       </div>
     </div>
   </div>
@@ -74,7 +26,7 @@
           <div class="banner">
             <swiper [config]="albumConfig" [index]="0" fxFlex="auto">
                   <span class="img-box swiper-slide" *ngFor="let slide of hots">
-                    <img src="{{slide}}">
+                    <img src="/api{{slide.headimage}}">
                   </span>
             </swiper>
           </div>
@@ -90,25 +42,20 @@
         <div class="weui-media-box__bd">
           <div class="item-box">
             <div class="item-img">
-              <img src="{{item.img}}">
+              <img src="/api{{item.headimage}}">
             </div>
             <div class="item-text">
-              <span class="title">{{item.title}}</span><span class="price">{{item.price}}</span><span class="units">{{item.unit}}</span>
-              <p class="desc">{{item.desc}}</p>
+              <span class="title">{{item.productname}}</span><span class="price">{{item.price}}元</span><span class="units">{{item.count}}{{item.unit}}</span>
+              <p class="desc">{{item.synopsis}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div style="height: 2000px">
-
-    您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>您好啊<br>
-  </div>
 </app-content>
 
-<app-fab>
+<!--<app-fab>
   <app-fab-trigger>
     <button mat-fab><i class="icon-menu"></i></button>
   </app-fab-trigger>
@@ -118,17 +65,6 @@
     <button mat-mini-fab><i class="icon-edit"></i></button>
     <button mat-mini-fab><i class="icon-search"></i></button>
   </app-fab-actions>
-</app-fab>
-
-<app-overlay>
-  <div class="content-scrollable">
-    <span (click)="close()" class="close">
-      <i class=" icon-cross"></i>
-    </span>
-    <div class="txt-box">
-      haha
-    </div>
-  </div>
-</app-overlay>
+</app-fab>-->
 
 <app-footer></app-footer>

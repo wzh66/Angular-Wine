@@ -4,6 +4,7 @@ import {Slide} from '../../@theme/animates/router.animation';
 
 import {OverlayService} from '../../@theme/modules/overlay';
 import {DirectionService} from '../../@theme/animates/direction.service';
+import {CategoryService} from '../../@core/data/category.service';
 import {IndexService} from './index.service';
 
 @Component({
@@ -44,25 +45,24 @@ export class IndexComponent implements OnInit, OnDestroy {
     {title: '百利甜情人', desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露', price: '228', unit: '元/2.0磅', img: '/assets/images/news/2.png'}
   ];
   direction;
+  categories = [];
 
   constructor(private location: LocationStrategy,
               private directionSvc: DirectionService,
               private overlaySvc: OverlayService,
+              private categorySvc: CategoryService,
               private indexSvc: IndexService) {
     this.directionSvc.get().subscribe(res => {
       this.direction = res.direction;
     });
     this.indexSvc.get().subscribe(res => {
-      console.log(res);
+      this.hots = res.goodsList.filter(item => item.style === 'goods_xs');
+      this.news = res.goodsList.filter(item => item.style === 'goods_xp');
     });
-  }
-
-  open() {
-    this.overlaySvc.show();
-  }
-
-  close() {
-    this.overlaySvc.hide();
+    this.categorySvc.get().subscribe(res => {
+      this.categories = res;
+      console.log(this.categories);
+    });
   }
 
   onClick(e) {

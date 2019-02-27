@@ -10,7 +10,13 @@ $color-well: #555;
 $color-full: #333;
 
 // Core
-$color-primary: #541217; // blood orange
-$color-secondary: #c69c6d; //
-$color-tertiary: #999; //
-$color-warn: #d83e14; //
+$color-primary: #d83e14; // blood orange
+$color-secondary: $color-well; //
+$color-tertiary: $color-medium-well; //
+$color-complementary: #000; //
+
+// Social Colors
+$color-twitter: #46c8f5;
+
+// Alert
+$color-negative: #ff6622; //error, alert

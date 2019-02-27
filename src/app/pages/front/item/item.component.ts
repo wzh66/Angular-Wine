@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+
+import {CartService} from '../../admin/cart/cart.service';
+import {AuthService} from '../../auth/auth.service';
 import {ProdService} from '../list/list.service';
+import {DirectionService} from '../../../@theme/animates/direction.service';
 
 @Component({
   selector: 'app-front-item',
@@ -25,7 +29,13 @@ export class FrontItemComponent implements OnInit {
 
   loading = false;
 
-  constructor(private route: ActivatedRoute, private prodSvc: ProdService) {
+  direction;
+
+  constructor(private route: ActivatedRoute,
+              private directionSvc: DirectionService,
+              private authSvc: AuthService,
+              private cartSvc: CartService,
+              private prodSvc: ProdService) {
   }
 
   ngOnInit() {
@@ -35,6 +45,11 @@ export class FrontItemComponent implements OnInit {
       this.spec = this.specs[0];
       console.log(res);
     });
+
+    this.directionSvc.get().subscribe(res => {
+      this.direction = res.direction;
+      console.log(this.direction);
+    });
   }
 
   checkout(e) {
@@ -43,6 +58,18 @@ export class FrontItemComponent implements OnInit {
     }
 
     console.log(e);
+  }
+
+  addCart() {
+    this.cartSvc.save({
+      key: this.authSvc.getKey(),
+      productId: this.product.productid,
+      specId: this.spec.id,
+      qty: this.qty,
+      remark: ''
+    }).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

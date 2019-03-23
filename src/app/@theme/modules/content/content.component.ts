@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {DirectionService} from '../../animates/direction.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {DirectionService} from '../../animates/direction.service';
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
-export class ContentComponent {
+export class ContentComponent implements OnDestroy {
   @Input() paddingHeader = false;
   @Input() paddingFooter = false;
   @Input() monitor = '';
@@ -27,5 +27,14 @@ export class ContentComponent {
       });
       this.scrollTop = e.target.scrollTop;
     }
+  }
+
+  ngOnDestroy() {
+    this.directionSvc.set({
+      direction: '',
+      scrollTop: 0,
+      scrollHeight: '',
+      clientHeight: ''
+    });
   }
 }

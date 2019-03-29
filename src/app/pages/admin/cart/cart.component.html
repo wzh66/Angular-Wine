@@ -5,14 +5,15 @@
     <div class="weui-panel__bd">
       <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-          <img class="weui-media-box__thumb" src="{{item.img}}">
+          <img class="weui-media-box__thumb" src="{{item.headimage}}">
         </div>
         <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title">{{item.title}}</h4>
+          <h4 class="weui-media-box__title">{{item.productname}}</h4>
           <p class="weui-media-box__desc"><em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i
-            class="decimal">.00</i></em><span class="units">{{item.unit}}</span></p>
-          <weui-stepper [(ngModel)]="item.qty" [min]="1" [max]="10"></weui-stepper>
-          <span class="stock">(库存：{{item.stock}}件)</span>
+            class="decimal">.00</i></em><span class="units">/{{item.count}}{{item.unit}}</span></p>
+          <weui-stepper [(ngModel)]="item.product_num" (ngModelChange)="numChange($event)" [min]="1"
+                        [max]="10"></weui-stepper>
+          <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
         </div>
         <div class="weui-media-box__ft">
           <i class="icon-trash"></i>
@@ -39,7 +40,8 @@
   </div>-->
 </app-content>
 <div class="btns-group animated" [ngClass]="{'slideOutDown':direction === 'down','slideInUp':direction === 'up'}">
-  <span class="num animated" [ngClass]="{'fadeOut':direction === 'down','fadeIn':direction === 'up'}"><em>共计：6件商品</em></span>
+  <span class="num animated"
+        [ngClass]="{'fadeOut':direction === 'down','fadeIn':direction === 'up'}"><em>共计：6件商品</em></span>
   <div class="total">
     <span class="label">应付合计：</span>
     <em class="amount">￥128.00</em>

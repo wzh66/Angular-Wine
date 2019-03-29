@@ -13,14 +13,14 @@ export class CartService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  get(key): Observable<CartProductDto[]> {
-    return this.http.get(this.prefix_url + 'getCarts' + '?key=' + key).pipe(observableMargeMap((res: any) => {
+  get(key): Observable<any[]> {
+    return this.http.get(this.prefix_url + 'getCarts' + '&key=' + key).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));
   }
 
   count(key): Observable<number> {
-    return this.http.get(this.prefix_url + 'cartCount' + '?key=' + key).pipe(observableMargeMap((res: any) => {
+    return this.http.get(this.prefix_url + 'cartCount' + '&key=' + key).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));
   }

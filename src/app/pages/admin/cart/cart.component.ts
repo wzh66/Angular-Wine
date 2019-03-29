@@ -91,7 +91,12 @@ export class AdminCartComponent implements OnInit {
     this.key = this.authSvc.getKey();
     this.cartSvc.get(this.key).subscribe(res => {
       console.log(res);
+      this.items = res;
     });
+  }
+
+  numChange(e) {
+    console.log(e);
   }
 
   show(e, item) {

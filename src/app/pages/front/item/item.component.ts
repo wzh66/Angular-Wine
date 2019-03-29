@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {CartService} from '../../admin/cart/cart.service';
 import {AuthService} from '../../auth/auth.service';
@@ -35,7 +35,8 @@ export class FrontItemComponent implements OnInit {
               private directionSvc: DirectionService,
               private authSvc: AuthService,
               private cartSvc: CartService,
-              private prodSvc: ProdService) {
+              private prodSvc: ProdService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -52,15 +53,11 @@ export class FrontItemComponent implements OnInit {
     });
   }
 
-  checkout(e) {
-    if (!e) {
-      return false;
-    }
-
-    console.log(e);
+  checkout() {
+    this.addCart(true);
   }
 
-  addCart() {
+  addCart(isRedirect?) {
     this.cartSvc.save({
       key: this.authSvc.getKey(),
       productId: this.product.productid,
@@ -68,7 +65,9 @@ export class FrontItemComponent implements OnInit {
       qty: this.qty,
       remark: ''
     }).subscribe(res => {
-      console.log(res);
+      if (isRedirect) {
+        this.router.navigate(['/admin/cart']);
+      }
     });
   }
 

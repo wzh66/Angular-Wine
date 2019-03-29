@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://www.ap-mall.cn:8889",
+    "target": "http://120.78.125.36:8080",
     "secure": false,
     "pathRewrite": {
       "^/api/": ""

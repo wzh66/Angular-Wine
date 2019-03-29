@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ActionSheetConfig, SkinType, ActionSheetService} from 'ngx-weui';
+import {ActionSheetConfig, ActionSheetService} from 'ngx-weui';
+import {DirectionService} from '../../../@theme/animates/direction.service';
+import {AuthService} from '../../auth/auth.service';
+import {CartService} from './cart.service';
 
 declare interface Wish {
   text: string;
@@ -13,7 +16,7 @@ declare interface Wish {
   styleUrls: ['./cart.component.scss']
 })
 export class AdminCartComponent implements OnInit {
-
+  key;
   items = [
     {
       id: 0,
@@ -73,11 +76,22 @@ export class AdminCartComponent implements OnInit {
     skin: 'ios',
     backdrop: true
   };
+  direction;
 
-  constructor(private actionSheetSvc: ActionSheetService) {
+  constructor(private actionSheetSvc: ActionSheetService,
+              private directionSvc: DirectionService,
+              private authSvc: AuthService,
+              private cartSvc: CartService) {
+    directionSvc.get().subscribe(res => {
+      this.direction = res.direction;
+    });
   }
 
   ngOnInit() {
+    this.key = this.authSvc.getKey();
+    this.cartSvc.get(this.key).subscribe(res => {
+      console.log(res);
+    });
   }
 
   show(e, item) {

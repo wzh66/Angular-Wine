@@ -64,6 +64,6 @@
   </div>
 </app-content>
 <div class="btns-group animated" [ngClass]="{'slideOutDown':direction === 'down','slideInUp':direction === 'up'}">
-  <a (click)="addCart()" class="btn-secondary">加入购物车</a><a class="btn-primary">立即购买</a>
+  <a (click)="addCart()" class="btn-secondary">加入购物车</a><a (click)="checkout()" class="btn-primary">立即购买</a>
 </div>
 <app-footer></app-footer>

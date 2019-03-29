@@ -1,2 +1,36 @@
-<app-header [show]="true" [title]="'order/list'"></app-header>
+<app-header [className]="''" [show]="true" [title]="'我的订单'"></app-header>
+<app-content [paddingHeader]="true" [paddingFooter]="true" [monitor]="'scroll'">
+  <div class="order weui-panel weui-panel_access" style="margin-top: 0">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box">
+        <div class="order-status weui-flex">
+          <div class="weui-flex__item">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/home/waiting.png">
+            </div>
+            <p class="weui-grid__label">待付款</p>
+          </div>
+          <div class="weui-flex__item">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/home/shipped.png">
+            </div>
+            <p class="weui-grid__label">待发货</p>
+          </div>
+          <div class="weui-flex__item">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/home/arrived.png">
+            </div>
+            <p class="weui-grid__label">待收货</p>
+          </div>
+          <div class="weui-flex__item">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/home/finished.png">
+            </div>
+            <p class="weui-grid__label">已完成</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-content>
 <app-footer></app-footer>

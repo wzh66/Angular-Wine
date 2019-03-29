@@ -1,7 +1,16 @@
-:host {
-  position: fixed;
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: yellowgreen;
+.order {
+  .weui-panel__hd {
+    font-size: 0.14rem;
+    line-height: 0.2rem;
+    color: #333;
+    img,span {
+      display: inline-block;
+      vertical-align: middle;
+      height: 0.2rem;
+    }
+    img {
+      width: 0.2rem;
+      margin-right: 0.08rem;
+    }
+  }
 }

@@ -1,4 +1,5 @@
-<app-header [className]="''" [leftNav]="'back'" [show]="true" [title]="'会员中心'" [rightNav]="'custom'" [custom]="'清空'" (onCustom)="onCustom($event)"></app-header>
+<app-header [className]="''" [leftNav]="'back'" [show]="true" [title]="'会员中心'" [rightNav]="'custom'" [custom]="'清空'"
+            (onCustom)="onCustom($event)"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true" [monitor]="'scroll'">
   <div *ngFor="let item of items" class="weui-panel">
     <div class="weui-panel__bd">
@@ -20,20 +21,29 @@
     </div>
     <div class="weui-panel__ft">
       <div class="weui-cell weui-cell_access weui-cell_link">
-        <div class="weui-cell__bd"><input class="weui-input" type="text" [(ngModel)]="item.wish" placeholder="请输入祝福语"></div>
+        <div class="weui-cell__bd"><input class="weui-input" type="text" [(ngModel)]="item.wish" placeholder="请输入祝福语">
+        </div>
         <span (click)="show($event,item)" class="weui-cell__ft">选择祝福语</span>
       </div>
     </div>
   </div>
-
-  <div class="total">
+  <div class="space"></div>
+  <!--<div class="total">
     <a href="javascript:void(0);" class="weui-cell weui-cell_link">
       <div class="weui-cell__bd">共：3件商品</div>
       <span class="weui-cell__ft"><em class="money"><i class="rmb">￥</i><span>300</span><i class="deci">.00</i></em></span>
     </a>
-  </div>
-  <div class="weui-btn-area">
+  </div>-->
+  <!--<div class="weui-btn-area">
     <a class="weui-btn weui-btn_primary" href="javascript:">立即支付</a>
-  </div>
+  </div>-->
 </app-content>
+<div class="btns-group animated" [ngClass]="{'slideOutDown':direction === 'down','slideInUp':direction === 'up'}">
+  <span class="num animated" [ngClass]="{'fadeOut':direction === 'down','fadeIn':direction === 'up'}"><em>共计：6件商品</em></span>
+  <div class="total">
+    <span class="label">应付合计：</span>
+    <em class="amount">￥128.00</em>
+  </div>
+  <a (click)="checkout()" class="btn-primary">结算</a>
+</div>
 <app-footer></app-footer>

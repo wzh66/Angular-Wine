@@ -1,5 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {Slide} from '../../../../@theme/animates/router.animation';
+import {AuthService} from '../../../auth/auth.service';
+import {OrderService} from '../order.service';
 
 @Component({
   selector: 'app-admin-order-list',
@@ -14,10 +16,18 @@ export class AdminOrderListComponent implements OnInit {
   }*/
 
   // 路由动画 结束
-  constructor() {
+  key;
+  orders;
+
+  constructor(private authSvc: AuthService,
+              private orderSvc: OrderService) {
   }
 
   ngOnInit() {
+    this.key = this.authSvc.getKey();
+    this.orderSvc.get(this.key).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

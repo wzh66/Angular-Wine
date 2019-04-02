@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-import {ActionSheetConfig, ActionSheetService} from 'ngx-weui';
+import {ActionSheetConfig, ActionSheetService, ToastService} from 'ngx-weui';
 import {DirectionService} from '../../../@theme/animates/direction.service';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from './cart.service';
@@ -17,53 +16,7 @@ declare interface Wish {
 })
 export class AdminCartComponent implements OnInit {
   key;
-  items = [
-    {
-      id: 0,
-      title: '百利甜情人',
-      desc: '甜润奶油，与草莓的自然甜度搭配',
-      price: '228',
-      unit: '元/2.0磅',
-      qty: 1,
-      stock: 99,
-      img: '/assets/images/items/1.jpg',
-      wish: ''
-    },
-    {
-      id: 1,
-      title: '黑巧克力慕斯',
-      desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露',
-      price: '268',
-      unit: '元/2.0磅',
-      qty: 1,
-      stock: 99,
-      img: '/assets/images/items/2.jpg',
-      wish: ''
-    },
-    {
-      id: 2,
-      title: '布朗熊&可妮兔',
-      desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露',
-      price: '298',
-      unit: '元/2.0磅',
-      qty: 1,
-      stock: 99,
-      img: '/assets/images/items/3.jpg',
-      wish: ''
-    },
-    {
-      id: 3,
-      title: '小重组(迷迭香套餐)',
-      desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露',
-      price: '268',
-      unit: '元/2.0磅',
-      qty: 1,
-      stock: 99,
-      img: '/assets/images/items/4.jpg',
-      wish: ''
-    }
-  ];
-
+  items;
   wishes: Wish[] = [
     {text: '不需要', value: 1},
     {text: '生日快乐', value: 2},
@@ -79,6 +32,7 @@ export class AdminCartComponent implements OnInit {
   direction;
 
   constructor(private actionSheetSvc: ActionSheetService,
+              private toastSvc: ToastService,
               private directionSvc: DirectionService,
               private authSvc: AuthService,
               private cartSvc: CartService) {
@@ -90,7 +44,6 @@ export class AdminCartComponent implements OnInit {
   ngOnInit() {
     this.key = this.authSvc.getKey();
     this.cartSvc.get(this.key).subscribe(res => {
-      console.log(res);
       this.items = res;
     });
   }
@@ -107,12 +60,25 @@ export class AdminCartComponent implements OnInit {
         item.focus = true;
       } else {
         item.wish = res.text;
+        this.setMark(item.id, res.text);
       }
     });
   }
 
-  onCustom(e) {
-    console.log(e);
+  setMark(id, remark) {
+    this.cartSvc.saveMark({key: this.key, cartId: id, remark: remark})
+      .subscribe(res => {
+      console.log(res);
+    });
   }
 
+  onCustom(e) {
+    this.toastSvc.loading('', 0);
+    this.cartSvc.clear(this.key).subscribe(res => {
+      this.toastSvc.hide();
+    });
+  }
+
+  checkout() {
+  }
 }

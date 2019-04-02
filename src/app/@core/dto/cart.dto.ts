@@ -25,4 +25,6 @@ export class RemarkCartDto {
 
 export class AddRemarkCartDto {
   key: string;
+  cartId: number;
+  remark: string;
 }

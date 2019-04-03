@@ -11,7 +11,7 @@
     <div class="weui-grids">
       <div *ngFor="let category of categories" class="weui-grid">
         <div class="weui-grid__icon">
-          <img src="/api{{category.imageurl}}">
+          <img src="{{'/api' + category.imageurl}}">
         </div>
         <p class="weui-grid__label">{{category.typename}}</p>
       </div>
@@ -26,7 +26,7 @@
           <div class="banner">
             <swiper [config]="albumConfig" [index]="0" fxFlex="auto">
                   <span class="img-box swiper-slide" *ngFor="let slide of hots">
-                    <img src="/api{{slide.headimage}}">
+                    <img src="{{'/api' + slide.headimage}}">
                   </span>
             </swiper>
           </div>
@@ -36,17 +36,18 @@
   </div>
 
   <div class="new weui-panel">
-    <div class="weui-panel__hd"><span class="weui-badge">今日热销</span></div>
+    <div class="weui-panel__hd"><span class="weui-badge">新品上架</span></div>
     <div class="weui-panel__bd">
-      <div *ngFor="let item of news" class="weui-media-box">
+      <div [routerLink]="['/front/item',item.productid]" *ngFor="let item of news" class="weui-media-box">
         <div class="weui-media-box__bd">
           <div class="item-box">
             <div class="item-img">
-              <img src="/api{{item.headimage}}">
+              <img src="{{'/api' + item.headimage}}">
             </div>
             <div class="item-text">
-              <span class="title">{{item.productname}}</span><span class="price">{{item.price}}元</span><span class="units">{{item.count}}{{item.unit}}</span>
-              <p class="desc">{{item.synopsis}}</p>
+              <span class="title">{{item.productname}}</span><span class="price">{{item.price}}元</span><span
+              class="units">{{item.count}}{{item.unit}}</span>
+              <p class="desc">{{item.synopsis.slice(0, 50)}} {{item.synopsis.length > 50 ? '...' : ''}}</p>
             </div>
           </div>
         </div>

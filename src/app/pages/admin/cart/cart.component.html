@@ -5,13 +5,13 @@
     <div class="weui-panel__bd">
       <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-          <img class="weui-media-box__thumb" src="{{item.headimage}}">
+          <img class="weui-media-box__thumb" src="{{'/api' + item.headimage}}">
         </div>
         <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title">{{item.productname}}</h4>
           <p class="weui-media-box__desc"><em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i
             class="decimal">.00</i></em><span class="units">/{{item.count}}{{item.unit}}</span></p>
-          <weui-stepper [(ngModel)]="item.product_num" (ngModelChange)="numChange($event)" [min]="1"
+          <weui-stepper [(ngModel)]="item.product_num" (ngModelChange)="numChange(item,$event)" [min]="1"
                         [max]="10"></weui-stepper>
           <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
         </div>
@@ -22,9 +22,9 @@
     </div>
     <div class="weui-panel__ft">
       <div class="weui-cell weui-cell_access weui-cell_link">
-        <div class="weui-cell__bd"><input class="weui-input" type="text" [(ngModel)]="item.wish" placeholder="请输入祝福语">
+        <div class="weui-cell__bd"><input class="weui-input" type="text" [(ngModel)]="item.remark" placeholder="请输入祝福语">
         </div>
-        <span (click)="show($event,item)" class="weui-cell__ft">选择祝福语</span>
+        <span (click)="show($event,item)" class="weui-cell__ft">{{item.remark ? item.remark : '选择祝福语'}}选择祝福语</span>
       </div>
     </div>
   </div>
@@ -40,12 +40,12 @@
   </div>-->
 </app-content>
 <div class="btns-group animated" [ngClass]="{'slideOutDown':direction === 'down','slideInUp':direction === 'up'}">
-  <span class="num animated"
-        [ngClass]="{'fadeOut':direction === 'down','fadeIn':direction === 'up'}"><em>共计：6件商品</em></span>
+  <span *ngIf="items" class="num animated"
+        [ngClass]="{'fadeOut':direction === 'down','fadeIn':direction === 'up'}"><em>共计：{{items.length}}件商品</em></span>
   <div class="total">
     <span class="label">应付合计：</span>
-    <em class="amount">￥128.00</em>
+    <em class="amount">￥{{total}}.00</em>
   </div>
-  <a (click)="checkout()" class="btn-primary">结算</a>
+  <a routerLink="/admin/checkout" class="btn-primary">结算</a>
 </div>
 <app-footer></app-footer>

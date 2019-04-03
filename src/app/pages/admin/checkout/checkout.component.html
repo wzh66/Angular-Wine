@@ -4,25 +4,42 @@
     <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">配送方式：{{checkoutForm.get('deliveryType').value ? '商家配送' : '上门自提'}}</div>
       <div class="weui-cell__ft">
-        <input ngModel (ngModelChange)="checkoutForm.get('deliveryType').setValue($event ? 1 : 0)" [ngModelOptions]="{standalone: true}" class="weui-switch" type="checkbox">
+        <input ngModel (ngModelChange)="checkoutForm.get('deliveryType').setValue($event ? 1 : 0)"
+               [ngModelOptions]="{standalone: true}" class="weui-switch" type="checkbox">
       </div>
     </div>
   </div>
-  <div class="weui-panel weui-panel_access">
+  <div *ngIf="checkoutForm.get('deliveryType').value == 1" class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">配送信息</div>
     <div class="weui-panel__bd">
-      <div *ngIf="address" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">{{address.consignee}}<span class="right">{{address.phone}}</span></h4>
+      <div (click)="show('address')" *ngIf="address" class="weui-media-box weui-media-box_text">
+        <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}})</h4>
         <p class="weui-media-box__desc">{{address.province + address.city + address.district + address.address}}</p>
       </div>
+    </div>
+  </div>
+  <div *ngIf="checkoutForm.get('deliveryType').value == 0" class="weui-panel weui-panel_access">
+    <div class="weui-panel__hd">自提门店</div>
+    <div class="weui-panel__bd">
+      <a *ngIf="store" href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb" src="{{'/api' + store.logo}}" alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{store.storename}}</h4>
+          <p class="weui-media-box__desc">{{store.address}}</p>
+        </div>
+      </a>
     </div>
   </div>
   <div class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">订单信息</div>
     <div class="weui-panel__bd">
       <div *ngFor="let item of order?.goods" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">{{item.productname}} <em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i
-          class="decimal">.00</i></em><span class="units">/{{item.count}}{{item.unit}}</span> x{{item.product_num}} <em class="right money"><i class="rmb">￥</i><span>{{item.price}}</span><i
+        <h4 class="weui-media-box__title">{{item.productname}} <em class="money"><i
+          class="rmb">￥</i><span>{{item.price}}</span><i
+          class="decimal">.00</i></em><span class="units">/{{item.count}}{{item.unit}}</span> x{{item.product_num}} <em
+          class="right money"><i class="rmb">￥</i><span>{{item.price}}</span><i
           class="decimal">.00</i></em></h4>
         <p class="weui-media-box__desc">{{item.synopsis}}</p>
       </div>
@@ -30,7 +47,8 @@
     <div class="weui-panel__ft">
       <a href="javascript:void(0);" class="weui-cell weui-cell_link">
         <div class="weui-cell__bd">共 <em>{{order?.goods.length}}</em> 件商品</div>
-        <span class="weui-cell__ft">合计：<em class="money" style="font-size: 0.18rem"><i class="rmb">￥</i><span>{{order?.totalAmount}}</span><i
+        <span class="weui-cell__ft">合计：<em class="money" style="font-size: 0.18rem"><i
+          class="rmb">￥</i><span>{{order?.totalAmount}}</span><i
           class="decimal">.00</i></em></span>
       </a>
     </div>
@@ -49,3 +67,23 @@
   </div>
   <a (click)="checkout()" class="btn-primary">结算</a>
 </div>
+
+<form style="display: none;" class="weui-cells weui-cells_form" #customForm action="{{formData?.action}}" method="post">
+  <div *ngFor="let item of formData | keys" class="weui-cell">
+    <div class="weui-cell__bd"><input class="weui-input" name="{{item.key}}" value="{{item.value}}"></div>
+  </div>
+</form>
+
+<weui-mask backdrop="true" #mask>
+  <!--<img *ngIf="qrCodeUrl" [src]="qrCodeUrl">-->
+  <ngx-qrcode
+    *ngIf="showType === 1"
+    [qrc-element-type]="'url'"
+    [qrc-value]="qrCodeUrl"
+    qrc-class="'qr'"
+    qrc-errorCorrectionLevel="L">
+  </ngx-qrcode>
+  <div *ngIf="showType === 7 && payQrCode" class="qr">
+    <img src="{{'/api' + payQrCode}}">
+  </div>
+</weui-mask>

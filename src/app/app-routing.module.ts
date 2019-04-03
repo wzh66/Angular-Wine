@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {IndexComponent} from './pages/index/index.component';
 import {CacheComponent} from './pages/cache/cache.component';
+import {RedirectComponent} from './pages/redirect/redirect.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'cache',
     component: CacheComponent
+  },
+  {
+    path: 'redirect',
+    component: RedirectComponent
   },
 ];
 

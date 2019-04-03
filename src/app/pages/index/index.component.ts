@@ -39,11 +39,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   };
 
   imgs = ['/assets/images/banner/1.png'];
-  hots = ['/assets/images/hots/1.png', '/assets/images/hots/2.png', '/assets/images/hots/3.png', '/assets/images/hots/4.png'];
-  news = [
-    {title: '草莓奶油蛋糕', desc: '甜润奶油，与草莓的自然甜度搭配', price: '228', unit: '元/2.0磅', img: '/assets/images/news/1.png'},
-    {title: '百利甜情人', desc: '爱尔兰百利甜酒/新西兰奶油/云南玫瑰甘露', price: '228', unit: '元/2.0磅', img: '/assets/images/news/2.png'}
-  ];
+  hots = [];
+  news = [];
   direction;
   categories = [];
 
@@ -61,7 +58,6 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
     this.categorySvc.get().subscribe(res => {
       this.categories = res;
-      console.log(this.categories);
     });
   }
 

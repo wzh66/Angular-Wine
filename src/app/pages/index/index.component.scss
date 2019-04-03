@@ -137,16 +137,26 @@
 }
 
 .new {
+  .weui-media-box {
+    &:before {
+      display: none;
+    }
+  }
+
   .item-box {
     background: #fff;
-    border-top-left-radius: 0.08rem;
-    border-top-right-radius: 0.08rem;
+    overflow: hidden;
+    border-radius: 0.08rem;
     margin: 0.1rem 0.15rem;
 
     .item-img {
+      height: 1.5rem;
+      overflow: hidden;
+
       img {
         display: block;
         width: 100%;
+        transform: translateY(-25%);
       }
     }
 
@@ -178,6 +188,11 @@
       .desc {
         font-size: 0.12rem;
         color: #999;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
       }
     }
   }

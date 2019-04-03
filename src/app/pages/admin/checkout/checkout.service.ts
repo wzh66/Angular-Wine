@@ -33,6 +33,13 @@ export class CheckoutService {
       }));
   }
 
+  listener(key, orderNo): Observable<any> {
+    return this.http.get(this.prefix_url + 'getOrderInfo&key=' + key + '&orderNo=' + orderNo)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
   protected processResult(res): Observable<any> {
     if (res.code === '0000') {
       return observableOf(res.result);

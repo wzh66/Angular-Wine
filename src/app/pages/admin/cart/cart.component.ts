@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {ActionSheetConfig, ActionSheetService, ToastService} from 'ngx-weui';
 import {DirectionService} from '../../../@theme/animates/direction.service';
 import {AuthService} from '../../auth/auth.service';
@@ -17,6 +18,7 @@ declare interface Wish {
 export class AdminCartComponent implements OnInit {
   key;
   items;
+  total = 0;
   wishes: Wish[] = [
     {text: '不需要', value: 1},
     {text: '生日快乐', value: 2},
@@ -31,6 +33,8 @@ export class AdminCartComponent implements OnInit {
   };
   direction;
 
+  cartForm: FormGroup;
+
   constructor(private actionSheetSvc: ActionSheetService,
               private toastSvc: ToastService,
               private directionSvc: DirectionService,
@@ -43,33 +47,63 @@ export class AdminCartComponent implements OnInit {
 
   ngOnInit() {
     this.key = this.authSvc.getKey();
+    this.cartForm = new FormGroup({
+      key: new FormControl(this.key, [Validators.required]),
+      productId: new FormControl(this.key, [Validators.required]),
+      specId: new FormControl(this.key, [Validators.required]),
+      qty: new FormControl(this.key, [Validators.required]),
+      remark: new FormControl(this.key, [Validators.required])
+    });
+    this.getData();
+  }
+
+  getData() {
     this.cartSvc.get(this.key).subscribe(res => {
       this.items = res;
+      this.getTotal();
     });
   }
 
-  numChange(e) {
-    console.log(e);
+  numChange(item, e) {
+    this.cartForm.get('productId').setValue(item.productid);
+    this.cartForm.get('specId').setValue(item.specid);
+    this.cartForm.get('qty').setValue(e);
+    this.cartForm.get('remark').setValue(item.remark);
+    this.save(this.cartForm.value);
+  }
+
+  getTotal() {
+    let total = 0;
+    this.items.forEach(item => {
+      total = total + item.totalprice;
+    });
+    this.total = total;
   }
 
   show(e, item) {
     this.actionSheetSvc.show(this.wishes, this.config).subscribe((res: any) => {
       if (!res.value) {
         e.target.previousElementSibling.querySelector('input').focus();
-        item.wish = '';
+        item.remark = '';
         item.focus = true;
       } else {
-        item.wish = res.text;
+        item.remark = res.text;
         this.setMark(item.id, res.text);
       }
+    });
+  }
+
+  save(body) {
+    this.cartSvc.save(body).subscribe(res => {
+      this.getData();
     });
   }
 
   setMark(id, remark) {
     this.cartSvc.saveMark({key: this.key, cartId: id, remark: remark})
       .subscribe(res => {
-      console.log(res);
-    });
+        console.log(res);
+      });
   }
 
   onCustom(e) {
@@ -77,8 +111,5 @@ export class AdminCartComponent implements OnInit {
     this.cartSvc.clear(this.key).subscribe(res => {
       this.toastSvc.hide();
     });
-  }
-
-  checkout() {
   }
 }

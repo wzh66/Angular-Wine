@@ -8,8 +8,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {WeUiModule} from 'ngx-weui';
 import {MatButtonModule, MatIconModule} from '@angular/material';
+import {NgxQRCodeModule} from 'ngx-qrcode2';
 
-const THIRD_PART = [MatButtonModule, MatIconModule, SwiperModule];
+const THIRD_PART = [MatButtonModule, MatIconModule, SwiperModule, NgxQRCodeModule];
 
 import {WxModule} from './modules/wx';
 import {FabModule} from './modules/fab/fab.module';
@@ -20,7 +21,7 @@ import {FooterModule} from './modules/footer/footer.module';
 import {ContentModule} from './modules/content/content.module';
 import {FooterBtnModule} from './modules/footer-btn/footer-btn.module';
 
-import {COMPONENTS, DIRECTIVES} from './index';
+import {COMPONENTS, DIRECTIVES, PIPES} from './index';
 
 @NgModule({
   imports: [
@@ -57,9 +58,10 @@ import {COMPONENTS, DIRECTIVES} from './index';
     OverlayModule,
     FooterBtnModule,
     ...DIRECTIVES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...PIPES
   ],
-  declarations: [...DIRECTIVES, ...COMPONENTS],
+  declarations: [...DIRECTIVES, ...COMPONENTS, ...PIPES],
   entryComponents: [COMPONENTS],
 })
 export class ThemeModule {

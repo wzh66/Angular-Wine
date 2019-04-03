@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {LocationStrategy, Location} from '@angular/common';
-import {ActionSheetConfig, ActionSheetService, ToastService, DialogService} from 'ngx-weui';
+import {PickerService, PickerConfig, ToastService, DialogService, MaskComponent} from 'ngx-weui';
 
 import {timer as observableTimer, interval as observableInterval} from 'rxjs';
 
 import {GeoService} from '../../../@core/data/geo.service';
+import {UaService} from '../../../@core/data/ua.service';
 import {DirectionService} from '../../../@theme/animates/direction.service';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from '../cart/cart.service';
@@ -29,22 +30,33 @@ export class AdminCheckoutComponent implements OnInit {
   key;
   items;
   order;
+  addresses;
   address;
   stores;
+  store;
   location: any = {};
   checkoutForm: FormGroup;
   loading = false;
-  config: ActionSheetConfig = <ActionSheetConfig>{
-    title: '请选择您要添加的祝福语',
-    skin: 'ios',
+  config: PickerConfig = <PickerConfig>{
+    cancel: '取消',
+    confirm: '确定',
     backdrop: true
   };
   direction;
+  @ViewChild('customForm') private customForm;
+  @ViewChild('mask') private mask: MaskComponent;
+  formData;
+  payQrCode;
+  qrCodeUrl;
+  payTypes;
+  showType;
+  listenerTimer;
 
-  constructor(private loc: Location,
-              private actionSheetSvc: ActionSheetService,
+  constructor(private router: Router,
+              private uaSvc: UaService,
               private toastSvc: ToastService,
               private dialogSvc: DialogService,
+              private pickerSvc: PickerService,
               private directionSvc: DirectionService,
               private geoSvc: GeoService,
               private authSvc: AuthService,
@@ -71,24 +83,60 @@ export class AdminCheckoutComponent implements OnInit {
     this.checkoutSvc.getItems(this.key).subscribe(res => {
       this.order = res;
     });
+    this.checkoutSvc.get(2, this.key).subscribe(res => {
+      console.log(res);
+      this.payTypes = res;
+      /*if (res.code = '0000') {
+        const payTypes = [];
+        res.result.forEach(payType => {
+          if (payType.paytype === 'balance') {
+            payType.balance = this.userInfo.balance;
+          }
+          if (payType.paytype === 'integral') {
+            payType.balance = this.userInfo.commissionpoints;
+          }
+          payTypes.push(payType);
+          this.payTypes = payTypes;
+          if (payType.isdefault) {
+            this.submitForm.get('payType').setValue(payType.paytype);
+          }
+        });
+      }*/
+    });
     this.addressSvc.get(this.key).subscribe(res => {
-      console.log(res.list);
       if (res.list.length > 0) {
         this.address = res.list[0];
+        const addresses = [];
         res.list.forEach(address => {
+          addresses.push({
+            label: '[' + address.consignee + ']' + address.province + address.city + address.district + address.address,
+            value: address
+          });
           if (address.status === 1) {
             this.address = address;
           }
         });
+        this.addresses = addresses;
         this.checkoutForm.get('addrId').setValue(this.address.id);
         this.storeSvc.get({key: this.key, addrId: this.checkoutForm.get('addrId').value}).subscribe(_res => {
-          console.log(_res);
-          this.stores = _res;
-          this.dialogSvc.show({
-            title: '',
-            content: this.checkoutForm.get('deliveryType').value ? '该区域暂时没有开通配送服务' : '该区域暂时没有自提门店',
-            cancel: '',
-            confirm: '我知道了'}).subscribe();
+          this.store = _res[0];
+          const stores = [];
+          _res.forEach(store => {
+            stores.push({
+              label: '[' + store.storename + ']' + store.address,
+              value: store
+            });
+          });
+          this.stores = stores;
+          this.checkoutForm.get('storeId').setValue(this.store.id);
+          if (this.stores.length < 1) {
+            this.dialogSvc.show({
+              title: '',
+              content: this.checkoutForm.get('deliveryType').value ? '该区域暂时没有开通配送服务' : '该区域暂时没有自提门店',
+              cancel: '',
+              confirm: '我知道了'
+            }).subscribe();
+          }
         });
       }
     });
@@ -110,7 +158,16 @@ export class AdminCheckoutComponent implements OnInit {
     console.log(e);
   }
 
-  show(e, item) {
+  show(type) {
+    if (type === 'address') {
+      this.pickerSvc.show([this.addresses], '', [0], this.config).subscribe(res => {
+        this.checkoutForm.get('addrId').setValue(res.value.id);
+      });
+    } else {
+      this.pickerSvc.show([this.stores], '', [0], this.config).subscribe(res => {
+        this.checkoutForm.get('storeId').setValue(res.value.id);
+      });
+    }
     /*this.actionSheetSvc.show(this.wishes, this.config).subscribe((res: any) => {
       if (!res.value) {
         e.target.previousElementSibling.querySelector('input').focus();
@@ -142,10 +199,10 @@ export class AdminCheckoutComponent implements OnInit {
         if (res.result.showType === 0) {
           this.loading = false;
           this.listenerTimer = observableInterval(3000).subscribe(() => {
-            this.paySvc.listener(this.appKey, res.result.orderNo).then(_res => {
+            this.checkoutSvc.listener(this.key, res.result.orderNo).subscribe(_res => {
               if (_res.code === '0000') {
                 if (_res.result.consume.paystatus !== 0) {
-                  this.userInfo.balance = _res.result.userInfo.balance;
+                  // this.userInfo.balance = _res.result.userInfo.balance;
                   this.listenerTimer.unsubscribe();
                   if (_res.result.consume.paystatus === 1) {
                     this.toastSvc.hide();
@@ -154,7 +211,7 @@ export class AdminCheckoutComponent implements OnInit {
                   if (_res.result.consume.paystatus === 2) {
                     this.toastSvc.success('充值失败', 3000);
                   }
-                  this.mask.hide();
+                  /*this.mask.hide();*/
                 }
               }
             });
@@ -166,10 +223,10 @@ export class AdminCheckoutComponent implements OnInit {
           this.qrCodeUrl = res.result.showMsg;
           this.mask.show();
           this.listenerTimer = observableInterval(3000).subscribe(() => {
-            this.paySvc.listener(this.appKey, res.result.orderNo).then(_res => {
+            this.checkoutSvc.listener(this.key, res.result.orderNo).subscribe(_res => {
               if (_res.code === '0000') {
                 if (_res.result.consume.paystatus !== 0) {
-                  this.userInfo.balance = _res.result.userInfo.balance;
+                  // this.userInfo.balance = _res.result.userInfo.balance;
                   this.listenerTimer.unsubscribe();
                   if (_res.result.consume.paystatus === 1) {
                     this.toastSvc.success('充值成功', 3000);

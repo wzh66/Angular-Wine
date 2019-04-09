@@ -77,7 +77,7 @@ export class AuthService {
           this.storageSvc.set('openid', openid);
           return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
         } else {// url中不存在openId;
-          window.location.href = '/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+          window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         }
       } else {// 非微信环境
         this.router.navigate(['/auth/login'], {queryParams: {callbackUrl: this.router.url}});

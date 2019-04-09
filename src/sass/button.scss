@@ -1,4 +1,5 @@
 @import "variables";
+
 [class^="btn-"],
 [class*=" btn-"] {
   // Sizing
@@ -37,6 +38,7 @@
     &:hover {
       background-color: darken($color-primary, 5%);
     }
+
     &:active {
       box-shadow: darken($color-primary, 5%) 0 1px 3px 0 inset;
     }
@@ -49,6 +51,7 @@
     &:hover {
       background-color: darken($color-secondary, 5%);
     }
+
     &:active {
       box-shadow: darken($color-secondary, 5%) 0 1px 3px 0 inset;
     }
@@ -61,6 +64,7 @@
       &:hover {
         background-color: darken($color-secondary, 5%);
       }
+
       &:active {
         box-shadow: rgba(0, 0, 0, .3) 0 1px 3px 0 inset;
       }
@@ -87,6 +91,7 @@
     &:hover {
       background-color: darken($color-twitter, 10%);
     }
+
     &:active {
       box-shadow: rgba(0, 0, 0, .3) 0 1px 3px 0 inset;
     }
@@ -120,6 +125,7 @@
 
     &:hover {
       box-shadow: darken($color-primary, 3%) 0 0 0px 2px inset;
+
       .icon-camera {
         background-color: darken($color-primary, 3%);
       }
@@ -127,13 +133,14 @@
 
     &:active {
       box-shadow: darken($color-primary, 3%) 0 0 0px 2px inset;
+
       .icon-camera {
         background-color: darken($color-primary, 3%);
       }
     }
   }
 
-  &[disabled] {
+  &[disabled], &.disabled {
     opacity: .5;
   }
 }
@@ -147,6 +154,7 @@
   left: 0;
   width: 100%;
   z-index: 999;
+
   [class*="btn-"] {
     //.ellipsized;
     flex: 1;

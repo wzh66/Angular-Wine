@@ -53,6 +53,14 @@
       </a>
     </div>
   </div>
+  <div class="weui-cells">
+    <a (click)="showPayTypes()" class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>支付方式</p>
+      </div>
+      <div class="weui-cell__ft">{{payType?.label}}</div>
+    </a>
+  </div>
   <label for="weuiAgree" class="weui-agree">
     <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
     <span class="weui-agree__text">
@@ -65,7 +73,7 @@
     <span class="label">应付合计：</span>
     <em class="amount">￥{{order?.totalAmount}}.00</em>
   </div>
-  <a (click)="checkout()" class="btn-primary">结算</a>
+  <a (click)="checkout()" class="btn-primary" [ngClass]="{'disabled':checkoutForm.invalid}">结算</a>
 </div>
 
 <form style="display: none;" class="weui-cells weui-cells_form" #customForm action="{{formData?.action}}" method="post">

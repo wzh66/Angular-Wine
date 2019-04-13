@@ -80,7 +80,7 @@ export class AdminCheckoutComponent implements OnInit {
       deliveryType: new FormControl(0, [Validators.required]),
       storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required]),
-      openId: new FormControl('', [])
+      openId: new FormControl(this.authSvc.getOid(), [])
     });
     this.checkoutSvc.getItems(this.key).subscribe(res => {
       this.order = res;
@@ -136,18 +136,19 @@ export class AdminCheckoutComponent implements OnInit {
         });
       }
     });
-    this.geoSvc.get().then((res) => {
-      const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
-      geo.getLocation((position) => {
-        this.location.location = position.lat + ',' + position.lng;
-        this.geoSvc.getPosition(this.location.location).subscribe((result) => {
-          this.location.address = result.result.address;
-          /*this.clockForm.get('address').setValue(result.result.address);*/
-        });
-      }, (err) => {
-        this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
-      }, {failTipFlag: true});
-    });
+    // this.geoSvc.get().then((res) => {
+    //   const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
+    //   geo.getLocation((position) => {
+    //     this.location.location = position.lat + ',' + position.lng;
+    //     this.geoSvc.getPosition(this.location.location).subscribe((result) => {
+    //       console.log(result);
+    //       this.location.address = result.address;
+    //       /*this.clockForm.get('address').setValue(result.result.address);*/
+    //     });
+    //   }, (err) => {
+    //     this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
+    //   }, {failTipFlag: true});
+    // });
   }
 
   numChange(e) {
@@ -195,7 +196,7 @@ export class AdminCheckoutComponent implements OnInit {
                 this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.orderNo}});
               }
               if (_res.consume.paystatus === 2) {
-                this.toastSvc.success('充值失败', 3000);
+                this.toastSvc.success('支付失败', 3000);
               }
               /*this.mask.hide();*/
             }
@@ -227,7 +228,8 @@ export class AdminCheckoutComponent implements OnInit {
       }
       if (this.showType === 3) {
         this.toastSvc.hide();
-        window.location.href = res.showMsg;
+        this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.orderNo}});
+        // window.location.href = res.showMsg;
       }
       if (this.showType === 4) {
         this.toastSvc.hide();

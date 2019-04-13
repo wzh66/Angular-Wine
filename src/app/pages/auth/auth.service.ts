@@ -44,7 +44,7 @@ export class AuthService {
 
   getOid() {
     if (this.storageSvc.get('openid')) {
-      return JSON.parse(this.storageSvc.get('openid'));
+      return this.storageSvc.get('openid');
     } else {
       return '';
     }

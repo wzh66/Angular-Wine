@@ -9,10 +9,18 @@ import {INTERCEPTORS} from './@core/interceptors';
 
 import {AppComponent} from './app.component';
 import {PAGES} from './pages';
+import {MsgSuccessComponent} from './pages/msg/success/success.component';
+import {MsgInfoComponent} from './pages/msg/info/info.component';
+import {MsgErrorComponent} from './pages/msg/error/error.component';
+import {MsgRedComponent} from './pages/msg/red/red.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MsgSuccessComponent,
+    MsgInfoComponent,
+    MsgErrorComponent,
+    MsgRedComponent,
     ...PAGES
   ],
   imports: [

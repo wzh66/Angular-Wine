@@ -60,6 +60,7 @@ export class AdminCartComponent implements OnInit {
   getData() {
     this.cartSvc.get(this.key).subscribe(res => {
       this.items = res;
+      console.log(res);
       this.getTotal();
     });
   }
@@ -104,6 +105,13 @@ export class AdminCartComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
       });
+  }
+
+  remove(id) {
+    this.cartSvc.remove({key: this.key, cartId: id}).subscribe(res => {
+      console.log(res);
+      this.getData();
+    });
   }
 
   onCustom(e) {

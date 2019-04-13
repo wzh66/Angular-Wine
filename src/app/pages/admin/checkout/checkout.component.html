@@ -68,7 +68,7 @@
             </span>
   </label>
 </app-content>
-<div class="btns-group animated" [ngClass]="{'slideOutDown':direction === 'down','slideInUp':direction === 'up'}">
+<div class="btns-group animated" [ngClass]="{'slideInUp':direction === 'down','slideOutDown':direction === 'up'}">
   <div class="total">
     <span class="label">应付合计：</span>
     <em class="amount">￥{{order?.totalAmount}}.00</em>

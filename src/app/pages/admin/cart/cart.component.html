@@ -15,7 +15,7 @@
                         [max]="10"></weui-stepper>
           <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
         </div>
-        <div class="weui-media-box__ft">
+        <div (click)="remove(item.id)" class="weui-media-box__ft">
           <i class="icon-trash"></i>
         </div>
       </div>

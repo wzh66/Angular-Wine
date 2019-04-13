@@ -36,7 +36,7 @@ export class CartService {
     }));
   }
 
-  remove(body: CartDto): Observable<any> {
+  remove(body): Observable<any> {
     return this.http.post(this.prefix_url + 'removeCart', formData(body)).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));

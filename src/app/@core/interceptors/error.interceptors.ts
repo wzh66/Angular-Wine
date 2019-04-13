@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpResponse, HttpErrorResponse, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
+import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 import {Observable, of as observableOf} from 'rxjs';
@@ -7,11 +7,13 @@ import {tap} from 'rxjs/operators';
 
 import {AuthService} from '../../pages/auth/auth.service';
 import {DialogService} from 'ngx-weui';
+import {ToastService} from 'ngx-weui';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private router: Router,
+              private toastSvc: ToastService,
               private dialogSvc: DialogService,
               private authSvc: AuthService) {
   }

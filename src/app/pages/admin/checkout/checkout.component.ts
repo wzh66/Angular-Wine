@@ -37,7 +37,6 @@ export class AdminCheckoutComponent implements OnInit {
   store;
   location: any = {};
   checkoutForm: FormGroup;
-  loading = false;
   config: PickerConfig = <PickerConfig>{
     cancel: '取消',
     confirm: '确定',
@@ -175,26 +174,27 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   checkout() {
-    if (this.loading || this.checkoutForm.invalid) {
+    if (this.checkoutForm.invalid) {
       return false;
     }
-
-    this.loading = true;
     this.toastSvc.loading('结算中', 0);
     this.checkoutSvc.pay(this.checkoutForm.value).subscribe(res => {
-      this.showType = res.result.showType;
-      if (res.result.showType === 0) {
-        this.loading = false;
+      if (!res) {
+        this.toastSvc.hide();
+        return false;
+      }
+      this.showType = res.showType;
+      if (this.showType === 0) {
         this.listenerTimer = observableInterval(3000).subscribe(() => {
-          this.checkoutSvc.listener(this.key, res.result.orderNo).subscribe(_res => {
-            if (_res.result.consume.paystatus !== 0) {
-              // this.userInfo.balance = _res.result.userInfo.balance;
+          this.checkoutSvc.listener(this.key, res.orderNo).subscribe(_res => {
+            this.toastSvc.hide();
+            if (_res.consume.paystatus !== 0) {
+              // this.userInfo.balance = _res.userInfo.balance;
               this.listenerTimer.unsubscribe();
-              if (_res.result.consume.paystatus === 1) {
-                this.toastSvc.hide();
-                this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.result.orderNo}});
+              if (_res.consume.paystatus === 1) {
+                this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.orderNo}});
               }
-              if (_res.result.consume.paystatus === 2) {
+              if (_res.consume.paystatus === 2) {
                 this.toastSvc.success('充值失败', 3000);
               }
               /*this.mask.hide();*/
@@ -202,20 +202,19 @@ export class AdminCheckoutComponent implements OnInit {
           });
         });
       }
-      if (res.result.showType === 1) {
-        this.loading = false;
+      if (this.showType === 1) {
         this.toastSvc.hide();
-        this.qrCodeUrl = res.result.showMsg;
+        this.qrCodeUrl = res.showMsg;
         this.mask.show();
         this.listenerTimer = observableInterval(3000).subscribe(() => {
-          this.checkoutSvc.listener(this.key, res.result.orderNo).subscribe(_res => {
-            if (_res.result.consume.paystatus !== 0) {
-              // this.userInfo.balance = _res.result.userInfo.balance;
+          this.checkoutSvc.listener(this.key, res.orderNo).subscribe(_res => {
+            if (_res.consume.paystatus !== 0) {
+              // this.userInfo.balance = _res.userInfo.balance;
               this.listenerTimer.unsubscribe();
-              if (_res.result.consume.paystatus === 1) {
+              if (_res.consume.paystatus === 1) {
                 this.toastSvc.success('充值成功', 3000);
               }
-              if (_res.result.consume.paystatus === 2) {
+              if (_res.consume.paystatus === 2) {
                 this.toastSvc.success('充值失败', 3000);
               }
               this.mask.hide();
@@ -223,30 +222,31 @@ export class AdminCheckoutComponent implements OnInit {
           });
         });
       }
-      if (res.result.showType === 2) {
+      if (this.showType === 2) {
+        this.toastSvc.hide();
       }
-      if (res.result.showType === 3) {
-        window.location.href = res.result.showMsg;
+      if (this.showType === 3) {
+        this.toastSvc.hide();
+        window.location.href = res.showMsg;
       }
-      if (res.result.showType === 4) {
+      if (this.showType === 4) {
+        this.toastSvc.hide();
         if (this.uaSvc.isWx()) {
-          window.location.href = '/redirect?redirect=' + res.result.showMsg;
+          window.location.href = '/redirect?redirect=' + res.showMsg;
         } else {
-          window.location.href = res.result.showMsg;
+          window.location.href = res.showMsg;
         }
       }
-      if (res.result.showType === 5) {
-        this.loading = true;
-        this.toastSvc.show('结算中', 0, '', 'loading');
-        this.formData = res.result.formData;
+      if (this.showType === 5) {
+        this.formData = res.formData;
         observableTimer(1000).subscribe(() => {
           this.customForm.nativeElement.submit();
+          this.toastSvc.hide();
         });
       }
-      if (res.result.showType === 7) {
-        this.loading = false;
+      if (this.showType === 7) {
         this.toastSvc.hide();
-        this.payQrCode = res.result.showMsg;
+        this.payQrCode = res.showMsg;
         this.mask.show();
       }
     });

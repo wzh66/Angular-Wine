@@ -13,7 +13,8 @@ import {CartService} from '../cart/cart.service';
 import {AddressService} from '../setting/address/address.service';
 import {StoreService} from '../../../@core/data/store.service';
 import {CheckoutService} from './checkout.service';
-import {getIndex} from '../../../utils/utils';
+import {getIndex, onBridgeReady} from '../../../utils/utils';
+import {PayDto} from '../../../@core/dto/pay.dto';
 
 declare interface Wish {
   text: string;
@@ -21,6 +22,7 @@ declare interface Wish {
 }
 
 declare var qq: any;
+declare var WeixinJSBridge: any;
 
 @Component({
   selector: 'app-admin-checkout',
@@ -228,7 +230,28 @@ export class AdminCheckoutComponent implements OnInit {
       }
       if (this.showType === 3) {
         this.toastSvc.hide();
-        this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.orderNo}});
+        const result = {
+          'appId': 'wxcb41a1da6f148154',
+          'orderNo': '2019041855521005877307',
+          'timeStamp': '1555552101',
+          'signType': 'MD5',
+          'packageStr': 'prepay_id=wx18094821392472ca18b49c550901050266',
+          'package': 'prepay_id=wx18094821392472ca18b49c550901050266',
+          'showType': 3,
+          'nonceStr': 'e8ab0fa189b8469fb3bdd9b1684d7cc6',
+          'paySign': '69BA72A3C7354EF8C7106C7F41AEAE70'
+        };
+        const body: PayDto = {
+          appId: res.appId,
+          timeStamp: res.timeStamp,
+          nonceStr: res.nonceStr,
+          package: res.package,
+          signType: res.signType,
+          paySign: res.paySign,
+          orderNo: res.orderNo
+        };
+        this.checkoutSvc.wxPay(body);
+        // this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.orderNo}});
         // window.location.href = res.showMsg;
       }
       if (this.showType === 4) {

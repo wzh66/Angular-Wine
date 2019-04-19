@@ -43,7 +43,7 @@ export class CartService {
   }
 
   clear(key): Observable<any> {
-    return this.http.post(this.prefix_url + 'clearCart', {key: key}).pipe(observableMargeMap((res: any) => {
+    return this.http.post(this.prefix_url + 'clearCart' + '&key=' + key, {}).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));
   }

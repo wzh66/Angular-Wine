@@ -25,7 +25,15 @@ export class ContentComponent implements OnDestroy {
         clientHeight: e.target.clientHeight, // 容器的高度
         scrollHeight: e.target.scrollHeight // 内容高度
       });
-      this.scrollTop = e.target.scrollTop;
+      if (e.target.scrollTop >= 0) {
+        if (e.target.scrollTop <= e.target.scrollHeight) {
+          this.scrollTop = e.target.scrollTop;
+        } else {
+          this.scrollTop = e.target.scrollHeight;
+        }
+      } else {
+        this.scrollTop = 0;
+      }
     }
   }
 

@@ -230,17 +230,6 @@ export class AdminCheckoutComponent implements OnInit {
       }
       if (this.showType === 3) {
         this.toastSvc.hide();
-        const result = {
-          'appId': 'wxcb41a1da6f148154',
-          'orderNo': '2019041855521005877307',
-          'timeStamp': '1555552101',
-          'signType': 'MD5',
-          'packageStr': 'prepay_id=wx18094821392472ca18b49c550901050266',
-          'package': 'prepay_id=wx18094821392472ca18b49c550901050266',
-          'showType': 3,
-          'nonceStr': 'e8ab0fa189b8469fb3bdd9b1684d7cc6',
-          'paySign': '69BA72A3C7354EF8C7106C7F41AEAE70'
-        };
         const body: PayDto = {
           appId: res.appId,
           timeStamp: res.timeStamp,

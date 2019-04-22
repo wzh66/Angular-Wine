@@ -34,7 +34,7 @@ export class MsgSuccessComponent implements OnInit {
     });
 
     if (this.type === 'cart') {
-      this.orderSvc.get(this.appKey, this.orderNo).subscribe(res => {
+      this.orderSvc.getOrderInfo(this.appKey, this.orderNo).subscribe(res => {
         this.orders = res;
         console.log(this.orders);
       });

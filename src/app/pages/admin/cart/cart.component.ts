@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {ActionSheetConfig, ActionSheetService, ToastService} from 'ngx-weui';
+import {ActionSheetConfig, ActionSheetService, ToastService, DialogService} from 'ngx-weui';
 import {DirectionService} from '../../../@theme/animates/direction.service';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from './cart.service';
@@ -37,6 +37,7 @@ export class AdminCartComponent implements OnInit {
 
   constructor(private actionSheetSvc: ActionSheetService,
               private toastSvc: ToastService,
+              private dialogSvc: DialogService,
               private directionSvc: DirectionService,
               private authSvc: AuthService,
               private cartSvc: CartService) {
@@ -115,9 +116,14 @@ export class AdminCartComponent implements OnInit {
   }
 
   onCustom(e) {
-    this.toastSvc.loading('', 0);
-    this.cartSvc.clear(this.key).subscribe(res => {
-      this.toastSvc.hide();
+    this.dialogSvc.show({title: '', content: '您确定要清空购物车吗？', cancel: '不了', confirm: '是的'}).subscribe(value => {
+      if (value) {
+        this.toastSvc.loading('', 0);
+        this.cartSvc.clear(this.key).subscribe(res => {
+          this.toastSvc.hide();
+          this.getData();
+        });
+      }
     });
   }
 }

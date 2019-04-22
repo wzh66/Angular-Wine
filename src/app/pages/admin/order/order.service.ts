@@ -12,8 +12,15 @@ export class OrderService {
   get(key, page?, rows?): Observable<any[]> {
     return this.http.get(this.prefix_url + 'getOrders' + '&key=' + key + '&page=' + (page ? page : 1) + '&rows=' + (rows ? rows : 10))
       .pipe(observableMargeMap((res: any) => {
-      return this.processResult(res);
-    }));
+        return this.processResult(res);
+      }));
+  }
+
+  getOrderInfo(key, no) {
+    return this.http.get(this.prefix_url + 'getOrderInfo' + '&key=' + key + '&orderNo=' + no)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
   }
 
   /*count(key): Observable<number> {

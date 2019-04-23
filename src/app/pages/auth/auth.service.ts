@@ -120,4 +120,9 @@ export class AuthService {
     body = formData(body);
     return this.http.post(this.prefix_url + 'sendValidCode', body);
   }
+
+  logout() {
+    this.storageSvc.clear();
+    this.router.navigate(['/auth/login']);
+  }
 }

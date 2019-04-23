@@ -32,5 +32,22 @@
       </div>
     </div>
   </div>
+  <div *ngFor="let order of orders" class="order-list weui-panel">
+    <div class="weui-panel__hd">订单号：{{order.orderno}}<span class="right">{{order.date | date : 'yyyy/MM/dd HH:mm:ss'}}</span></div>
+    <div class="weui-panel__bd">
+      <div *ngFor="let item of order.goods" href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb" src="{{'/api' + item.productimg}}">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{item.productname}}</h4>
+          <p class="weui-media-box__desc"><em class="money"><i class="rmb">￥</i><span>{{item.buymoney}}</span><i
+            class="decimal"></i></em><span class="units">/{{item.buycount}}{{item.unit}}</span></p>
+          <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space"></div>
 </app-content>
 <app-footer></app-footer>

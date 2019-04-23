@@ -22,4 +22,7 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.authSvc.logout();
+  }
 }

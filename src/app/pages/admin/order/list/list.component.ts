@@ -27,6 +27,7 @@ export class AdminOrderListComponent implements OnInit {
     this.key = this.authSvc.getKey();
     this.orderSvc.get(this.key).subscribe(res => {
       console.log(res);
+      this.orders = res;
     });
   }
 

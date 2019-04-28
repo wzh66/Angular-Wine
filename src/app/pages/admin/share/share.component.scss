@@ -4,14 +4,18 @@
     width: 100%;
   }
 }
-.qr-code {
+
+.qr-code::ng-deep {
   margin-top: -0.95rem;
   img {
     display: block;
     width: 1.5rem;
     margin: 0 auto;
+    box-sizing: border-box;
+    border: 10px solid #fff;
   }
 }
+
 .weui-cell_title {
   margin-top: 0.1rem;
   display: block;

@@ -9,11 +9,8 @@ export class OrderService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient) {
   }
 
-  get(key, page?, rows?): Observable<any[]> {
-    return this.http.get(this.prefix_url + 'getOrders' + '&key=' + key + '&page=' + (page ? page : 1) + '&rows=' + (rows ? rows : 10))
-      .pipe(observableMargeMap((res: any) => {
-        return this.processResult(res);
-      }));
+  list(key, status, page?, rows?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getOrders' + '&key=' + key + '&status=' + status + '&page=' + (page ? page : 1) + '&rows=' + (rows ? rows : 10));
   }
 
   getOrderInfo(key, no) {

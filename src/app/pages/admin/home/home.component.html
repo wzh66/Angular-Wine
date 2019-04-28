@@ -1,30 +1,30 @@
 <app-header [leftNav]="'menu'" [show]="true" [title]="'会员中心'"></app-header>
-<app-content [paddingHeader]="false" [paddingFooter]="true" [monitor]="'scroll'">
+<app-content *ngIf="user" [paddingHeader]="false" [paddingFooter]="true" [monitor]="'scroll'">
   <div class="user-info"></div>
   <div class="order weui-panel weui-panel_access" style="margin-top: 0">
     <div class="weui-panel__hd"><img src="/assets/images/home/orders.png"><span>我的订单</span></div>
     <div class="weui-panel__bd">
       <div class="weui-media-box">
         <div class="order-status weui-flex">
-          <div class="weui-flex__item">
+          <div [routerLink]="['/admin/order/list']" [queryParams]="{status: 0}" class="weui-flex__item">
             <div class="weui-grid__icon">
               <img src="/assets/images/home/waiting.png">
             </div>
             <p class="weui-grid__label">待付款</p>
           </div>
-          <div class="weui-flex__item">
+          <div [routerLink]="['/admin/order/list']" [queryParams]="{status: 1}" class="weui-flex__item">
             <div class="weui-grid__icon">
               <img src="/assets/images/home/shipped.png">
             </div>
             <p class="weui-grid__label">待发货</p>
           </div>
-          <div class="weui-flex__item">
+          <div [routerLink]="['/admin/order/list']" [queryParams]="{status: 2}" class="weui-flex__item">
             <div class="weui-grid__icon">
               <img src="/assets/images/home/arrived.png">
             </div>
             <p class="weui-grid__label">待收货</p>
           </div>
-          <div class="weui-flex__item">
+          <div [routerLink]="['/admin/order/list']" [queryParams]="{status: 3}" class="weui-flex__item">
             <div class="weui-grid__icon">
               <img src="/assets/images/home/finished.png">
             </div>
@@ -73,21 +73,21 @@
       <div class="weui-cell__hd"><img src="/assets/images/home/withdraw.png" alt=""
                                       style="width:20px;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
-        <span style="vertical-align: middle">存款提现</span>
+        <span style="vertical-align: middle">佣金提现</span>
       </div>
-      <div class="weui-cell__ft">余额：<em>￥504</em></div>
+      <div class="weui-cell__ft">余额：<em>￥{{user.amountMention}}</em></div>
     </a>
     <a class="weui-cell weui-cell_access" href="javascript:;">
       <div class="weui-cell__hd"><img src="/assets/images/home/red.png" alt=""
                                       style="width:20px;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
-        <span style="vertical-align: middle">红包记录</span>
+        <span style="vertical-align: middle">佣金记录</span>
       </div>
-      <div class="weui-cell__ft">本月共收取红包：<em>￥54</em></div>
+      <div class="weui-cell__ft">累计赚取佣金：<em>￥{{user.amountBalance}}</em></div>
     </a>
   </div>
 
-  <div class="weui-cells">
+  <!--<div class="weui-cells">
 
     <a routerLink="/admin/seller" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd"><img src="/assets/images/home/seller.png" alt=""
@@ -97,7 +97,7 @@
       </div>
       <div class="weui-cell__ft"></div>
     </a>
-  </div>
+  </div>-->
 
   <div class="weui-cells">
 
@@ -107,7 +107,7 @@
       <div class="weui-cell__bd">
         <p>我要推广</p>
       </div>
-      <div class="weui-cell__ft">您已发展了<em>5</em>名成员</div>
+      <div class="weui-cell__ft">您已发展了<em>0</em>名成员</div>
     </a>
   </div>
 

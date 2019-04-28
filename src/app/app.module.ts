@@ -27,7 +27,7 @@ import {MsgRedComponent} from './pages/msg/red/red.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ThemeModule.forRoot()
+    ThemeModule.forRoot(),
   ],
   providers: [INTERCEPTORS, {provide: 'PREFIX_URL', useValue: '/api/interface/call.html?action='}],
   bootstrap: [AppComponent]

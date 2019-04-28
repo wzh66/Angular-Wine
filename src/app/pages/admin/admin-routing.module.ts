@@ -40,7 +40,7 @@ const routes: Routes = [
     component: AdminOrderListComponent,
   },
   {
-    path: 'order/item/:id',
+    path: 'order/item/:no',
     component: AdminOrderItemComponent,
   },
   {path: 'setting/address', component: AdminSettingAddressComponent},

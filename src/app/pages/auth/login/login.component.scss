@@ -5,10 +5,14 @@
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
+    overflow: hidden;
     height: 1.67rem;
     .userinfo-avatar {
       width: 0.88rem;
       height: 0.88rem;
+      margin: 0.35rem auto 0 auto;
+      display: block;
+      border-radius: 50%;
     }
   }
 

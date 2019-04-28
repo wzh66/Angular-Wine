@@ -10,14 +10,15 @@ import {UserService} from '../../../@core/data/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class AdminHomeComponent implements OnInit {
-  key;
+  key = this.authSvc.getKey();
+  user;
 
   constructor(private dialogSvc: DialogService, private authSvc: AuthService, private userSvc: UserService) {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
     this.userSvc.get(this.key).subscribe(res => {
+      this.user = res;
       console.log(res);
     });
   }

@@ -3,6 +3,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DialogService} from 'ngx-weui';
 import {AuthService} from '../../auth/auth.service';
 import {UserService} from '../../../@core/data/user.service';
+import {H2cService} from '../../../@core/data/h2c.service';
+
+declare var QRCode: any;
+declare var html2canvas: any;
 
 @Component({
   selector: 'app-admin-share',
@@ -25,8 +29,17 @@ export class AdminShareComponent implements OnInit {
   ngOnInit() {
     this.key = this.authSvc.getKey();
     this.userSvc.get(this.key).subscribe(res => {
-      console.log(res);
-      this.user = res;
+      this.webHost = res.shortLinks;
+      console.log(res.shortLinks);
+
+      this.qrCode = new QRCode(document.getElementById('qrcode'), {
+        text: 'http://' + window.location.host + '/index?referee=' + this.authSvc.getUid(),
+        width: 256,
+        height: 256,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
     });
   }
 

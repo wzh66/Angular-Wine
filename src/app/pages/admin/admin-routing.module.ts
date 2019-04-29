@@ -19,6 +19,8 @@ import {AdminProfileComponent} from './profile/profile.component';
 
 import {AdminShareComponent} from './share/share.component';
 
+import {AdminCommissionListComponent} from './commission/list/list.component';
+
 const routes: Routes = [
   {
     path: '', redirectTo: 'order/list', pathMatch: 'full',
@@ -42,6 +44,10 @@ const routes: Routes = [
   {
     path: 'order/item/:no',
     component: AdminOrderItemComponent,
+  },
+  {
+    path: 'commission/list',
+    component: AdminCommissionListComponent,
   },
   {path: 'setting/address', component: AdminSettingAddressComponent},
   {path: 'setting/address/add', component: AdminSettingAddressAddComponent},

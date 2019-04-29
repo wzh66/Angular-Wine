@@ -17,6 +17,8 @@ import {AdminProfileComponent} from './profile/profile.component';
 
 import {AdminShareComponent} from './share/share.component';
 
+import {AdminCommissionListComponent} from './commission/list/list.component';
+
 export const ADMIN_PAGES = [
   AdminComponent,
   AdminHomeComponent,
@@ -31,5 +33,6 @@ export const ADMIN_PAGES = [
   AdminResellerComponent,
   AdminSellerComponent,
   AdminProfileComponent,
-  AdminShareComponent
+  AdminShareComponent,
+  AdminCommissionListComponent
 ];

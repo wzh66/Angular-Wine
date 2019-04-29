@@ -22,7 +22,7 @@
           <div class="pounds">
             <div class="weui-grids">
               <div *ngFor="let item of specs" class="weui-grid">
-                <span class="weui-grid__label" [ngClass]="{'selected':item.id === spec.id}">1磅</span>
+                <span (click)="select(item)" class="weui-grid__label" [ngClass]="{'selected':item.id === spec.id}">{{item.count}}{{item.unit}}</span>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
           重量
         </div>
         <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">≈{{spec.count * 450}}g</p>
+          <p class="weui-media-box__desc">≈{{spec.count * 100}}g</p>
         </div>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
@@ -41,7 +41,7 @@
           体积
         </div>
         <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">约{{spec.spec}}</p>
+          <p class="weui-media-box__desc">≈{{spec.count}}{{spec.unit}}</p>
         </div>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
@@ -60,6 +60,12 @@
           <weui-stepper [(ngModel)]="qty" [min]="1" [max]="10"></weui-stepper>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="weui-panel">
+    <div class="weui-panel__hd">详情</div>
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text" [innerHTML]="product.detail"></div>
     </div>
   </div>
 </app-content>

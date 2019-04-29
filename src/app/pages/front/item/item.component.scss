@@ -86,11 +86,16 @@
           }
         }
       }
-
-      margin-bottom: 0.5rem;
     }
   }
 }
+
+.weui-panel {
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
 .btns-group {
   bottom: 0.5rem;
   &.animated {

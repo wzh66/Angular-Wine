@@ -1,9 +1,9 @@
 <app-header [className]="''" [show]="true" [title]="'所有商品'"></app-header>
-<app-content [paddingFooter]="true" [paddingHeader]="true">
+<weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
   <div class="categories">
-    <swiper [config]="config" [index]="selected?.typeid" fxFlex="auto">
-      <span class="swiper-slide" *ngFor="let category of categories;let i = index" (click)="select(category)"
-            [ngClass]="{'selected':category.typeid === selected.typeid}">{{category.typename}}</span>
+    <swiper [config]="config" [index]="typeId" fxFlex="auto">
+      <span [routerLink]="['/front/list']" [queryParams]="{typeId: category.typeid}" class="swiper-slide" *ngFor="let category of categories;let i = index"
+            [ngClass]="{'selected':category.typeid == typeId}">{{category.typename}}</span>
     </swiper>
   </div>
   <div class="items">
@@ -17,11 +17,13 @@
           </div>
           <div class="item-txt">
             <div class="title">{{item.productname}}</div>
-            <div class="desc"><em class="money">{{item.price}}<i class="decimal">.00</i></em>元 /<span class="units">{{item.count}}{{item.unit}}</span></div>
+            <div class="desc"><em class="money">{{item.price}}<i class="decimal">.00</i></em>元 /<span
+              class="units">{{item.count}}{{item.unit}}</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</app-content>
+  <div class="black-space"></div>
+</weui-infiniteloader>
 <app-footer></app-footer>

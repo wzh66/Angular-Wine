@@ -1,7 +1,10 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {Slide} from '../../../@theme/animates/router.animation';
 import {CategoryService} from '../../../@core/data/category.service';
 import {ProdService} from './list.service';
+import {InfiniteLoaderComponent} from 'ngx-weui';
+import {timer as observableTimer} from 'rxjs';
 
 @Component({
   selector: 'app-front-list',
@@ -24,24 +27,43 @@ export class FrontListComponent implements OnInit {
     pagination: false
   };
   categories = [];
-  selected;
   items = [];
+  page = 1;
+  typeId;
+  @ViewChild(InfiniteLoaderComponent) il;
 
-  constructor(private categorySvc: CategoryService, private prodService: ProdService) {
+  constructor(private route: ActivatedRoute,
+              private categorySvc: CategoryService,
+              private prodService: ProdService) {
     categorySvc.get().subscribe(res => {
       this.categories = res;
-      this.selected = this.categories[0];
     });
-    prodService.list('', '', '', 1).subscribe(res => {
-      this.items = res;
+    route.queryParamMap.subscribe(() => {
+      this.typeId = this.route.snapshot.queryParams['typeId'] || '';
+      prodService.list(this.typeId, '', '', this.page).subscribe(res => {
+        this.items = res;
+      });
     });
   }
 
   ngOnInit() {
   }
 
-  select(item) {
-    this.selected = item;
+  onLoadMore(comp: InfiniteLoaderComponent) {
+    observableTimer(1500).subscribe(() => {
+      this.page = this.page + 1;
+
+      // 获取当前页数据
+      this.prodService.list(this.typeId, '', '', this.page).subscribe(res => {
+        this.items = res;
+        this.items = this.items.concat(res);
+        if (res.length < 20) {
+          comp.setFinished();
+          return;
+        }
+      });
+      comp.resolveLoading();
+    });
   }
 
 }

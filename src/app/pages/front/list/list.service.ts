@@ -13,6 +13,7 @@ export class ProdService {
   list(cid, word?, ord?, page?): Observable<any> {
     return this.http.get(this.prefix_url + 'getProductList' + '&cid=' + cid + '&word=' + word + '&ord=' + ord + '&page=' + page)
       .pipe(observableMargeMap((res: any) => {
+        console.log(res);
         return this.processResult(res);
       }));
   }

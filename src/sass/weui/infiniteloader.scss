@@ -1,0 +1,13 @@
+weui-infiniteloader {
+  .weui-infiniteloader__content {
+    padding-top: 0.48rem;
+    background: #fafafa;
+    box-sizing: border-box;
+    &:after {
+      content: "";
+      display: block;
+      height: 0.6rem;
+    }
+  }
+}
+

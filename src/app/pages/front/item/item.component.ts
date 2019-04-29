@@ -23,7 +23,7 @@ export class FrontItemComponent implements OnInit {
     slidesPerView: 'auto',
     pagination: true,
     autoplay: {
-      delay: 3000,
+      delay: 3000
     }
   };
 
@@ -51,6 +51,10 @@ export class FrontItemComponent implements OnInit {
       this.direction = res.direction;
       console.log(this.direction);
     });
+  }
+
+  select(spec) {
+    this.spec = spec;
   }
 
   checkout() {

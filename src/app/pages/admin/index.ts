@@ -9,7 +9,11 @@ import {AdminSettingAddressComponent} from './setting/address/address.component'
 import {AdminSettingAddressAddComponent} from './setting/address/add/add.component';
 import {AdminSettingAddressEditComponent} from './setting/address/edit/edit.component';
 
-import {AdminWithdrawComponent} from './withdraw/withdraw.component';
+// finance pages
+import {AdminFinanceComponent} from './finance/finance.component';
+import {AdminFinanceWithdrawComponent} from './finance/withdraw/withdraw.component';
+import {AdminFinanceRecordsComponent} from './finance/records/records.component';
+
 import {AdminResellerComponent} from './reseller/reseller.component';
 import {AdminSellerComponent} from './seller/seller.component';
 
@@ -29,7 +33,9 @@ export const ADMIN_PAGES = [
   AdminSettingAddressComponent,
   AdminSettingAddressAddComponent,
   AdminSettingAddressEditComponent,
-  AdminWithdrawComponent,
+  AdminFinanceComponent,
+  AdminFinanceWithdrawComponent,
+  AdminFinanceRecordsComponent,
   AdminResellerComponent,
   AdminSellerComponent,
   AdminProfileComponent,

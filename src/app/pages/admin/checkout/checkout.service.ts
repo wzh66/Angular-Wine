@@ -41,7 +41,7 @@ export class CheckoutService {
   }
 
   listener(key, orderNo): Observable<any> {
-    return this.http.get(this.prefix_url + 'getOrderInfo&key=' + key + '&orderNo=' + orderNo)
+    return this.http.get(this.prefix_url + 'getConsumeInfo&key=' + key + '&orderNo=' + orderNo)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

@@ -11,7 +11,10 @@ import {AdminSettingAddressComponent} from './setting/address/address.component'
 import {AdminSettingAddressAddComponent} from './setting/address/add/add.component';
 import {AdminSettingAddressEditComponent} from './setting/address/edit/edit.component';
 
-import {AdminWithdrawComponent} from './withdraw/withdraw.component';
+import {AdminFinanceComponent} from './finance/finance.component';
+import {AdminFinanceRecordsComponent} from './finance/records/records.component';
+import {AdminFinanceWithdrawComponent} from './finance/withdraw/withdraw.component';
+
 import {AdminResellerComponent} from './reseller/reseller.component';
 import {AdminSellerComponent} from './seller/seller.component';
 
@@ -53,7 +56,9 @@ const routes: Routes = [
   {path: 'setting/address/add', component: AdminSettingAddressAddComponent},
   {path: 'setting/address/edit/:id', component: AdminSettingAddressEditComponent},
 
-  {path: 'withdraw', component: AdminWithdrawComponent},
+  {path: 'finance', component: AdminFinanceComponent},
+  {path: 'finance/records', component: AdminFinanceRecordsComponent},
+  {path: 'finance/withdraw', component: AdminFinanceWithdrawComponent},
   {path: 'reseller', component: AdminResellerComponent},
   {path: 'seller', component: AdminSellerComponent},
   {path: 'profile', component: AdminProfileComponent},

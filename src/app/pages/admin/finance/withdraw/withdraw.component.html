@@ -1,0 +1,77 @@
+<app-header [className]="'scroll'" [show]="true" [title]="'提现'" [rightNav]="'custom'" [custom]="'记录'"></app-header>
+
+<div class="content-scrollable">
+  <div [formGroup]="withdrawForm" class="weui-cells weui-cells_form">
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('bankuser').invalid && isSubmit}">
+      <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="bankuser" type="text" placeholder="请输入姓名">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('phone').invalid && isSubmit}">
+      <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="phone" type="tel" pattern="[0-9]*" maxlength="11" placeholder="请输入手机号">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('money').invalid && isSubmit}">
+      <div class="weui-cell__hd"><label class="weui-label">元素</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="money" type="number" pattern="[0-9]*" placeholder="10元素=1元，100元素起提">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('tradePwd').invalid && isSubmit}">
+      <div class="weui-cell__hd"><label class="weui-label">交易密码</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="tradePwd" type="password" placeholder="请输入您的交易密码">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('alipayqrcode').invalid && isSubmit}">
+      <div class="weui-cell__bd">
+        <div class="weui-uploader">
+          <div class="weui-uploader__hd">
+            <p class="weui-uploader__title">支付宝收款码</p>
+            <!--<div class="weui-uploader__info">{{uploader?.uploadedCount}}/{{uploader?.queue?.length}}</div>-->
+          </div>
+          <div class="weui-uploader__bd">
+            <ul class="weui-uploader__files">
+              <li class="weui-uploader__file" *ngFor="let item of uploader.queue"
+                  [weui-thumb]="item._file"
+                  [ngClass]="{'weui-uploader__file_status': item.isError || item.isUploading}">
+                <div class="weui-uploader__file-content" *ngIf="item.isUploading">{{item.progress}}%</div>
+                <div class="weui-uploader__file-content" *ngIf="item.isError">
+                  <i class="weui-icon-warn"></i>
+                </div>
+              </li>
+            </ul>
+            <div *ngIf="uploader?.queue?.length < 1" class="weui-uploader__input-box">
+              <input class="weui-uploader__input" type="file" accept="image/*" multiple
+                     [weui-uploader-file]="uploader">
+            </div>
+          </div>
+        </div>
+        <!--<app-gallery [imgs]="img" [(show)]="imgShow" (delete)="onDel($event)"></app-gallery>-->
+      </div>
+    </div>
+  </div>
+  <div class="weui-cells__tips" style="color: #ff0000">温馨提示：1元素=0.1元，提现必须100元素(含)起提，提现元素必须是10的整数倍。</div>
+
+  <div class="btn-group">
+    <a (click)="confirm()" class="btn btn-confirm" [ngClass]="{'disabled' : withdrawForm.invalid}" href="javascript:;">确认</a>
+    <a (click)="cancel()" class="btn btn-cancel" href="javascript:;">返回</a>
+  </div>
+
+</div>

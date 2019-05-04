@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 import {ToastService, DialogService, UploaderOptions, Uploader} from 'ngx-weui';
 
@@ -13,26 +14,13 @@ import {FinanceService} from '../finance.service';
 })
 export class AdminFinanceWithdrawComponent implements OnInit {
 
-  appKey;
+  key;
   withdrawForm: FormGroup;
   isSubmit = false;
   loading = false;
 
-  uploader: Uploader = new Uploader(<UploaderOptions>{
-    url: '/wApi/interface/call.html?action=uploadAlipayQrCode',
-    headers: [],
-    params: {
-      key: ''
-    },
-    auto: true,
-    onUploadSuccess: (file, res) => {
-      console.log(res);
-      const _res = JSON.parse(res);
-      this.withdrawForm.get('alipayqrcode').setValue(_res.result);
-    }
-  });
-
-  constructor(private location: LocationStrategy,
+  constructor(private router: Router,
+              private location: LocationStrategy,
               private toastSvc: ToastService,
               private dialogSvc: DialogService,
               private authSvc: AuthService,
@@ -40,13 +28,10 @@ export class AdminFinanceWithdrawComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appKey = this.authSvc.getStorageKey();
-    this.uploader.options.params.key = this.appKey;
+    this.key = this.authSvc.getKey();
     this.withdrawForm = new FormGroup({
-      key: new FormControl(this.appKey, [Validators.required]),
-      phone: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
-      bankuser: new FormControl('', [Validators.required]),
-      alipayqrcode: new FormControl('', [Validators.required]),
+      key: new FormControl(this.key, [Validators.required]),
+      openId: new FormControl(this.authSvc.getOid(), [Validators.required]),
       money: new FormControl('', [Validators.required, Validators.min(100)]),
       tradePwd: new FormControl('', [Validators.required])
     });
@@ -67,7 +52,7 @@ export class AdminFinanceWithdrawComponent implements OnInit {
     }
 
     if (this.withdrawForm.get('money').value % 10 !== 0) {
-      this.dialogSvc.show({title: '温馨提示', content: '您的提现元素必须是10的整数倍', cancel: '', confirm: '我知道了'}).subscribe();
+      this.dialogSvc.show({title: '温馨提示', content: '您的提现金额必需是100的倍数', cancel: '', confirm: '我知道了'}).subscribe();
       return false;
     }
 
@@ -76,27 +61,23 @@ export class AdminFinanceWithdrawComponent implements OnInit {
     this.financeSvc.withdrawal(this.withdrawForm.value).subscribe(res => {
       this.toastSvc.hide();
       this.loading = false;
-      if (res.code === '0000') {
-        this.dialogSvc.show({
-          title: '温馨提示',
-          content: '您已成功提现' + this.withdrawForm.get('money').value + '个元素',
-          cancel: '返回上一页',
-          confirm: '继续提现'
-        }).subscribe((_res) => {
-          if (_res.value) {
-          } else {
-            this.location.back();
-          }
-        });
-      } else {
-        this.dialogSvc.show({
-          title: '温馨提示',
-          content: res.msg,
-          cancel: '',
-          confirm: '我知道了'
-        }).subscribe();
-      }
+      this.dialogSvc.show({
+        title: '温馨提示',
+        content: '您已成功提现' + this.withdrawForm.get('money').value + '元',
+        cancel: '返回上一页',
+        confirm: '继续提现'
+      }).subscribe((_res) => {
+        if (_res.value) {
+        } else {
+          this.location.back();
+        }
+      });
     });
+  }
+
+  onCustom(e) {
+    console.log(e);
+    this.router.navigate(['/admin/finance/records']);
   }
 
   cancel() {

@@ -1,5 +1,6 @@
+<!--
 <app-header [className]="''" [show]="true" [title]="'佣金记录'"></app-header>
-<weui-navbar *ngIf="records.length > 0" class="infiniteloader">
+<weui-navbar class="infiniteloader">
   <weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
     <weui-tab heading="消费记录" (select)="onSelect(0)">
       <app-msg *ngIf="records.length < 1 && tab === 0" (event)="onCancel($event)"
@@ -48,3 +49,4 @@
   </weui-infiniteloader>
 </weui-navbar>
 <app-footer></app-footer>
+-->

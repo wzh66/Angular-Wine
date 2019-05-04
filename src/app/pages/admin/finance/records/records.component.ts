@@ -24,11 +24,9 @@ export class AdminFinanceRecordsComponent implements OnInit {
 
   ngOnInit() {
     this.financeSvc.getWithdrawals(this.key, 1).subscribe(res => {
-      if (res.code === '0000') {
-        this.records = res.result.list;
-        console.log(this.records);
-        this.totalPages = res.result.totalPages;
-      }
+      this.records = res.list;
+      console.log(this.records);
+      this.totalPages = res.totalPages;
     });
   }
 
@@ -38,8 +36,8 @@ export class AdminFinanceRecordsComponent implements OnInit {
       this.page = this.page + 1;
 
       this.financeSvc.getWithdrawals(this.key, this.page).subscribe(res => {
-        this.records = this.records.concat(res.result.list);
-        this.totalPages = res.result.totalPages;
+        this.records = this.records.concat(res.list);
+        this.totalPages = res.totalPages;
       });
 
       if (this.page >= this.totalPages) {

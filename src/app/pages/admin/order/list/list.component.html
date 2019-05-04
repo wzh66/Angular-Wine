@@ -44,7 +44,14 @@
           <img class="weui-media-box__thumb" src="{{'/api' + item.productimg}}">
         </div>
         <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title">{{item.productname}}</h4>
+          <h4 class="weui-media-box__title">{{item.productname}}
+            <span class="right">
+              <span *ngIf="order?.status === 0">待付款</span>
+              <span *ngIf="order?.status === 1">待发货</span>
+              <span *ngIf="order?.status === 2">待收货</span>
+              <span *ngIf="order?.status === 3">已完成</span>
+          </span>
+          </h4>
           <p class="weui-media-box__desc" style="margin-top: 0.05rem"><em class="money"><i class="rmb">￥</i><span>{{item.buymoney}}</span><i
             class="decimal"></i></em><span class="units">/{{item.count}}{{item.unit}}</span></p>
           <p class="weui-media-box__desc">数量 x{{item.buycount}}</p>

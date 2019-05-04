@@ -189,7 +189,7 @@ export class AdminCheckoutComponent implements OnInit {
       this.showType = res.showType;
       if (this.showType === 0) {
         this.listenerTimer = observableInterval(3000).subscribe(() => {
-          this.checkoutSvc.listener(this.key, res.orderNo).subscribe(_res => {
+          this.checkoutSvc.listener(this.key, res.tradeNo).subscribe(_res => {
             this.toastSvc.hide();
             if (_res.consume.paystatus !== 0) {
               // this.userInfo.balance = _res.userInfo.balance;

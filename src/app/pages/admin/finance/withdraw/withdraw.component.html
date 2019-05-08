@@ -1,0 +1,31 @@
+<app-header [className]="'scroll'" [show]="true" [title]="'提现'" [rightNav]="'custom'" [custom]="'记录'" (onCustom)="onCustom($event)"></app-header>
+
+<div class="content-scrollable">
+  <div [formGroup]="withdrawForm" class="weui-cells weui-cells_form">
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('money').invalid && isSubmit}">
+      <div class="weui-cell__hd"><label class="weui-label">金额</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="money" type="number" pattern="[0-9]*" placeholder="请输入您的提现金额">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawForm.get('tradePwd').invalid && isSubmit}">
+      <div class="weui-cell__hd"><label class="weui-label">交易密码</label></div>
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="tradePwd" type="password" placeholder="请输入您的交易密码">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+  </div>
+  <div class="weui-cells__tips" style="color: #ff0000">温馨提示：提现必须100元起提，提现元素必须是100的整数倍。</div>
+
+  <div class="btns-group">
+    <a (click)="cancel()" class="btn btn-secondary" [ngClass]="{'disabled' : withdrawForm.invalid}" href="javascript:;">返回</a>
+    <a (click)="confirm()" class="btn btn-primary" href="javascript:;">确认</a>
+  </div>
+
+</div>

@@ -41,6 +41,7 @@ export class AdminCommissionListComponent implements OnInit {
   getData() {
     this.commissionSvc.list(this.key, 1, this.page).subscribe(res => {
       this.records = res;
+      console.log(this.records);
     });
   }
 

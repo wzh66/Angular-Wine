@@ -1,14 +1,14 @@
-<app-header [className]="'scroll'" [show]="true" [title]="'提现'" [rightNav]="'custom'" [custom]="'记录'"></app-header>
+<app-header [className]="'scroll'" [show]="true" [title]="'提现'"></app-header>
 <div *ngIf="user" class="weui-msg">
   <div class="weui-msg__icon-area"><i class="weui-icon_msg"><img src="/assets/images/withdraw/icon.png"></i></div>
   <div class="weui-msg__text-area">
-    <h2 class="weui-msg__title"><em class="money"><i class="rmb">￥</i><span>{{user.amountMention}}</span></em></h2>
+    <h2 class="weui-msg__title"><em class="money"><i class="rmb">￥</i><span>{{user.amountBalance}}</span></em></h2>
     <p class="weui-msg__desc">可提现佣金</p>
   </div>
   <div class="weui-msg__opr-area">
     <p class="weui-btn-area">
-      <a (click)="withdraw()" class="weui-btn weui-btn_primary">微信提现</a>
-      <a href="javascript:history.back();" class="weui-btn weui-btn_default">佣金记录</a>
+      <a routerLink="/admin/finance/withdraw" class="weui-btn weui-btn_primary">微信提现</a>
+      <a routerLink="/admin/finance/records" class="weui-btn weui-btn_default">提现记录</a>
     </p>
   </div>
   <p class="weui-cells__tips" style="text-align: left">

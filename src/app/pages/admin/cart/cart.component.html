@@ -1,6 +1,8 @@
 <app-header [className]="''" [leftNav]="'back'" [show]="true" [title]="'会员中心'" [rightNav]="'custom'" [custom]="'清空'"
             (onCustom)="onCustom($event)"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true" [monitor]="'scroll'">
+  <app-msg *ngIf="items.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty-cart.png"}'></app-msg>
   <div *ngFor="let item of items" class="weui-panel">
     <div class="weui-panel__bd">
       <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">

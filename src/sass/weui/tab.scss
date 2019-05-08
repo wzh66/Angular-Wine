@@ -1,0 +1,18 @@
+.infiniteloader {
+  .weui-tab__panel {
+    overflow: hidden;
+    .weui-infiniteloader {
+      box-sizing: border-box;
+      padding-top: 50px;
+      .weui-infiniteloader__content {
+        > .weui-tab,
+        > weui-tab {
+          display: none;
+        }
+        > .active {
+          display: block
+        }
+      }
+    }
+  }
+}

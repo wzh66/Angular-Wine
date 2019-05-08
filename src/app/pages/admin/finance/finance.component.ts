@@ -1,16 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {LocationStrategy} from '@angular/common';
-import {DialogService} from 'ngx-weui';
 import {AuthService} from '../../auth/auth.service';
+import {DialogService} from 'ngx-weui';
 import {UserService} from '../../../@core/data/user.service';
+import {LocationStrategy} from '@angular/common';
 
 @Component({
-  selector: 'app-admin-withdraw',
-  templateUrl: './withdraw.component.html',
-  styleUrls: ['./withdraw.component.scss']
+  selector: 'app-admin-finance',
+  templateUrl: './finance.component.html',
+  styleUrls: ['./finance.component.scss']
 })
-
-export class AdminWithdrawComponent implements OnInit {
+export class AdminFinanceComponent implements OnInit {
   key = this.authSvc.getKey();
   user;
 
@@ -34,4 +33,5 @@ export class AdminWithdrawComponent implements OnInit {
       });
     }
   }
+
 }

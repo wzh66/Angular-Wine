@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {LocationStrategy} from '@angular/common';
 import {ActionSheetConfig, ActionSheetService, ToastService, DialogService} from 'ngx-weui';
 import {DirectionService} from '../../../@theme/animates/direction.service';
 import {AuthService} from '../../auth/auth.service';
@@ -17,7 +18,7 @@ declare interface Wish {
 })
 export class AdminCartComponent implements OnInit {
   key;
-  items;
+  items = [];
   total = 0;
   wishes: Wish[] = [
     {text: '不需要', value: 1},
@@ -36,6 +37,7 @@ export class AdminCartComponent implements OnInit {
   cartForm: FormGroup;
 
   constructor(private actionSheetSvc: ActionSheetService,
+              private location: LocationStrategy,
               private toastSvc: ToastService,
               private dialogSvc: DialogService,
               private directionSvc: DirectionService,
@@ -125,5 +127,9 @@ export class AdminCartComponent implements OnInit {
         });
       }
     });
+  }
+
+  onCancel() {
+    this.location.back();
   }
 }

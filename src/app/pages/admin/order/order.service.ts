@@ -2,6 +2,7 @@ import {Injectable, Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of as observableOf} from 'rxjs';
 import {mergeMap as observableMargeMap} from 'rxjs/operators';
+
 import {formData} from '../../../utils/utils';
 
 @Injectable({providedIn: 'root'})
@@ -18,6 +19,12 @@ export class OrderService {
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));
+  }
+
+  pay(body): Observable<any> {
+    return this.http.post(this.prefix_url + 'orderPay', formData(body)).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
   }
 
   /*count(key): Observable<number> {

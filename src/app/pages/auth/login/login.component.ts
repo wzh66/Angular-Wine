@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
+import {LocationStrategy} from '@angular/common';
 
 import {interval as observableInterval, Observable} from 'rxjs';
 import {LoaderService} from '../../../@core/utils/loader.service';
@@ -8,6 +9,7 @@ import {AuthService} from '../auth.service';
 import {AppService} from '../../../app.service';
 import {DialogService} from 'ngx-weui';
 import {StorageService} from '../../../@core/utils/storage.service';
+import {OverlayService, OverlayComponent} from '../../../@theme/modules/overlay';
 
 declare var initGeetest: any;
 
@@ -25,7 +27,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
   callbackUrl;
   appConfig;
 
-  type = 'signIn';
+  type = this.route.snapshot.queryParams['type'] || 'signIn';
 
   signInForm: FormGroup;
   signUpForm: FormGroup;
@@ -45,8 +47,10 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private location: LocationStrategy,
               private storageSvc: StorageService,
               private appSvc: AppService,
+              private overlaySvc: OverlayService,
               private dialog: DialogService,
               private loadSvc: LoaderService,
               private authSvc: AuthService) {
@@ -71,7 +75,11 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       usid: new FormControl('', []),
       referee: new FormControl('', []),
       sourceChannel: new FormControl('', []),
-      agree: new FormControl('', [Validators.required, Validators.requiredTrue]),
+      agree: new FormControl('', [Validators.required, Validators.requiredTrue])
+    });
+
+    this.location.onPopState(state => {
+      this.overlaySvc.hide();
     });
 
     const openid = this.storageSvc.get('openid') ? this.storageSvc.get('openid') : '';
@@ -163,12 +171,6 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
             this.second = this.second - 1;
           }
         });
-      } else {
-        this.dialog.show({
-          content: res.msg,
-          cancel: '',
-          confirm: '我知道了'
-        }).subscribe();
       }
     });
   }
@@ -226,6 +228,15 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         this.dialog.show({content: res.msg, confirm: '我知道了'}).subscribe();
       }
     });
+  }
+
+  showOverlay() {
+    this.location.pushState('advert', 'overlay', this.location.path(), '');
+    this.overlaySvc.show();
+  }
+
+  back() {
+    this.location.back();
   }
 
   ngOnDestroy() {

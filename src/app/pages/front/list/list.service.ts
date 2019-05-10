@@ -10,10 +10,9 @@ export class ProdService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  list(cid, word?, ord?, page?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getProductList' + '&cid=' + cid + '&word=' + word + '&ord=' + ord + '&page=' + page)
+  list(typeId, word?, ord?, page?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getProductList' + '&typeId=' + typeId + '&word=' + word + '&ord=' + ord + '&page=' + page)
       .pipe(observableMargeMap((res: any) => {
-        console.log(res);
         return this.processResult(res);
       }));
   }

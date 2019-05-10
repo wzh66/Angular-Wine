@@ -4,6 +4,7 @@ import {Slide} from '../../@theme/animates/router.animation';
 
 import {OverlayService} from '../../@theme/modules/overlay';
 import {DirectionService} from '../../@theme/animates/direction.service';
+import {FooterService} from '../../@theme/modules/footer/footer.service';
 import {CategoryService} from '../../@core/data/category.service';
 import {IndexService} from './index.service';
 
@@ -27,7 +28,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     slidesPerView: 'auto',
     pagination: true,
     autoplay: {
-      delay: 3000,
+      delay: 3000
     }
   };
 
@@ -47,8 +48,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   constructor(private location: LocationStrategy,
               private directionSvc: DirectionService,
               private overlaySvc: OverlayService,
+              private footerSvc: FooterService,
               private categorySvc: CategoryService,
               private indexSvc: IndexService) {
+    footerSvc.setActive(0);
     this.directionSvc.get().subscribe(res => {
       this.direction = res.direction;
     });

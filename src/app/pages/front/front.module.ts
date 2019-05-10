@@ -7,7 +7,8 @@ import {FRONT_PAGES} from './index';
 @NgModule({
   imports: [
     FrontRoutingModule,
-    ThemeModule.forRoot()
+    ThemeModule.forRoot(),
+    ThemeModule
   ],
   declarations: [
     FRONT_PAGES

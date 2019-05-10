@@ -1,4 +1,5 @@
-<div class="setting-content content-scrollable has-footer">
+<app-header className="none" [show]="true" [title]="'添加收货地址'"></app-header>
+<div class="setting-content content-scrollable padding-header has-footer">
   <form novalidate [formGroup]="settingForm" (ngSubmit)="onSubmit()">
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell"

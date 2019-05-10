@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../auth/auth.service';
 import {AddressService} from '../setting/address/address.service';
 import {UserService} from '../../../@core/data/user.service';
@@ -20,9 +21,11 @@ export class AdminProfileComponent implements OnInit {
 
   constructor(private router: Router,
               private pickerSvc: PickerService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private addressSvc: AddressService,
               private userSvc: UserService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {

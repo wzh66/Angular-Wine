@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {StorageService} from '../../../../../@core/utils/storage.service';
+import {FooterService} from '../../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../../auth/auth.service';
 import {AddressService} from '../address.service';
 import {DialogService, PickerService} from 'ngx-weui';
@@ -27,8 +28,10 @@ export class AdminSettingAddressAddComponent implements OnInit, OnDestroy {
               private storageSvc: StorageService,
               private dialogSvc: DialogService,
               private pickerSvc: PickerService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private addressSvc: AddressService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {
@@ -70,19 +73,10 @@ export class AdminSettingAddressAddComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
     this.addressSvc.save(this.settingForm.value).subscribe(res => {
-      if (res.code === '0000') {
-        if (this.callbackUrl) {
-          this.router.navigate([this.callbackUrl]);
-        } else {
-          window.history.back();
-        }
+      if (this.callbackUrl) {
+        this.router.navigate([this.callbackUrl]);
       } else {
-        this.dialogSvc.show({
-          title: '系统提示',
-          content: res.msg,
-          cancel: '',
-          confirm: '我知道了'
-        }).subscribe();
+        window.history.back();
       }
     });
   }

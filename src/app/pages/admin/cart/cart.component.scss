@@ -53,6 +53,7 @@
   &.animated {
     opacity: 1 !important;
   }
+
   .num {
     position: absolute;
     top: -0.2rem;
@@ -63,6 +64,7 @@
     background: #fff5ec;
     width: 100%;
   }
+
   .total {
     height: 0.48rem;
     box-sizing: border-box;
@@ -80,6 +82,12 @@
       line-height: 0.38rem;
       font-size: 0.24rem;
       font-style: normal;
+
+      &::ng-deep {
+        i {
+          font-style: normal;
+        }
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {LocationStrategy} from '@angular/common';
 import {ActionSheetConfig, ActionSheetService, ToastService, DialogService} from 'ngx-weui';
 import {DirectionService} from '../../../@theme/animates/direction.service';
+import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from './cart.service';
 
@@ -41,11 +42,13 @@ export class AdminCartComponent implements OnInit {
               private toastSvc: ToastService,
               private dialogSvc: DialogService,
               private directionSvc: DirectionService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private cartSvc: CartService) {
     directionSvc.get().subscribe(res => {
       this.direction = res.direction;
     });
+    footerSvc.setActive(2);
   }
 
   ngOnInit() {
@@ -63,7 +66,7 @@ export class AdminCartComponent implements OnInit {
   getData() {
     this.cartSvc.get(this.key).subscribe(res => {
       this.items = res;
-      console.log(res);
+      this.cartSvc.updateCount(this.items.length);
       this.getTotal();
     });
   }

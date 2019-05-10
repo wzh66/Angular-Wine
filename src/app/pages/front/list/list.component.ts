@@ -1,6 +1,7 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Slide} from '../../../@theme/animates/router.animation';
+import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {CategoryService} from '../../../@core/data/category.service';
 import {ProdService} from './list.service';
 import {InfiniteLoaderComponent} from 'ngx-weui';
@@ -33,12 +34,15 @@ export class FrontListComponent implements OnInit {
   @ViewChild(InfiniteLoaderComponent) il;
 
   constructor(private route: ActivatedRoute,
+              private footerSvc: FooterService,
               private categorySvc: CategoryService,
               private prodService: ProdService) {
+    footerSvc.setActive(1);
     categorySvc.get().subscribe(res => {
       this.categories = res;
     });
     route.queryParamMap.subscribe(() => {
+      this.page = 1;
       this.typeId = this.route.snapshot.queryParams['typeId'] || '';
       prodService.list(this.typeId, '', '', this.page).subscribe(res => {
         this.items = res;
@@ -55,7 +59,6 @@ export class FrontListComponent implements OnInit {
 
       // 获取当前页数据
       this.prodService.list(this.typeId, '', '', this.page).subscribe(res => {
-        this.items = res;
         this.items = this.items.concat(res);
         if (res.length < 20) {
           comp.setFinished();

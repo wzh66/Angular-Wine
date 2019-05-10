@@ -20,10 +20,12 @@ export class CartService {
     }));
   }
 
-  count(key): Observable<number> {
-    return this.http.get(this.prefix_url + 'cartCount' + '&key=' + key).pipe(observableMargeMap((res: any) => {
-      return this.processResult(res);
-    }));
+  count(key): Observable<any> {
+    return this.http.get(this.prefix_url + 'cartCount' + '&key=' + key);
+  }
+
+  getCount(): Observable<number> {
+    return this.subject.asObservable();
   }
 
   updateCount(count: number) {

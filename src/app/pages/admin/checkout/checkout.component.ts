@@ -8,6 +8,7 @@ import {timer as observableTimer, interval as observableInterval} from 'rxjs';
 import {GeoService} from '../../../@core/data/geo.service';
 import {UaService} from '../../../@core/data/ua.service';
 import {DirectionService} from '../../../@theme/animates/direction.service';
+import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from '../cart/cart.service';
 import {AddressService} from '../setting/address/address.service';
@@ -63,6 +64,7 @@ export class AdminCheckoutComponent implements OnInit {
               private pickerSvc: PickerService,
               private directionSvc: DirectionService,
               private geoSvc: GeoService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private cartSvc: CartService,
               private addressSvc: AddressService,
@@ -71,6 +73,7 @@ export class AdminCheckoutComponent implements OnInit {
     directionSvc.get().subscribe(res => {
       this.direction = res.direction;
     });
+    footerSvc.setActive(2);
   }
 
   ngOnInit() {
@@ -79,7 +82,7 @@ export class AdminCheckoutComponent implements OnInit {
       payType: new FormControl('', [Validators.required]),
       key: new FormControl(this.key, [Validators.required]),
       returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),
-      deliveryType: new FormControl(0, [Validators.required]),
+      deliveryType: new FormControl(1, [Validators.required]),
       storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), [])
@@ -153,10 +156,6 @@ export class AdminCheckoutComponent implements OnInit {
     // });
   }
 
-  numChange(e) {
-    console.log(e);
-  }
-
   show(type) {
     if (type === 'address') {
       this.pickerSvc.show([this.addresses], '', [0], this.config).subscribe(res => {
@@ -174,6 +173,15 @@ export class AdminCheckoutComponent implements OnInit {
       this.payType = res.items[0];
       this.checkoutForm.get('payType').setValue(res.value);
     });
+  }
+
+  deliveryTypeChange(e) {
+    if (!e) {
+      this.checkoutForm.get('addrId').disable();
+    } else {
+      this.checkoutForm.get('addrId').enable();
+    }
+    this.checkoutForm.get('deliveryType').setValue(e ? 0 : 1);
   }
 
   checkout() {

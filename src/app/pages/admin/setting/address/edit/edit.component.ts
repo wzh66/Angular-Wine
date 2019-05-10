@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 
 import {StorageService} from '../../../../../@core/utils/storage.service';
+import {FooterService} from '../../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../../auth/auth.service';
 import {AddressService} from '../address.service';
 import {DialogService, PickerService} from 'ngx-weui';
@@ -26,8 +27,10 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
               private storageSvc: StorageService,
               private dialogSvc: DialogService,
               private pickerSvc: PickerService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private addressSvc: AddressService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {

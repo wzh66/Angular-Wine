@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {DialogService} from 'ngx-weui';
+
+import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../auth/auth.service';
 import {UserService} from '../../../@core/data/user.service';
 import {H2cService} from '../../../@core/data/h2c.service';
@@ -22,8 +24,10 @@ export class AdminShareComponent implements OnInit {
   @ViewChild('target') private target;
 
   constructor(private dialogSvc: DialogService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private userSvc: UserService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {

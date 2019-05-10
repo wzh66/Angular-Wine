@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LocationStrategy} from '@angular/common';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {StorageService} from '../../../../@core/utils/storage.service';
+import {FooterService} from '../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../auth/auth.service';
 import {AddressService} from './address.service';
 
@@ -17,11 +20,15 @@ export class AdminSettingAddressComponent implements OnInit {
   settingForm: FormGroup;
   loading = false;
 
-  addresses;
+  addresses = [];
 
-  constructor(private storageSvc: StorageService,
+  constructor(private router: Router,
+              private location: LocationStrategy,
+              private storageSvc: StorageService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private addressSvc: AddressService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {
@@ -50,4 +57,7 @@ export class AdminSettingAddressComponent implements OnInit {
     });
   }
 
+  back() {
+    this.location.back();
+  }
 }

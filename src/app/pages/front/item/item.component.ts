@@ -73,7 +73,6 @@ export class FrontItemComponent implements OnInit {
       qty: this.qty,
       remark: ''
     }).subscribe(res => {
-      console.log(res);
       this.cartSvc.updateCount(res.goodsCount);
       this.toastSvc.hide();
       this.toastSvc.success('成功加入购物车');

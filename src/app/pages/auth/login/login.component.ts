@@ -213,6 +213,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
 
     this.authSvc.signIn(this.signInForm.value).subscribe(res => {
       if (res.code === '0000') {
+        console.log(res);
         this.storageSvc.set('accessToken', JSON.stringify({
           id: res.result.id,
           key: res.result.key,

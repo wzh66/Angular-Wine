@@ -21,7 +21,9 @@ export class CartService {
   }
 
   count(key): Observable<any> {
-    return this.http.get(this.prefix_url + 'cartCount' + '&key=' + key);
+    return this.http.get(this.prefix_url + 'cartCount' + '&key=' + key).pipe(observableMargeMap((res: any) => {
+      return this.processResult(res);
+    }));
   }
 
   getCount(): Observable<number> {

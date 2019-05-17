@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, BehaviorSubject} from 'rxjs';
+import {take} from 'rxjs/operators';
 import {FOOTER_NAV_ITEMS} from './footer.config';
 
 import {StorageService} from '../../../@core/utils/storage.service';
@@ -18,12 +19,13 @@ export interface Nav {
 export class FooterService {
 
   items = new BehaviorSubject<Nav[]>(FOOTER_NAV_ITEMS);
+  private _items = FOOTER_NAV_ITEMS;
 
   constructor(private storageSvc: StorageService, private cartSvc: CartService) {
   }
 
   set(items) {
-    this.items.next(Object.assign(this.items, items));
+    this.items.next(items);
   }
 
   get(): Observable<any> {
@@ -31,40 +33,21 @@ export class FooterService {
   }
 
   setActive(index) {
-    this.get().subscribe(items => {
-      console.log(items);
-      items.forEach((item, i) => {
-        console.log(item);
-      });
-      // items.forEach((item, i) => {
-      //   items[i].selected = false;
-      // });
-      // items[index].selected = true;
-      // this.set(items);
+    this._items.forEach((item, i) => {
+      this._items[i].selected = false;
     });
-    // this.get().subscribe(items => {
-    //   const _items = items;
-    //   console.log(_items);
-    //   items.forEach((item, i) => {
-    //     items[i].selected = false;
-    //   });
-    //   items[index].selected = true;
-    //   this.set(items);
-    // });
+    this._items[index].selected = true;
+    this.items.next(this._items);
   }
 
   updateCartNum() {
-    // if (this.storageSvc.get('accessToken')) {
-    //   const accessToken = JSON.parse(this.storageSvc.get('accessToken'));
-    //
-    //   this.cartSvc.count(accessToken.key).subscribe(res => {
-    //     if (res.code === '0000') {
-    //       this.get().subscribe(items => {
-    //         items[2].badge = res;
-    //         this.set(items);
-    //       });
-    //     }
-    //   });
-    // }
+    if (this.storageSvc.get('accessToken')) {
+      const accessToken = JSON.parse(this.storageSvc.get('accessToken'));
+
+      this.cartSvc.count(accessToken.key).subscribe(res => {
+        this._items[2].badge = res;
+        this.items.next(this._items);
+      });
+    }
   }
 }

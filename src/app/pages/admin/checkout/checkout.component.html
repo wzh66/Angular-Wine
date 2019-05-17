@@ -10,7 +10,8 @@
     </div>
   </div>
   <div *ngIf="checkoutForm.get('deliveryType').value == 1" class="weui-panel weui-panel_access">
-    <div class="weui-panel__hd">配送信息<a *ngIf="address" (click)="show('address')" href="javascript:;" class="right">更换</a></div>
+    <div class="weui-panel__hd">配送信息<a *ngIf="address" (click)="show('address')" href="javascript:;"
+                                       class="right">更换</a></div>
     <div class="weui-panel__bd">
       <div (click)="show('address')" *ngIf="address" class="weui-media-box weui-media-box_text">
         <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}})</h4>
@@ -23,7 +24,8 @@
     </div>
   </div>
   <div *ngIf="checkoutForm.get('deliveryType').value == 0" class="weui-panel weui-panel_access">
-    <div class="weui-panel__hd">自提门店<a *ngIf="store" (click)="show('store')" href="javascript:;" class="right">更换</a></div>
+    <div class="weui-panel__hd">自提门店<a *ngIf="store" (click)="show('store')" href="javascript:;" class="right">更换</a>
+    </div>
     <div class="weui-panel__bd">
       <a (click)="show('store')" *ngIf="store" href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
@@ -35,7 +37,7 @@
         </div>
       </a>
       <div *ngIf="!store" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">该区域没有自提门店</h4>
+        <h4 class="weui-media-box__title"><em>该区域没有自提门店</em></h4>
       </div>
     </div>
   </div>
@@ -53,7 +55,8 @@
     <div class="weui-panel__ft">
       <a href="javascript:void(0);" class="weui-cell weui-cell_link">
         <div class="weui-cell__bd">共 <em>{{order?.goods.length}}</em> 件商品</div>
-        <span class="weui-cell__ft">合计：<em class="money" style="font-size: 0.18rem" [innerHTML]="order?.totalAmount | rmb"></em></span>
+        <span class="weui-cell__ft">合计：<em class="money" style="font-size: 0.18rem"
+                                           [innerHTML]="order?.totalAmount | rmb"></em></span>
       </a>
     </div>
   </div>
@@ -65,12 +68,12 @@
       <div class="weui-cell__ft">{{payType?.label}}</div>
     </a>
   </div>
-<!--  <label for="weuiAgree" class="weui-agree">-->
-<!--    <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">-->
-<!--    <span class="weui-agree__text">-->
-<!--                阅读并同意<a href="javascript:void(0);">《支付协议》</a>-->
-<!--            </span>-->
-<!--  </label>-->
+  <!--  <label for="weuiAgree" class="weui-agree">-->
+  <!--    <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">-->
+  <!--    <span class="weui-agree__text">-->
+  <!--                阅读并同意<a href="javascript:void(0);">《支付协议》</a>-->
+  <!--            </span>-->
+  <!--  </label>-->
 </app-content>
 <div class="btns-group animated" [ngClass]="{'slideInUp':direction === 'down','slideOutDown':direction === 'up'}">
   <div class="total">

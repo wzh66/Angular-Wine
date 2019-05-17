@@ -61,6 +61,9 @@ export class AdminFinanceWithdrawComponent implements OnInit {
     this.financeSvc.withdrawal(this.withdrawForm.value).subscribe(res => {
       this.toastSvc.hide();
       this.loading = false;
+      if (!res) {
+        return false;
+      }
       this.dialogSvc.show({
         title: '温馨提示',
         content: '您已成功提现' + this.withdrawForm.get('money').value + '元',

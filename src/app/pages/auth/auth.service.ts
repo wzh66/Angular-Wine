@@ -46,7 +46,11 @@ export class AuthService {
     if (this.storageSvc.get('openid')) {
       return this.storageSvc.get('openid');
     } else {
-      return '';
+      if (this.ua.isWx()) {
+        this.getKey();
+      } else {
+        return '';
+      }
     }
   }
 
@@ -122,7 +126,7 @@ export class AuthService {
   }
 
   logout() {
-    this.storageSvc.clear();
+    this.storageSvc.remove('accessToken');
     this.router.navigate(['/auth/login']);
   }
 }

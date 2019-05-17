@@ -6,6 +6,7 @@ import {timer as observableTimer} from 'rxjs';
 import {InfiniteLoaderComponent} from 'ngx-weui';
 
 import {Slide} from '../../../../@theme/animates/router.animation';
+import {FooterService} from '../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../auth/auth.service';
 import {OrderService} from '../order.service';
 
@@ -30,8 +31,10 @@ export class AdminOrderListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private location: LocationStrategy,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private orderSvc: OrderService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {

@@ -78,6 +78,11 @@
       line-height: 0.38rem;
       font-size: 0.24rem;
       font-style: normal;
+      &::ng-deep {
+        i {
+          font-style: normal;
+        }
+      }
     }
   }
 }

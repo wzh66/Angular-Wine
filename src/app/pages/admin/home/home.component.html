@@ -48,14 +48,15 @@
         <span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
       </div>
     </a>
-    <a routerLink="/admin/setting/address" class="weui-cell weui-cell_access">
+    <a (click)="toAddress(address)" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd"><img src="/assets/images/home/addr.png" alt=""
                                       style="width:20px;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">收货地址</span>
         <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
       </div>
-      <div class="weui-cell__ft">广东省广州市...</div>
+      <div
+        class="weui-cell__ft">{{address ? '[' + address.consignee + ']' + (address.province + address.city + address.district + address.address).slice(0, 10) + '...' : '您还没有收货地址，马上添加？'}}</div>
     </a>
   </div>
 
@@ -75,7 +76,7 @@
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">佣金提现</span>
       </div>
-      <div class="weui-cell__ft">余额：<em>￥{{user.amountBalance}}</em></div>
+      <div class="weui-cell__ft">余额：<em [innerHTML]="user.amountBalance | rmb"></em></div>
     </a>
     <a routerLink="/admin/commission/list" class="weui-cell weui-cell_access" href="javascript:;">
       <div class="weui-cell__hd"><img src="/assets/images/home/red.png" alt=""
@@ -83,7 +84,7 @@
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">佣金记录</span>
       </div>
-      <div class="weui-cell__ft">累计赚取佣金：<em>￥{{user.amountCount}}</em></div>
+      <div class="weui-cell__ft">累计赚取佣金：<em [innerHTML]="user.amountCount | rmb"></em></div>
     </a>
   </div>
 

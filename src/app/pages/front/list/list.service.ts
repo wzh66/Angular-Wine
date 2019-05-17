@@ -10,10 +10,9 @@ export class ProdService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  list(cid, word?, ord?, page?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getProductList' + '&cid=' + cid + '&word=' + word + '&ord=' + ord + '&page=' + page)
+  list(typeId, word?, ord?, page?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getProductList' + '&typeId=' + typeId + '&word=' + word + '&ord=' + ord + '&page=' + page)
       .pipe(observableMargeMap((res: any) => {
-        console.log(res);
         return this.processResult(res);
       }));
   }
@@ -28,10 +27,8 @@ export class ProdService {
   protected processResult(res): Observable<any> {
     if (res.code === '0000') {
       return observableOf(res.result);
-    } else if (res.code === '1001') {
-      return observableOf(res.result);
     } else {
-      this.dialogSvc.show({title: '', content: res.msg, confirm: '我知道了', cancel: ''}).subscribe();
+      return observableOf(null);
     }
   }
 }

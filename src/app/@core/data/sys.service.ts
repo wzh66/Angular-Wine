@@ -24,9 +24,8 @@ export class SysService {
   protected processResult(res): Observable<any> {
     if (res.code === '0000') {
       return observableOf(res.result);
-    } else if (res.code === '1001') {
     } else {
-      this.dialogSvc.show({title: '', content: res.msg, confirm: '我知道了', cancel: ''}).subscribe();
+      return observableOf(null);
     }
   }
 }

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FooterService} from '../../../@theme/modules/footer/footer.service';
 
 @Component({
   selector: 'app-admin-seller',
@@ -7,7 +8,8 @@ import {Component, OnInit} from '@angular/core';
 })
 
 export class AdminSellerComponent implements OnInit {
-  constructor() {
+  constructor(private footerSvc: FooterService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {

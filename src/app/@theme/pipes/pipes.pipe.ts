@@ -63,3 +63,27 @@ export class PicNumberPipe implements PipeTransform {
     return html;
   }
 }
+
+@Pipe({
+  name: 'rmb',
+  pure: false
+})
+// <em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i class="decimal">.00</i></em>
+@Injectable()
+export class RmbPipe implements PipeTransform {
+  transform(num): any {
+    if (!num && num !== 0) {
+      return num;
+    }
+    const numStr = num.toString();
+    let result = '';
+    if (numStr.indexOf('.') === -1) {
+      result = '<i class="rmb">￥</i><span>' + num + '</span><i class="decimal">.00</i>';
+    } else {
+      const numArr = numStr.split('.');
+      result = '<i class="rmb">￥</i><span>' + numArr[0] + '</span><i class="decimal">.' + numArr[1] + '</i>';
+    }
+
+    return result;
+  }
+}

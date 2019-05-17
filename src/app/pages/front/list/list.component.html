@@ -17,8 +17,7 @@
           </div>
           <div class="item-txt">
             <div class="title">{{item.productname}}</div>
-            <div class="desc"><em class="money">{{item.price}}<i class="decimal">.00</i></em>元 /<span
-              class="units">{{item.count}}{{item.unit}}</span></div>
+            <div class="desc"><em class="money" [innerHTML]="item.price | rmb"></em> /<span class="units">{{item.count}}{{item.unit}}</span></div>
           </div>
         </div>
       </div>

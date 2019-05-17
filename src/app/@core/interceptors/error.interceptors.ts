@@ -11,6 +11,7 @@ import {ToastService} from 'ngx-weui';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  private status = false;
 
   constructor(private router: Router,
               private toastSvc: ToastService,
@@ -29,22 +30,28 @@ export class ErrorInterceptor implements HttpInterceptor {
   private handleResponse(res: any): void {
     if (res.body) {
       if (res.body.code !== '0000') {
-        if (res.body.code === '1001') {
-          this.dialogSvc.show({
-            title: '',
-            content: res.body.msg,
-            cancel: '',
-            confirm: '现在登录'
-          }).subscribe(value => {
-            this.authSvc.requestAuth();
-          });
-        } else {
-          this.dialogSvc.show({
-            title: '',
-            content: res.body.msg,
-            cancel: '',
-            confirm: '我知道了'
-          }).subscribe();
+        if (!this.status) {
+          this.status = true;
+          if (res.body.code === '1001') {
+            this.dialogSvc.show({
+              title: '',
+              content: res.body.msg,
+              cancel: '',
+              confirm: '现在登录'
+            }).subscribe(value => {
+              this.authSvc.requestAuth();
+              this.status = false;
+            });
+          } else {
+            this.dialogSvc.show({
+              title: '',
+              content: res.body.msg,
+              cancel: '',
+              confirm: '我知道了'
+            }).subscribe(() => {
+              this.status = false;
+            });
+          }
         }
       }
     }

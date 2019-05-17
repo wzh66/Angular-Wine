@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 import {Slide} from '../../../../@theme/animates/router.animation';
+import {FooterService} from '../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../auth/auth.service';
 import {OrderService} from '../order.service';
 import {interval as observableInterval, timer as observableTimer} from 'rxjs';
@@ -52,9 +53,11 @@ export class AdminOrderItemComponent implements OnInit {
               private toastSvc: ToastService,
               private pickerSvc: PickerService,
               private uaSvc: UaService,
+              private footerSvc: FooterService,
               private authSvc: AuthService,
               private orderSvc: OrderService,
               private checkoutSvc: CheckoutService) {
+    footerSvc.setActive(3);
   }
 
   ngOnInit() {

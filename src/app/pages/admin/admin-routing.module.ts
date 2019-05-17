@@ -26,31 +26,31 @@ import {AdminCommissionListComponent} from './commission/list/list.component';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'order/list', pathMatch: 'full',
+    path: '', redirectTo: 'order/list', pathMatch: 'full'
   },
   {
     path: 'home',
-    component: AdminHomeComponent,
+    component: AdminHomeComponent
   },
   {
     path: 'cart',
-    component: AdminCartComponent,
+    component: AdminCartComponent
   },
   {
     path: 'checkout',
-    component: AdminCheckoutComponent,
+    component: AdminCheckoutComponent
   },
   {
     path: 'order/list',
-    component: AdminOrderListComponent,
+    component: AdminOrderListComponent
   },
   {
     path: 'order/item/:no',
-    component: AdminOrderItemComponent,
+    component: AdminOrderItemComponent
   },
   {
     path: 'commission/list',
-    component: AdminCommissionListComponent,
+    component: AdminCommissionListComponent
   },
   {path: 'setting/address', component: AdminSettingAddressComponent},
   {path: 'setting/address/add', component: AdminSettingAddressAddComponent},

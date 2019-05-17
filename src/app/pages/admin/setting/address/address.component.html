@@ -1,5 +1,7 @@
-<app-header className="none" [show]="true" [title]="'收货地址'" [rightNav]="'search'"></app-header>
+<app-header className="none" [show]="true" [title]="'收货地址'"></app-header>
 <div class="setting-content content-scrollable padding-header padding-footer">
+  <app-msg *ngIf="addresses.length === 0"
+           [msg]='{title:"",desc:"您还没有添加任何地址!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
   <form novalidate [formGroup]="settingForm">
     <div *ngFor="let address of addresses" class="weui-cells weui-cells_checkbox">
       <div class="weui-cell weui-check__label">
@@ -15,15 +17,19 @@
       <div class="weui-cell weui-cell_link">
         <div class="weui-cell__bd"></div>
         <div class="weui-cell__ft">
-          <span [routerLink]="['/admin/setting/address/edit',address.id]"><i class="icon-edit"></i> <span>编辑</span></span>
+          <span [routerLink]="['/admin/setting/address/edit',address.id]"><i
+            class="icon-edit"></i> <span>编辑</span></span>
           <em (click)="del(address.id)"><i class="icon-trash"></i> <span>删除</span></em>
         </div>
       </div>
     </div>
 
     <div class="weui-btn-area">
-      <a routerLink="/admin/setting/address/add" weui-button [weui-type]="'primary'">
+      <a [routerLink]="['/admin/setting/address/edit',0]" weui-button [weui-type]="'primary'">
         添加新地址
+      </a>
+      <a (click)="back()" weui-button [weui-type]="'default'">
+        返回
       </a>
     </div>
   </form>

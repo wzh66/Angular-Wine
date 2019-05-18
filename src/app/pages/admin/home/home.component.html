@@ -112,7 +112,7 @@
     </a>
   </div>
 
-  <div class="weui-btn-area">
+  <div *ngIf="!uaSvc.isWx()" class="weui-btn-area">
     <a (click)="logout()" class="weui-btn weui-btn_default" href="javascript:">退出登录</a>
   </div>
 

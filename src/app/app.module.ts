@@ -7,6 +7,7 @@ import {ThemeModule} from './@theme/theme.module';
 
 import {INTERCEPTORS} from './@core/interceptors';
 
+import {AuthGuard} from './guard/_guard';
 import {AppComponent} from './app.component';
 import {PAGES} from './pages';
 import {MsgSuccessComponent} from './pages/msg/success/success.component';
@@ -27,9 +28,9 @@ import {MsgRedComponent} from './pages/msg/red/red.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ThemeModule.forRoot(),
+    ThemeModule.forRoot()
   ],
-  providers: [INTERCEPTORS, {provide: 'PREFIX_URL', useValue: '/api/interface/call.html?action='}],
+  providers: [AuthGuard, INTERCEPTORS, {provide: 'PREFIX_URL', useValue: '/api/interface/call.html?action='}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogService} from 'ngx-weui';
 
+import {UaService} from '../../../@core/data/ua.service';
 import {AuthService} from '../../auth/auth.service';
 import {UserService} from '../../../@core/data/user.service';
 import {AddressService} from '../setting/address/address.service';
@@ -18,6 +19,7 @@ export class AdminHomeComponent implements OnInit {
   address;
 
   constructor(private router: Router,
+              public uaSvc: UaService,
               private dialogSvc: DialogService,
               private footerSvc: FooterService,
               private authSvc: AuthService,

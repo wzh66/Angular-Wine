@@ -14,6 +14,12 @@ import {UaService} from '../../@core/data/ua.service';
 export class AuthService {
 
   private redirectUrl = '';
+  private accessToken = {
+    key: '',
+    id: '',
+    openid: '',
+    expires_time: null
+  };
 
   constructor(@Inject('PREFIX_URL') private prefix_url,
               private router: Router,
@@ -33,7 +39,29 @@ export class AuthService {
     }
 
     this.redirectUrl = this.router.url;
-    window.location.href = '/auth/login?callbackUrl=' + this.redirectUrl;
+    if (this.ua.isWx()) {// 微信环境
+      const openid = this.route.snapshot.queryParams['openid'];
+      const key = this.route.snapshot.queryParams['key'];
+      const id = this.route.snapshot.queryParams['id'];
+      if (!openid) {// 无openid
+        window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+      } else {
+        if (!key) {// 无key
+          return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
+        } else {// 有key
+          const expires_time = Date.parse(String(new Date())) + 144000000;
+          this.storageSvc.set('accessToken', JSON.stringify({
+            key: key,
+            id: id,
+            openid: openid,
+            expires_time: expires_time
+          }));
+          this.router.navigate([this.location.path().split('?')[0]]);
+        }
+      }
+    } else {// 非微信环境
+      this.router.navigate(['/auth/login'], {queryParams: {callbackUrl: this.router.url}});
+    }
   }
 
   getUid() {
@@ -43,45 +71,39 @@ export class AuthService {
   }
 
   getOid() {
-    if (this.storageSvc.get('openid')) {
-      return this.storageSvc.get('openid');
-    } else {
-      if (this.ua.isWx()) {
-        this.getKey();
-      } else {
-        return '';
-      }
+    if (this.storageSvc.get('accessToken')) {
+      return JSON.parse(this.storageSvc.get('accessToken')).openid;
     }
   }
 
-  getKey() {
-    // this.redirectUrl = this.router.url;
-    let accessToken, openid, key, id;
+  isLogin() {
+    return !!this.accessToken.key;
+  }
 
+  getKey() {
     // 判断accessToken是否在存并是否过期
-    if (this.storageSvc.get('accessToken') &&
-      JSON.parse(this.storageSvc.get('accessToken')).expires_time > Date.parse(String(new Date()))) {
-      accessToken = JSON.parse(this.storageSvc.get('accessToken'));
-      return accessToken.key;
+    if (this.storageSvc.get('accessToken')) {
+      return JSON.parse(this.storageSvc.get('accessToken')).key;
     } else {// accessToken不存在或已过期
       if (this.ua.isWx()) {// 微信环境
-        if (this.route.snapshot.queryParams['key']) {
-          key = this.route.snapshot.queryParams['key'];
-          id = this.route.snapshot.queryParams['id'];
-          openid = this.route.snapshot.queryParams['openid'];
-          this.storageSvc.set('accessToken', JSON.stringify({
-            id: id,
-            key: key,
-            expires_time: Date.parse(String(new Date())) + 144000000
-          }));
-          this.storageSvc.set('openid', openid);
-          this.router.navigate([this.location.path().split('?')[0]]);
-        } else if (this.route.snapshot.queryParams['openid']) {// url中存在openId;
-          openid = this.route.snapshot.queryParams['openid'];
-          this.storageSvc.set('openid', openid);
-          return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
-        } else {// url中不存在openId;
+        const openid = this.route.snapshot.queryParams['openid'];
+        const key = this.route.snapshot.queryParams['key'];
+        const id = this.route.snapshot.queryParams['id'];
+        if (!openid) {// 无openid
           window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+        } else {
+          if (!key) {// 无key
+            return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
+          } else {// 有key
+            const expires_time = Date.parse(String(new Date())) + 144000000;
+            this.storageSvc.set('accessToken', JSON.stringify({
+              key: key,
+              id: id,
+              openid: openid,
+              expires_time: expires_time
+            }));
+            return key;
+          }
         }
       } else {// 非微信环境
         this.router.navigate(['/auth/login'], {queryParams: {callbackUrl: this.router.url}});

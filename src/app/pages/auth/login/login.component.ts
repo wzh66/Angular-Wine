@@ -82,7 +82,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       this.overlaySvc.hide();
     });
 
-    const openid = this.storageSvc.get('openid') ? this.storageSvc.get('openid') : '';
+    const openid = this.authSvc.getOid();
     const referee = this.storageSvc.get('referee') ? this.storageSvc.get('referee') : '';
     const sourceChannel = this.storageSvc.get('sourceChannel') ? this.storageSvc.get('sourceChannel') : '';
 
@@ -217,6 +217,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         this.storageSvc.set('accessToken', JSON.stringify({
           id: res.result.id,
           key: res.result.key,
+          openid: res.result.openid || this.authSvc.getOid(),
           expires_time: Date.parse(String(new Date())) + 144000000
         }));
 

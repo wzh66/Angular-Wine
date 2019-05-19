@@ -18,7 +18,6 @@ export class FooterComponent {
               private cartSvc: CartService,
               private footer: FooterService) {
     footer.get().subscribe(items => {
-      console.log(items);
       this.items = items;
     });
     cartSvc.getCount().subscribe(res => {

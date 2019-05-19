@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {AuthGuard} from './guard/_guard';
 import {IndexComponent} from './pages/index/index.component';
 import {CacheComponent} from './pages/cache/cache.component';
 import {RedirectComponent} from './pages/redirect/redirect.component';

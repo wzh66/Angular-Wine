@@ -1,6 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {Slide} from '../../@theme/animates/router.animation';
 
+import {AuthService} from '../auth/auth.service';
+
 @Component({
   selector: 'app-cache',
   templateUrl: './cache.component.html',
@@ -12,9 +14,12 @@ export class CacheComponent implements OnInit {
   /*@HostBinding('@slide') get slide() {
     return 'right';
   }*/
+  accessToken;
 
   // 路由动画 结束
-  constructor() { }
+  constructor(public authSvc: AuthService) {
+    this.accessToken = authSvc.getToken();
+  }
 
   ngOnInit() {
   }

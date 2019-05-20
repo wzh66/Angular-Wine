@@ -27,7 +27,9 @@ export class AdminHomeComponent implements OnInit {
               private addressSvc: AddressService) {
     footerSvc.setActive(3);
     addressSvc.get(this.key).subscribe(res => {
-      console.log(res);
+      if (!res) {
+        return false;
+      }
       this.address = res.list[0];
       res.list.forEach(address => {
         if (address.status === 1) {
@@ -40,6 +42,9 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit() {
     this.userSvc.get(this.key).subscribe(res => {
+      if (!res) {
+        return false;
+      }
       this.user = res;
     });
   }
@@ -48,7 +53,7 @@ export class AdminHomeComponent implements OnInit {
     if (hasAddr) {
       this.router.navigate(['/admin/setting/address']);
     } else {
-      this.router.navigate(['/admin/setting/address/add']);
+      this.router.navigate(['/admin/setting/address/edit/0']);
     }
   }
 

@@ -64,6 +64,12 @@ export class AuthService {
     }
   }
 
+  getToken() {
+    if (this.storageSvc.get('accessToken')) {
+      return JSON.parse(this.storageSvc.get('accessToken'));
+    }
+  }
+
   getUid() {
     if (this.storageSvc.get('accessToken')) {
       return JSON.parse(this.storageSvc.get('accessToken')).id;

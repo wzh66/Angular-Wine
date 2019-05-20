@@ -75,7 +75,7 @@ export class RmbPipe implements PipeTransform {
     if (!num && num !== 0) {
       return num;
     }
-    const numStr = num.toString();
+    const numStr = num.toFixed(2).toString();
     let result = '';
     if (numStr.indexOf('.') === -1) {
       result = '<i class="rmb">￥</i><span>' + num + '</span><i class="decimal">.00</i>';

@@ -5,6 +5,7 @@ import {PickerService, PickerConfig, ToastService, DialogService, MaskComponent}
 
 import {timer as observableTimer, interval as observableInterval} from 'rxjs';
 
+import {StorageService} from '../../../@core/utils/storage.service';
 import {GeoService} from '../../../@core/data/geo.service';
 import {UaService} from '../../../@core/data/ua.service';
 import {DirectionService} from '../../../@theme/animates/direction.service';
@@ -59,6 +60,7 @@ export class AdminCheckoutComponent implements OnInit {
 
   constructor(private router: Router,
               private uaSvc: UaService,
+              private storageSvc: StorageService,
               private toastSvc: ToastService,
               private dialogSvc: DialogService,
               private pickerSvc: PickerService,
@@ -119,26 +121,7 @@ export class AdminCheckoutComponent implements OnInit {
         });
         this.addresses = addresses;
         this.checkoutForm.get('addrId').setValue(this.address.id);
-        this.storeSvc.get({key: this.key, addrId: this.checkoutForm.get('addrId').value}).subscribe(_res => {
-          this.store = _res[0];
-          const stores = [];
-          _res.forEach(store => {
-            stores.push({
-              label: '[' + store.storename + ']' + store.address,
-              value: store
-            });
-          });
-          this.stores = stores;
-          this.checkoutForm.get('storeId').setValue(this.store.id);
-          if (this.stores.length < 1) {
-            this.dialogSvc.show({
-              title: '',
-              content: this.checkoutForm.get('deliveryType').value ? '该区域暂时没有开通配送服务' : '该区域暂时没有自提门店',
-              cancel: '',
-              confirm: '我知道了'
-            }).subscribe();
-          }
-        });
+        this.getStore();
       }
     });
     // this.geoSvc.get().then((res) => {
@@ -156,13 +139,46 @@ export class AdminCheckoutComponent implements OnInit {
     // });
   }
 
+  getStore() {
+    this.storeSvc.get({key: this.key, addrId: this.checkoutForm.get('addrId').value}).subscribe(_res => {
+      const stores = [];
+      _res.forEach(store => {
+        stores.push({
+          label: '[' + store.storename + ']' + store.address,
+          value: store
+        });
+      });
+      this.stores = stores;
+      if (this.stores.length < 1) {
+        this.dialogSvc.show({
+          title: '',
+          content: this.checkoutForm.get('deliveryType').value ? '该区域暂时没有开通配送服务，请另选配送地址' : '该区域暂时没有自提门店',
+          cancel: '',
+          confirm: '我知道了'
+        }).subscribe();
+      } else {
+        this.store = _res[0];
+        console.log(this.store);
+        this.checkoutForm.get('storeId').setValue(this.store.id);
+      }
+    });
+  }
+
   show(type) {
     if (type === 'address') {
       this.pickerSvc.show([this.addresses], '', [0], this.config).subscribe(res => {
+        this.store = '';
+        this.checkoutForm.get('storeId').setValue('');
+        this.checkoutForm.get('addrId').setValue('');
+        this.address = res.value;
         this.checkoutForm.get('addrId').setValue(res.value.id);
+        this.getStore();
       });
     } else {
       this.pickerSvc.show([this.stores], '', [0], this.config).subscribe(res => {
+        this.checkoutForm.get('storeId').setValue('');
+        this.checkoutForm.get('addrId').setValue('');
+        this.store = res.value;
         this.checkoutForm.get('storeId').setValue(res.value.id);
       });
     }
@@ -177,9 +193,9 @@ export class AdminCheckoutComponent implements OnInit {
 
   deliveryTypeChange(e) {
     if (!e) {
-      this.checkoutForm.get('addrId').disable();
-    } else {
       this.checkoutForm.get('addrId').enable();
+    } else {
+      this.checkoutForm.get('addrId').disable();
     }
     this.checkoutForm.get('deliveryType').setValue(e ? 0 : 1);
   }

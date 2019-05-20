@@ -33,20 +33,18 @@ export class AdminProfileComponent implements OnInit {
 
     this.profileForm = new FormGroup({
       key: new FormControl(this.authSvc.getKey(), [Validators.required]),
-      username: new FormControl(this.authSvc.getKey(), [Validators.required]),
-      phone: new FormControl(this.authSvc.getKey(), [Validators.required]),
-      addressId: new FormControl(this.authSvc.getKey(), [Validators.required])
+      username: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
+      addressId: new FormControl('', [Validators.required])
     });
 
     this.userSvc.get(this.key).subscribe(res => {
-      console.log(res);
       this.profileForm.get('username').setValue(res.username);
       this.profileForm.get('phone').setValue(res.phone);
     });
     this.addressSvc.get(this.key).subscribe(res => {
       const addresses = [];
       res.list.forEach(address => {
-        console.log(address);
         const item = {
           label: address.consignee + ' ' + address.province + address.city + address.district + address.address,
           value: address.id
@@ -62,7 +60,7 @@ export class AdminProfileComponent implements OnInit {
 
   showPicker() {
     if (this.addresses.length < 1) {
-      this.router.navigate(['/admin/setting/address/add']);
+      this.router.navigate(['/admin/setting/address/edit/0']);
       return false;
     }
     this.pickerSvc.show([this.addresses], '', [0], {cancel: '取消', confirm: '确认'}).subscribe(res => {

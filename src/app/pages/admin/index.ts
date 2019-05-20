@@ -6,7 +6,6 @@ import {AdminOrderListComponent} from './order/list/list.component';
 import {AdminOrderItemComponent} from './order/item/item.component';
 
 import {AdminSettingAddressComponent} from './setting/address/address.component';
-import {AdminSettingAddressAddComponent} from './setting/address/add/add.component';
 import {AdminSettingAddressEditComponent} from './setting/address/edit/edit.component';
 
 // finance pages
@@ -31,7 +30,6 @@ export const ADMIN_PAGES = [
   AdminOrderListComponent,
   AdminOrderItemComponent,
   AdminSettingAddressComponent,
-  AdminSettingAddressAddComponent,
   AdminSettingAddressEditComponent,
   AdminFinanceComponent,
   AdminFinanceWithdrawComponent,

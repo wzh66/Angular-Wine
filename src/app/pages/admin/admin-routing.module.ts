@@ -8,7 +8,6 @@ import {AdminOrderListComponent} from './order/list/list.component';
 import {AdminOrderItemComponent} from './order/item/item.component';
 
 import {AdminSettingAddressComponent} from './setting/address/address.component';
-import {AdminSettingAddressAddComponent} from './setting/address/add/add.component';
 import {AdminSettingAddressEditComponent} from './setting/address/edit/edit.component';
 
 import {AdminFinanceComponent} from './finance/finance.component';
@@ -53,7 +52,6 @@ const routes: Routes = [
     component: AdminCommissionListComponent
   },
   {path: 'setting/address', component: AdminSettingAddressComponent},
-  {path: 'setting/address/add', component: AdminSettingAddressAddComponent},
   {path: 'setting/address/edit/:id', component: AdminSettingAddressEditComponent},
 
   {path: 'finance', component: AdminFinanceComponent},

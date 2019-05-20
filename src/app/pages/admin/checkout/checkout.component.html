@@ -17,14 +17,15 @@
         <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}})</h4>
         <p class="weui-media-box__desc">{{address.province + address.city + address.district + address.address}}</p>
       </div>
-      <div *ngIf="!address" routerLink="/admin/setting/address/add" class="weui-media-box weui-media-box_text">
+      <div *ngIf="!address" routerLink="/admin/setting/address/edit/0" class="weui-media-box weui-media-box_text">
         <h4 class="weui-media-box__title">您还没有配送信息</h4>
         <p class="weui-media-box__desc">马上添加</p>
       </div>
     </div>
   </div>
-  <div *ngIf="checkoutForm.get('deliveryType').value == 0" class="weui-panel weui-panel_access">
-    <div class="weui-panel__hd">自提门店<a *ngIf="store" (click)="show('store')" href="javascript:;" class="right">更换</a>
+  <div class="weui-panel weui-panel_access">
+    <div class="weui-panel__hd">{{checkoutForm.get('deliveryType').value == 0 ? '自提' : '配送'}}门店
+      <a *ngIf="store" (click)="show('store')" href="javascript:;" class="right">更换</a>
     </div>
     <div class="weui-panel__bd">
       <a (click)="show('store')" *ngIf="store" href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
@@ -37,7 +38,7 @@
         </div>
       </a>
       <div *ngIf="!store" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title"><em>该区域没有自提门店</em></h4>
+        <h4 class="weui-media-box__title"><em>该区域没有服务门店</em></h4>
       </div>
     </div>
   </div>
@@ -53,10 +54,16 @@
       </div>
     </div>
     <div class="weui-panel__ft">
+      <a *ngIf="store && checkoutForm.get('deliveryType').value == 1" href="javascript:void(0);" class="weui-cell weui-cell_link">
+        <div class="weui-cell__bd">运费</div>
+        <span class="weui-cell__ft">
+          <em class="money" style="font-size: 0.18rem" [innerHTML]="store?.deliveryamount | rmb"></em>
+        </span>
+      </a>
       <a href="javascript:void(0);" class="weui-cell weui-cell_link">
         <div class="weui-cell__bd">共 <em>{{order?.goods.length}}</em> 件商品</div>
         <span class="weui-cell__ft">合计：<em class="money" style="font-size: 0.18rem"
-                                           [innerHTML]="order?.totalAmount | rmb"></em></span>
+                                           [innerHTML]="(order?.totalAmount + store?.deliveryamount) | rmb"></em></span>
       </a>
     </div>
   </div>
@@ -78,7 +85,7 @@
 <div class="btns-group animated" [ngClass]="{'slideInUp':direction === 'down','slideOutDown':direction === 'up'}">
   <div class="total">
     <span class="label">应付合计：</span>
-    <em class="amount" [innerHTML]="order?.totalAmount | rmb"></em>
+    <em class="amount" [innerHTML]="(order?.totalAmount + store?.deliveryamount) | rmb"></em>
   </div>
   <a (click)="checkout()" class="btn-primary" [ngClass]="{'disabled':checkoutForm.invalid}">结算</a>
 </div>

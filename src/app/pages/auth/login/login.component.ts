@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 
 import {interval as observableInterval, Observable} from 'rxjs';
+import {UaService} from '../../../@core/data/ua.service';
 import {LoaderService} from '../../../@core/utils/loader.service';
 import {AuthService} from '../auth.service';
 import {AppService} from '../../../app.service';
@@ -24,7 +25,10 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
   @ViewChild('userinfo') private userinfo: any;
   @ViewChild('auth') private auth: any;
 
-  callbackUrl;
+  openid = this.route.snapshot.queryParams['openid'] ? this.route.snapshot.queryParams['openid'] : '';
+  referee = this.storageSvc.get('referee') ? this.storageSvc.get('referee') : '';
+  sourceChannel = this.storageSvc.get('sourceChannel') ? this.storageSvc.get('sourceChannel') : '';
+  callbackUrl = this.route.snapshot.queryParams['callbackUrl'];
   appConfig;
 
   type = this.route.snapshot.queryParams['type'] || 'signIn';
@@ -49,6 +53,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private location: LocationStrategy,
               private storageSvc: StorageService,
+              private uaSvc: UaService,
               private appSvc: AppService,
               private overlaySvc: OverlayService,
               private dialog: DialogService,
@@ -58,12 +63,11 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.storageSvc.remove('accessToken');
-    this.callbackUrl = this.route.snapshot.queryParams['callbackUrl'];
 
     this.signInForm = new FormGroup({
       loginid: new FormControl('', [Validators.required, Validators.min(10000000000), Validators.max(19999999999)]),
       pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
-      openid: new FormControl('', [])
+      openid: new FormControl(this.openid, [])
     });
 
     this.signUpForm = new FormGroup({
@@ -71,10 +75,10 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
       tradepwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
       validCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{4}$/)]),
-      openid: new FormControl('', []),
+      openid: new FormControl(this.openid, []),
       usid: new FormControl('', []),
-      referee: new FormControl('', []),
-      sourceChannel: new FormControl('', []),
+      referee: new FormControl(this.referee, []),
+      sourceChannel: new FormControl(this.sourceChannel, []),
       agree: new FormControl('', [Validators.required, Validators.requiredTrue])
     });
 
@@ -82,13 +86,11 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       this.overlaySvc.hide();
     });
 
-    const openid = this.authSvc.getOid();
-    const referee = this.storageSvc.get('referee') ? this.storageSvc.get('referee') : '';
-    const sourceChannel = this.storageSvc.get('sourceChannel') ? this.storageSvc.get('sourceChannel') : '';
-
-    this.signInForm.get('openid').setValue(openid);
-    this.signUpForm.get('referee').setValue(referee);
-    this.signUpForm.get('sourceChannel').setValue(sourceChannel);
+    if (this.uaSvc.isWx()) {
+      if (!this.openid) {
+        window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+      }
+    }
 
     this.authHeight = (this.container.nativeElement.clientHeight - this.userinfo.nativeElement.clientHeight) + 'px';
 
@@ -192,6 +194,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         this.storageSvc.set('accessToken', JSON.stringify({
           id: res.result.id,
           key: res.result.key,
+          openid: res.openid || this.openid,
           expires_time: Date.parse(String(new Date())) + 144000000
         }));
         if (this.callbackUrl && (this.callbackUrl.indexOf('signIn') === -1 && this.callbackUrl.indexOf('signUp') === -1)) {
@@ -217,7 +220,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         this.storageSvc.set('accessToken', JSON.stringify({
           id: res.result.id,
           key: res.result.key,
-          openid: res.result.openid || this.authSvc.getOid(),
+          openid: res.openid || this.openid,
           expires_time: Date.parse(String(new Date())) + 144000000
         }));
 

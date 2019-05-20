@@ -201,7 +201,6 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   checkout() {
-    alert(this.storageSvc.get('accessToken'));
     if (this.checkoutForm.invalid) {
       return false;
     }

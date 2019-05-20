@@ -1,5 +1,5 @@
 <app-header [className]="''" [leftNav]="'back'" [show]="true" [title]="'确认订单'"></app-header>
-<app-content [formGroup]="checkoutForm" [paddingHeader]="true" [paddingFooter]="true" [monitor]="'scroll'">
+<app-content [formGroup]="checkoutForm" [paddingHeader]="true" [paddingFooter]="true">
   <div class="weui-cells weui-cells_form">
     <div class="weui-cell weui-cell_switch">
       <div class="weui-cell__bd">配送方式：{{!checkoutForm.get('deliveryType').value ? '上门自提' : '商家配送'}}</div>

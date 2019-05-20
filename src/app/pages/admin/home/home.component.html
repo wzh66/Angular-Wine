@@ -1,5 +1,5 @@
 <app-header [leftNav]="'menu'" [show]="true" [title]="'会员中心'"></app-header>
-<app-content *ngIf="user" [paddingHeader]="false" [paddingFooter]="true" [monitor]="'scroll'">
+<app-content *ngIf="user" [paddingHeader]="false" [paddingFooter]="true">
   <div class="user-info"></div>
   <div class="order weui-panel weui-panel_access" style="margin-top: 0">
     <div class="weui-panel__hd"><img src="/assets/images/home/orders.png"><span>我的订单</span></div>
@@ -84,7 +84,7 @@
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">佣金记录</span>
       </div>
-      <div class="weui-cell__ft">累计赚取佣金：<em [innerHTML]="user.amountCount | rmb"></em></div>
+      <div class="weui-cell__ft">累计赚取佣金：<em [innerHTML]="user.amountCounts | rmb"></em></div>
     </a>
   </div>
 

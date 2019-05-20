@@ -16,7 +16,7 @@
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-          磅数
+          规格
         </div>
         <div class="weui-media-box__bd">
           <div class="pounds">
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="weui-media-box weui-media-box_appmsg">
+      <!--<div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           重量
         </div>
@@ -43,7 +43,7 @@
         <div class="weui-media-box__bd">
           <p class="weui-media-box__desc">≈{{spec.count}}{{spec.unit}}</p>
         </div>
-      </div>
+      </div>-->
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           需提前
@@ -65,7 +65,7 @@
   <div class="weui-panel">
     <div class="weui-panel__hd">详情</div>
     <div class="weui-panel__bd">
-      <div class="weui-media-box weui-media-box_text" [innerHTML]="product.detail"></div>
+      <div class="article weui-media-box weui-media-box_text" [innerHTML]="product.detail | formatSrc"></div>
     </div>
   </div>
 </app-content>

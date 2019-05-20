@@ -87,3 +87,20 @@ export class RmbPipe implements PipeTransform {
     return result;
   }
 }
+
+@Pipe({
+  name: 'formatSrc',
+  pure: false
+})
+// <em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i class="decimal">.00</i></em>
+@Injectable()
+export class FormatSrcPipe implements PipeTransform {
+  transform(content): any {
+    if (!content) {
+      return content;
+    }
+    content = content.replace(/src="/gi, 'src="/api');
+
+    return content;
+  }
+}

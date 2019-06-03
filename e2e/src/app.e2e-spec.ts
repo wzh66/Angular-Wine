@@ -9,6 +9,6 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to Angular7-Cake!');
+    expect(page.getTitleText()).toEqual('Welcome to Cake-Front!');
   });
 });

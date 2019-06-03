@@ -1,27 +1,23 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {Uploader, UploaderOptions} from 'ngx-weui';
-
-import {AuthService} from '../../auth/auth.service';
-import {FooterService} from '../../../@theme/modules/footer/footer.service';
+import {UploaderService} from './uploader.service';
 
 @Component({
-  selector: 'app-admin-seller',
-  templateUrl: './seller.component.html',
-  styleUrls: ['./seller.component.scss']
+  selector: 'app-overlay',
+  templateUrl: './uploader.component.html',
+  styleUrls: ['./uploader.component.scss']
 })
-
-export class AdminSellerComponent implements OnInit {
-  img: any;
-  imgShow = false;
+export class UploaderComponent {
 
   uploader: Uploader = new Uploader({
-    url: this.prefix_url + 'uploadStoreLogo',
-    limit: 1,
-    auto: true,
-    // headers: [{name: 'auth', value: 'test'}],
+    url: './upload.php',
+    headers: [{name: 'auth', value: 'test'}],
     params: {
-      key: this.authSvc.getKey()
+      a: 1,
+      b: new Date(),
+      c: 'test',
+      d: 12.123,
     },
     // 自定义transport
     // uploadTransport: function(item: FileItem) {
@@ -62,17 +58,16 @@ export class AdminSellerComponent implements OnInit {
     onUploadComplete() {
       console.log('onUploadComplete', arguments);
     },
+    onUploadCancel() {
+      console.log('onUploadCancel', arguments);
+    },
     onError() {
       console.log('onError', arguments);
-    }
+    },
   } as UploaderOptions);
 
-  constructor(@Inject('PREFIX_URL') private prefix_url, private footerSvc: FooterService, private authSvc: AuthService) {
-    footerSvc.setActive(3);
-  }
-
-  ngOnInit() {
-  }
+  img: any;
+  imgShow = false;
 
   onGallery(item: any) {
     this.img = [{file: item._file, item}];

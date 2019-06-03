@@ -20,22 +20,22 @@ const routes: Routes = [
   },
   {
     path: 'front',
-    loadChildren: './pages/front/front.module#FrontModule',
+    loadChildren: () => import('./pages/front/front.module').then(m => m.FrontModule),
     data: {state: 'front'}
   },
   {
     path: 'group',
-    loadChildren: './pages/group/group.module#GroupModule',
+    loadChildren: () => import('./pages/group/group.module').then(m => m.GroupModule),
     data: {state: 'front'}
   },
   {
     path: 'auth',
-    loadChildren: './pages/auth/auth.module#AuthModule',
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule),
     data: {state: 'admin'}
   },
   {
     path: 'admin',
-    loadChildren: './pages/admin/admin.module#AdminModule',
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
     data: {state: 'admin'}
   },
   {

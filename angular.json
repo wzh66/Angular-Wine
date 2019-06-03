@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Angular7-Cake:build"
+            "browserTarget": "Cake-Front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Angular7-Cake:build:production"
+              "browserTarget": "Cake-Front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Angular7-Cake:build"
+            "browserTarget": "Cake-Front:build"
           }
         },
         "test": {
@@ -108,7 +108,7 @@
         }
       }
     },
-    "Angular7-Cake-e2e": {
+    "Cake-Front-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -117,11 +117,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Angular7-Cake:serve"
+            "devServerTarget": "Cake-Front:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Angular7-Cake:serve:production"
+              "devServerTarget": "Cake-Front:serve:production"
             }
           }
         },
@@ -137,5 +137,5 @@
       }
     }
   },
-  "defaultProject": "Angular7-Cake"
+  "defaultProject": "Cake-Front"
 }

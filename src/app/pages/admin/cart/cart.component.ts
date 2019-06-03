@@ -95,7 +95,7 @@ export class AdminCartComponent implements OnInit {
         item.focus = true;
       } else {
         item.remark = res.text;
-        this.setMark(item.id, res.text);
+        this.setMark(item.id, item.remark);
       }
     });
   }

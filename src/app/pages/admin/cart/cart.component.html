@@ -1,17 +1,18 @@
 <app-header [className]="''" [leftNav]="'back'" [show]="true" [title]="'会员中心'" [rightNav]="'custom'" [custom]="'清空'"
             (onCustom)="onCustom($event)"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true" [monitor]="'scroll'">
-  <app-msg *ngIf="items.length === 0" (event)="onCancel($event)"
+  <app-msg *ngIf="items.length === 0" (event)="onCancel()"
            [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty-cart.png"}'></app-msg>
   <div *ngFor="let item of items" class="weui-panel">
     <div class="weui-panel__bd">
       <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
+        <div [routerLink]="['/front/item',item.productid]" class="weui-media-box__hd">
           <img class="weui-media-box__thumb" src="{{'/api' + item.headimage}}">
         </div>
         <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title">{{item.productname}}</h4>
-          <p class="weui-media-box__desc"><em class="money" [innerHTML]="item.price | rmb"></em><span class="units">/{{item.count}}{{item.unit}}</span></p>
+          <h4 [routerLink]="['/front/item',item.productid]" class="weui-media-box__title">{{item.productname}}</h4>
+          <p class="weui-media-box__desc"><em class="money" [innerHTML]="item.price | rmb"></em><span
+            class="units">/{{item.count}}{{item.unit}}</span></p>
           <weui-stepper [(ngModel)]="item.product_num" (ngModelChange)="numChange(item,$event)" [min]="1"
                         [max]="10"></weui-stepper>
           <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
@@ -23,7 +24,7 @@
     </div>
     <div class="weui-panel__ft">
       <div class="weui-cell weui-cell_access weui-cell_link">
-        <div class="weui-cell__bd"><input class="weui-input" type="text" [(ngModel)]="item.remark" placeholder="请输入祝福语">
+        <div class="weui-cell__bd"><input class="weui-input" type="text" [(ngModel)]="item.remark" (ngModelChange)="setMark(item.id, item.remark)" placeholder="请输入祝福语">
         </div>
         <span (click)="show($event,item)" class="weui-cell__ft">{{item.remark ? '更改祝福语' : '选择祝福语'}}</span>
       </div>

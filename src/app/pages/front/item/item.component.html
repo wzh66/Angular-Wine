@@ -22,13 +22,14 @@
           <div class="pounds">
             <div class="weui-grids">
               <div *ngFor="let item of specs" class="weui-grid">
-                <span (click)="select(item)" class="weui-grid__label" [ngClass]="{'selected':item.id === spec.id}">{{item.count}}{{item.unit}}</span>
+                <span (click)="select(item)" class="weui-grid__label"
+                      [ngClass]="{'selected':item.id === spec.id}">{{item.count}}{{item.unit}}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!--<div class="weui-media-box weui-media-box_appmsg">
+      <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           重量
         </div>
@@ -36,7 +37,7 @@
           <p class="weui-media-box__desc">≈{{spec.count * 100}}g</p>
         </div>
       </div>
-      <div class="weui-media-box weui-media-box_appmsg">
+      <!--<div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           体积
         </div>
@@ -46,7 +47,7 @@
       </div>-->
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-          需提前
+          温馨提示
         </div>
         <div class="weui-media-box__bd">
           <p class="weui-media-box__desc">3~5小时预定，适合<em>5-7</em>人食用</p>

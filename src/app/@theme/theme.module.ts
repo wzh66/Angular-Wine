@@ -7,7 +7,8 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {WeUiModule} from 'ngx-weui';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
 
 const THIRD_PART = [MatButtonModule, MatIconModule, SwiperModule, NgxQRCodeModule];

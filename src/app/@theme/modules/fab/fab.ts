@@ -16,7 +16,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import {MatButton} from '@angular/material';
+import { MatButton } from '@angular/material/button';
 import {DOCUMENT} from '@angular/common';
 
 const Z_INDEX_ITEM = 23;

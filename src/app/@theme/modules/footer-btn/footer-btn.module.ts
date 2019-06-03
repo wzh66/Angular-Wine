@@ -5,7 +5,7 @@ import {WeUiModule} from 'ngx-weui';
 import {FooterBtnComponent} from './footer-btn.component';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, WeUiModule.forRoot()],
+  imports: [CommonModule, RouterModule, WeUiModule],
   declarations: [FooterBtnComponent],
   exports: [FooterBtnComponent],
   entryComponents: [FooterBtnComponent],

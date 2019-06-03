@@ -7,8 +7,8 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {WeUiModule} from 'ngx-weui';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import {NgxQRCodeModule} from 'ngx-qrcode2';
 
 const THIRD_PART = [MatButtonModule, MatIconModule, SwiperModule, NgxQRCodeModule];
@@ -63,13 +63,13 @@ import {COMPONENTS, DIRECTIVES, PIPES} from './index';
     ...PIPES
   ],
   declarations: [...DIRECTIVES, ...COMPONENTS, ...PIPES],
-  entryComponents: [COMPONENTS],
+  entryComponents: [COMPONENTS]
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: ThemeModule,
-      providers: [],
+      providers: []
     };
   }
 }

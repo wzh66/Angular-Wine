@@ -8,7 +8,6 @@ import {ADMIN_PAGES} from './index';
 @NgModule({
   imports: [
     AdminRoutingModule,
-    ThemeModule.forRoot(),
     ThemeModule
   ],
   declarations: [ADMIN_PAGES]

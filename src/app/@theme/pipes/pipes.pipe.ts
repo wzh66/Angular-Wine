@@ -1,4 +1,5 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {getIndex} from '../../utils/utils';
 
 @Pipe({
   name: 'repairDate',
@@ -44,6 +45,22 @@ export class SearchKeyPipe implements PipeTransform {
     }
 
     return value.replace(searchKey, '<em>' + searchKey + '</em>');
+  }
+}
+
+@Pipe({
+  name: 'getLabel',
+  pure: false
+})
+
+@Injectable()
+export class GetLabelPipe implements PipeTransform {
+  transform(value, array: any): any {
+    if (!value || !array) {
+      return value;
+    }
+    const label = array[getIndex(array, 'value', value)].label;
+    return label;
   }
 }
 

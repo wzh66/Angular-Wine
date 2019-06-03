@@ -21,3 +21,14 @@
   display: block;
   text-align: center;
 }
+
+.form-control_btn {
+  button {
+    display: block;
+    width: 40%;
+    border: 1px solid #fff;
+    margin: 0.15rem auto 0;
+    border-radius: 0.04rem;
+    line-height: 0.32rem;
+  }
+}

@@ -46,6 +46,7 @@ export class AdminHomeComponent implements OnInit {
         return false;
       }
       this.user = res;
+      console.log(res);
     });
   }
 

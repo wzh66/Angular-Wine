@@ -124,19 +124,6 @@ export class AdminCheckoutComponent implements OnInit {
         this.getStore();
       }
     });
-    // this.geoSvc.get().then((res) => {
-    //   const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
-    //   geo.getLocation((position) => {
-    //     this.location.location = position.lat + ',' + position.lng;
-    //     this.geoSvc.getPosition(this.location.location).subscribe((result) => {
-    //       console.log(result);
-    //       this.location.address = result.address;
-    //       /*this.clockForm.get('address').setValue(result.result.address);*/
-    //     });
-    //   }, (err) => {
-    //     this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
-    //   }, {failTipFlag: true});
-    // });
   }
 
   getStore() {

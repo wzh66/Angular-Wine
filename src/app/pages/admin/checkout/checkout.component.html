@@ -57,13 +57,13 @@
       <a *ngIf="store && checkoutForm.get('deliveryType').value == 1" href="javascript:void(0);" class="weui-cell weui-cell_link">
         <div class="weui-cell__bd">运费</div>
         <span class="weui-cell__ft">
-          <em class="money" style="font-size: 0.18rem" [innerHTML]="store?.deliveryamount | rmb"></em>
+          <em class="money" style="font-size: 0.18rem" [innerHTML]="(store?.deliveryamount ? store?.deliveryamount : 0) | rmb"></em>
         </span>
       </a>
       <a href="javascript:void(0);" class="weui-cell weui-cell_link">
         <div class="weui-cell__bd">共 <em>{{order?.goods.length}}</em> 件商品</div>
         <span class="weui-cell__ft">合计：<em class="money" style="font-size: 0.18rem"
-                                           [innerHTML]="(order?.totalAmount + store?.deliveryamount) | rmb"></em></span>
+                                           [innerHTML]="(order?.totalAmount + (store?.deliveryamount ? store?.deliveryamount : 0)) | rmb"></em></span>
       </a>
     </div>
   </div>

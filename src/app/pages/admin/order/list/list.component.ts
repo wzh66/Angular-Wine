@@ -42,7 +42,8 @@ export class AdminOrderListComponent implements OnInit {
     this.route.queryParamMap.subscribe(status => {
       this.status = this.route.snapshot.queryParams['status'] || '';
       this.orderSvc.list(this.key, this.status).subscribe(res => {
-        this.orders = res.result;
+        console.log(res);
+        this.orders = res.result.list;
       });
     });
   }

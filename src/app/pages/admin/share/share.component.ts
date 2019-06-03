@@ -21,7 +21,7 @@ export class AdminShareComponent implements OnInit {
   webHost: string;
   user;
   qrCode;
-  @ViewChild('target') private target;
+  @ViewChild('target', {static: false}) private target;
 
   constructor(private dialogSvc: DialogService,
               private footerSvc: FooterService,

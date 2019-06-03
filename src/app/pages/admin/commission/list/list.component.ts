@@ -16,10 +16,10 @@ export class AdminCommissionListComponent implements OnInit {
 
   key;
 
-  @ViewChild('comp') private il: InfiniteLoaderComponent;
+  @ViewChild('comp', {static: false}) private il: InfiniteLoaderComponent;
 
   page = 1;
-  records = [];
+  records: any;
 
   constructor(private location: Location,
               private dialogSvc: DialogService,

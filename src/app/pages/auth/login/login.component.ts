@@ -21,9 +21,9 @@ declare var initGeetest: any;
   encapsulation: ViewEncapsulation.None
 })
 export class AuthLoginComponent implements OnInit, OnDestroy {
-  @ViewChild('container') private container: any;
-  @ViewChild('userinfo') private userinfo: any;
-  @ViewChild('auth') private auth: any;
+  @ViewChild('container', {static: false}) private container: any;
+  @ViewChild('userinfo', {static: false}) private userinfo: any;
+  @ViewChild('auth', {static: false}) private auth: any;
 
   openid = this.route.snapshot.queryParams['openid'] ? this.route.snapshot.queryParams['openid'] : '';
   referee = this.storageSvc.get('referee') ? this.storageSvc.get('referee') : '';

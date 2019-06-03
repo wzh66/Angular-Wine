@@ -1,5 +1,11 @@
 
 :host {
+  .weui-tabbar {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
+
   .weui-tabbar__item {
     padding: 0.05rem 0 0;
 
@@ -10,11 +16,13 @@
       & > i {
         font-size: 0.27rem;
         display: block;
+
         &:before {
           display: inline-block;
         }
       }
     }
+
     .weui-tabbar__label {
       font-size: 0.1rem;
     }

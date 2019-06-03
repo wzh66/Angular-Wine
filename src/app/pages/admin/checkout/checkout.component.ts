@@ -47,8 +47,8 @@ export class AdminCheckoutComponent implements OnInit {
     backdrop: true
   };
   direction;
-  @ViewChild('customForm') private customForm;
-  @ViewChild('mask') private mask: MaskComponent;
+  @ViewChild('customForm', {static: false}) private customForm;
+  @ViewChild('mask', {static: false}) private mask: MaskComponent;
   formData;
   payQrCode;
   qrCodeUrl;

@@ -31,7 +31,7 @@ export class FrontListComponent implements OnInit {
   items = [];
   page = 1;
   typeId;
-  @ViewChild(InfiniteLoaderComponent) il;
+  @ViewChild(InfiniteLoaderComponent, {static: false}) il;
 
   constructor(private route: ActivatedRoute,
               private footerSvc: FooterService,

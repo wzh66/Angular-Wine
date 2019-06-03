@@ -14,9 +14,9 @@ import {
   Output,
   QueryList,
   Renderer2,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {DOCUMENT} from '@angular/common';
 
 const Z_INDEX_ITEM = 23;
@@ -29,7 +29,7 @@ export type AnimationMode = 'fling' | 'scale';
 @Component({
   selector: 'app-fab-actions',
   template: `
-    <ng-content select="[mat-mini-fab]"></ng-content>`,
+    <ng-content select="[mat-mini-fab]"></ng-content>`
 })
 export class FabActionsComponent implements AfterContentInit {
   private _parent: FabComponent;
@@ -120,7 +120,7 @@ export class FabActionsComponent implements AfterContentInit {
     </div>
   `,
   styleUrls: ['fab.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class FabComponent implements OnDestroy, AfterContentInit {
   private isInitialized = false;
@@ -205,7 +205,7 @@ export class FabComponent implements OnDestroy, AfterContentInit {
 
   @Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @ContentChild(FabActionsComponent) _childActions: FabActionsComponent;
+  @ContentChild(FabActionsComponent, {static: false}) _childActions: FabActionsComponent;
 
   constructor(private elementRef: ElementRef,
               private renderer: Renderer2,
@@ -291,7 +291,7 @@ export class FabComponent implements OnDestroy, AfterContentInit {
 @Component({
   selector: 'app-fab-trigger',
   template: `
-    <ng-content select="[mat-fab]"></ng-content>`,
+    <ng-content select="[mat-fab]"></ng-content>`
 })
 export class FabTriggerComponent {
   private _parent: FabComponent;

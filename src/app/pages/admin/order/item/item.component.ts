@@ -36,8 +36,8 @@ export class AdminOrderItemComponent implements OnInit {
   payType;
   orderNo = this.route.snapshot.params['no'];
 
-  @ViewChild('customForm') private customForm;
-  @ViewChild('mask') private mask: MaskComponent;
+  @ViewChild('customForm', {static: false}) private customForm;
+  @ViewChild('mask', {static: false}) private mask: MaskComponent;
   formData;
   checkoutForm: FormGroup;
   showType;

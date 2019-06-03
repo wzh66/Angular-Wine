@@ -31,7 +31,7 @@ import {COMPONENTS, DIRECTIVES, PIPES} from './index';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
-    WeUiModule.forRoot(),
+    WeUiModule,
     THIRD_PART,
     FabModule,
     WxModule.forRoot(),

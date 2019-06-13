@@ -35,7 +35,6 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.id, typeof this.id);
     this.settingForm = new FormGroup({
       // id: new FormControl('', [Validators.required]),
       key: new FormControl(this.authSvc.getKey(), [Validators.required]),

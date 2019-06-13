@@ -22,16 +22,22 @@ export class GeoService {
     });
   }
 
-  getLocation(callback) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(callback);
-    } else {
-      console.log('Geolocation is not supported by this browser.');
-    }
-  }
+  // getLocation(callback) {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(callback);
+  //   } else {
+  //     console.log('Geolocation is not supported by this browser.');
+  //   }
+  // }
 
   getPosition(body): Observable<any> {
     return this.http.post(this.prefix_url + 'getAddrByGps', formData(body))
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+  gps(body): Observable<any> {
+    return this.http.post(this.prefix_url + 'getCoordinateByAddr', formData(body))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

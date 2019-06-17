@@ -6,7 +6,7 @@ import {StorageService} from '../../../../../@core/utils/storage.service';
 import {FooterService} from '../../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../../auth/auth.service';
 import {AddressService} from '../address.service';
-import {DialogService, PickerService} from 'ngx-weui';
+import {DialogService, PickerService, ToastService} from 'ngx-weui';
 import {GeoService} from '../../../../../@core/data/geo.service';
 import {DATA} from '../../../../../@core/data/cn';
 
@@ -26,6 +26,7 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private geoSvc: GeoService,
               private storageSvc: StorageService,
+              private toastSvc: ToastService,
               private dialogSvc: DialogService,
               private pickerSvc: PickerService,
               private footerSvc: FooterService,
@@ -46,8 +47,8 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
       rgnarea: new FormControl('', []),
       rgndtl: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]),
       areaCode: new FormControl('', [Validators.required]),
-      x: new FormControl('', [Validators.required]),
-      y: new FormControl('', [Validators.required])
+      x: new FormControl('', []),
+      y: new FormControl('', [])
     });
 
     if (!this.id) {
@@ -115,12 +116,24 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    alert(JSON.stringify(this.settingForm.value));
     if (this.loading || this.settingForm.invalid) {
       return false;
     }
     this.loading = true;
-    this.addressSvc.save(this.settingForm.value).subscribe(res => {
-      window.history.back();
+    this.toastSvc.loading('操作中...', 0);
+    this.geoSvc.gps({
+      key: this.authSvc.getKey(),
+      city: this.settingForm.get('rgncity').value,
+      addr: this.settingForm.get('rgndtl').value
+    }).subscribe(res => {
+      this.settingForm.get('x').setValue(res.result.location.lng);
+      this.settingForm.get('y').setValue(res.result.location.lat);
+      this.addressSvc.save(this.settingForm.value).subscribe(() => {
+        this.loading = false;
+        this.toastSvc.hide();
+        window.history.back();
+      });
     });
   }
 

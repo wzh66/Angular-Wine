@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewEncapsulation, ElementRef} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
@@ -20,7 +20,7 @@ declare var initGeetest: any;
   styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AuthLoginComponent implements OnInit, OnDestroy {
+export class AuthLoginComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('container', {static: false}) private container: any;
   @ViewChild('userinfo', {static: false}) private userinfo: any;
   @ViewChild('auth', {static: false}) private auth: any;
@@ -61,9 +61,12 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
               private authSvc: AuthService) {
   }
 
+  ngAfterViewInit() {
+    this.auth.nativeElement.style.height = (this.container.nativeElement.clientHeight - this.userinfo.nativeElement.clientHeight) + 'px';
+  }
+
   ngOnInit() {
     this.storageSvc.remove('accessToken');
-
     this.signInForm = new FormGroup({
       loginid: new FormControl('', [Validators.required, Validators.min(10000000000), Validators.max(19999999999)]),
       pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
@@ -91,8 +94,6 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
       }
     }
-
-    this.authHeight = (this.container.nativeElement.clientHeight - this.userinfo.nativeElement.clientHeight) + 'px';
 
     this.randomValidUid = new Date().getTime();
     this.authSvc.getValidImg(this.randomValidUid).subscribe(res => {

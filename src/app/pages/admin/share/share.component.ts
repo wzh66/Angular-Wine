@@ -34,7 +34,6 @@ export class AdminShareComponent implements OnInit {
     this.key = this.authSvc.getKey();
     this.userSvc.get(this.key).subscribe(res => {
       this.webHost = res.shortLinks;
-      console.log(res.shortLinks);
 
       this.qrCode = new QRCode(document.getElementById('qrcode'), {
         text: 'http://' + window.location.host + '/index?referee=' + this.authSvc.getUid(),

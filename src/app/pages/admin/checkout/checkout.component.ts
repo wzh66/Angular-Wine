@@ -145,7 +145,6 @@ export class AdminCheckoutComponent implements OnInit {
         }).subscribe();
       } else {
         this.store = _res[0];
-        console.log(this.store);
         this.checkoutForm.get('storeId').setValue(this.store.id);
       }
     });

@@ -4,7 +4,7 @@
     <!--<div class="userinfo-nickname">优聚专享</div>
     <div class="userinfo-service">欢迎来到优聚专享</div>-->
   </div>
-  <div #auth class="auth" [ngStyle]="{'height':authHeight}">
+  <div #auth class="auth">
 
     <form [ngClass]="{'show':type === 'signIn'}" novalidate [formGroup]="signInForm">
       <div class="weui-cells weui-cells_form">
@@ -57,7 +57,7 @@
             <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
           </div>
           <div class="weui-cell__bd">
-            <input class="weui-input" type="password" formControlName="pwd" placeholder="请输入密码">
+            <input class="weui-input" type="password" formControlName="pwd" placeholder="请设置密码">
           </div>
           <div class="weui-cell__ft">
             <span class="weui-icon-warn"></span>

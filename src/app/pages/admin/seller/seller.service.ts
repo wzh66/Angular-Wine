@@ -10,6 +10,13 @@ export class SellerService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient) {
   }
 
+  get(key) {
+    return this.http.get(this.prefix_url + 'getMyStore&key=' + key)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
   uploadStoreLogo(body: { key: string, file: any }) {
     return this.http.post(this.prefix_url + 'uploadStoreLogo', formData(body))
       .pipe(observableMargeMap((res: any) => {

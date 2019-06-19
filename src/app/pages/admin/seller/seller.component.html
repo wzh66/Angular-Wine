@@ -50,6 +50,8 @@
       </div>
       <div class="weui-cell__ft">
         <ul class="weui-uploader__files">
+          <li *ngIf="sellerForm.get('logo').valid && uploader.queue.length < 1" class="weui-uploader__file"
+              [ngStyle]="{'backgroundImage':'url(api/' + sellerForm.get('logo').value + ')'}"></li>
           <li
             class="weui-uploader__file"
             *ngFor="let item of uploader.queue"

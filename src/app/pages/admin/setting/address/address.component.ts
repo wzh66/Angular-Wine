@@ -15,7 +15,7 @@ import {AddressService} from './address.service';
 })
 export class AdminSettingAddressComponent implements OnInit {
 
-  appKey;
+  key;
 
   settingForm: FormGroup;
   loading = false;
@@ -32,20 +32,18 @@ export class AdminSettingAddressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appKey = this.authSvc.getKey();
+    this.key = this.authSvc.getKey();
 
     this.settingForm = new FormGroup({
-      key: new FormControl('', [Validators.required]),
+      key: new FormControl(this.key, [Validators.required]),
       addrId: new FormControl('', [Validators.required])
     });
-
-    this.settingForm.get('key').setValue(this.appKey);
 
     this.getAddresses();
   }
 
   getAddresses() {
-    this.addressSvc.get(this.appKey).subscribe(res => {
+    this.addressSvc.get(this.key).subscribe(res => {
       this.addresses = res.list;
     });
   }

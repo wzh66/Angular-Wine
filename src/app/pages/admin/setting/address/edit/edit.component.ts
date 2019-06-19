@@ -66,7 +66,7 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
         this.settingForm.get('areaCode').setValue(res.busMemberAddress.areacode);
         this.settingForm.get('x').setValue(res.busMemberAddress.x);
         this.settingForm.get('y').setValue(res.busMemberAddress.y);
-        if (this.settingForm.get('lat').invalid || this.settingForm.get('lng').invalid) {
+        if (this.settingForm.get('x').invalid || this.settingForm.get('y').invalid) {
           this.geoSvc.get().then(() => {
             const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
             geo.getLocation((position) => {
@@ -116,7 +116,6 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    alert(JSON.stringify(this.settingForm.value));
     if (this.loading || this.settingForm.invalid) {
       return false;
     }

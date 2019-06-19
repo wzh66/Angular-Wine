@@ -84,19 +84,47 @@ export class AdminSellerComponent implements OnInit {
       this.industries = items;
     });
 
-    this.geoSvc.get().then((res) => {
-      const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
-      geo.getLocation((position) => {
-        const body = {key: this.key, lat: position.lat, lng: position.lng};
-        this.geoSvc.getPosition(body).subscribe((result) => {
-          this.sellerForm.get('areaCode').setValue(result.addressComponent.adcode);
-          this.sellerForm.get('address').setValue(result.formatted_address);
-          this.sellerForm.get('x').setValue(result.location.lng);
-          this.sellerForm.get('y').setValue(result.location.lat);
+    this.sellerSvc.get(this.key).subscribe(res => {
+      for (const key in this.sellerForm.value) {
+        if (res[key.toLowerCase()] || key === 'storeId') {
+          if (key === 'storeId') {
+            this.sellerForm.get('storeId').setValue(res['id']);
+          } else {
+            this.sellerForm.get(key).setValue(res[key.toLowerCase()]);
+          }
+        }
+      }
+      if (this.sellerForm.get('storeId').value) {
+        if (this.sellerForm.get('x').invalid || this.sellerForm.get('y').invalid) {
+          this.geoSvc.get().then(() => {
+            const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
+            geo.getLocation((position) => {
+              const body = {key: this.sellerForm.get('key').value, lat: position.lat, lng: position.lng};
+              this.geoSvc.getPosition(body).subscribe((result) => {
+                this.sellerForm.get('x').setValue(result.location.lng);
+                this.sellerForm.get('y').setValue(result.location.lat);
+              });
+            }, (err) => {
+              this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
+            }, {failTipFlag: true});
+          });
+        }
+      } else {
+        this.geoSvc.get().then(() => {
+          const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
+          geo.getLocation((position) => {
+            const body = {key: this.sellerForm.get('key').value, lat: position.lat, lng: position.lng};
+            this.geoSvc.getPosition(body).subscribe((result) => {
+              this.sellerForm.get('address').setValue(result.addressComponent.street + result.sematic_description);
+              this.sellerForm.get('areaCode').setValue(result.addressComponent.adcode);
+              this.sellerForm.get('x').setValue(result.location.lng);
+              this.sellerForm.get('y').setValue(result.location.lat);
+            });
+          }, (err) => {
+            this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
+          }, {failTipFlag: true});
         });
-      }, (err) => {
-        this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
-      }, {failTipFlag: true});
+      }
     });
   }
 
@@ -117,16 +145,37 @@ export class AdminSellerComponent implements OnInit {
   }
 
   submit() {
-    if (this.sellerForm.invalid || this.loading) {
+    // if (this.sellerForm.invalid || this.loading) {
+    //   return false;
+    // }
+    // this.loading = true;
+    // this.toastSvc.loading('申请中');
+    // this.sellerSvc.create(this.sellerForm.value).subscribe(res => {
+    //   this.loading = false;
+    //   this.toastSvc.hide();
+    //   this.dialogSvc.show({content: '您的入驻申请已成功提交！', confirm: '我知道了', cancel: ''}).subscribe(() => {
+    //     this.location.back();
+    //   });
+    // });
+
+    if (this.loading || this.sellerForm.invalid) {
       return false;
     }
     this.loading = true;
-    this.toastSvc.loading('申请中');
-    this.sellerSvc.create(this.sellerForm.value).subscribe(res => {
-      this.loading = false;
-      this.toastSvc.hide();
-      this.dialogSvc.show({content: '您的入驻申请已成功提交！', confirm: '我知道了', cancel: ''}).subscribe(() => {
-        this.location.back();
+    this.toastSvc.loading('操作中...', 0);
+    this.geoSvc.gps({
+      key: this.authSvc.getKey(),
+      city: this.sellerForm.get('areaCode').value,
+      addr: this.sellerForm.get('address').value
+    }).subscribe(res => {
+      this.sellerForm.get('x').setValue(res.result.location.lng);
+      this.sellerForm.get('y').setValue(res.result.location.lat);
+      this.sellerSvc.create(this.sellerForm.value).subscribe(() => {
+        this.loading = false;
+        this.toastSvc.hide();
+        this.dialogSvc.show({content: '您的入驻申请已成功提交！', confirm: '我知道了', cancel: ''}).subscribe(() => {
+          this.location.back();
+        });
       });
     });
   }

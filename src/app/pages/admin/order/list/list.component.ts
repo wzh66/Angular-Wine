@@ -51,12 +51,13 @@ export class AdminOrderListComponent implements OnInit {
   onLoadMore(comp: InfiniteLoaderComponent) {
     observableTimer(1500).subscribe(() => {
       this.page = this.page + 1;
-
+      console.log(this.page);
       // 获取当前页数据
-      this.orderSvc.list(this.key, this.page).subscribe(res => {
+      this.orderSvc.list(this.key, this.status, this.page).subscribe(res => {
         if (res.code === '0000') {
-          this.orders = this.orders.concat(res.result);
-          if (res.result.length < 10) {
+          this.orders = this.orders.concat(res.result.list);
+          if (this.page >= res.result.totalPages) {
+            console.log(comp);
             comp.setFinished();
             return;
           }

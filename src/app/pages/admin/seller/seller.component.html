@@ -75,6 +75,13 @@
         </ul>
       </div>
     </a>
+    <a (click)="showAddress()" class="weui-cell weui-cell_access">
+      <div class="weui-cell__bd">
+        <p>所在地区</p>
+      </div>
+      <div class="weui-cell__ft">{{sellerForm.get('areaCode').value ? city.items[0].label + city.items[1].label + city.items[2].label : '请选择您所在的地区'}}
+      </div>
+    </a>
     <div class="weui-cell">
       <div class="weui-cell__hd"><label class="weui-label">地址</label></div>
       <div class="weui-cell__bd">

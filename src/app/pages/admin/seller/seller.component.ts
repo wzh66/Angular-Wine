@@ -8,6 +8,7 @@ import {AuthService} from '../../auth/auth.service';
 import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {IndustryService} from './industry.service';
 import {SellerService} from './seller.service';
+import {DATA} from '../../../@core/data/cn';
 
 declare var qq: any;
 
@@ -22,7 +23,7 @@ export class AdminSellerComponent implements OnInit {
   img: any;
   imgShow = false;
   industries = [];
-
+  city;
   sellerForm: FormGroup;
   loading = false;
 
@@ -65,8 +66,8 @@ export class AdminSellerComponent implements OnInit {
       phone: new FormControl('', [Validators.required]),
       pwd: new FormControl('', []),
       logo: new FormControl('', []),
-      x: new FormControl('', [Validators.required]),
-      y: new FormControl('', [Validators.required]),
+      x: new FormControl('', []),
+      y: new FormControl('', []),
       areaCode: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       synopsis: new FormControl('', [])
@@ -85,6 +86,9 @@ export class AdminSellerComponent implements OnInit {
     });
 
     this.sellerSvc.get(this.key).subscribe(res => {
+      if (!res) {
+        return false;
+      }
       for (const key in this.sellerForm.value) {
         if (res[key.toLowerCase()] || key === 'storeId') {
           if (key === 'storeId') {
@@ -135,6 +139,13 @@ export class AdminSellerComponent implements OnInit {
     });
   }
 
+  showAddress() {
+    this.pickerSvc.showCity(DATA, this.sellerForm.get('areaCode').value).subscribe((res: any) => {
+      this.city = res;
+      this.sellerForm.get('areaCode').setValue(res.value);
+    });
+  }
+
   onGallery(item: any) {
     this.img = [{file: item._file, item}];
     this.imgShow = true;
@@ -157,7 +168,7 @@ export class AdminSellerComponent implements OnInit {
     //     this.location.back();
     //   });
     // });
-
+    console.log(this.sellerForm.value);
     if (this.loading || this.sellerForm.invalid) {
       return false;
     }
@@ -168,8 +179,10 @@ export class AdminSellerComponent implements OnInit {
       city: this.sellerForm.get('areaCode').value,
       addr: this.sellerForm.get('address').value
     }).subscribe(res => {
-      this.sellerForm.get('x').setValue(res.result.location.lng);
-      this.sellerForm.get('y').setValue(res.result.location.lat);
+      if (res.result) {
+        this.sellerForm.get('x').setValue(res.result.location.lng);
+        this.sellerForm.get('y').setValue(res.result.location.lat);
+      }
       this.sellerSvc.create(this.sellerForm.value).subscribe(() => {
         this.loading = false;
         this.toastSvc.hide();

@@ -119,6 +119,7 @@ export class AdminCheckoutComponent implements OnInit {
             this.address = address;
           }
         });
+        addresses.push({label: '添加新地址', value: 0});
         this.addresses = addresses;
         this.checkoutForm.get('addrId').setValue(this.address.id);
         this.getStore();
@@ -153,12 +154,17 @@ export class AdminCheckoutComponent implements OnInit {
   show(type) {
     if (type === 'address') {
       this.pickerSvc.show([this.addresses], '', [0], this.config).subscribe(res => {
-        this.store = '';
-        this.checkoutForm.get('storeId').setValue('');
-        this.checkoutForm.get('addrId').setValue('');
-        this.address = res.value;
-        this.checkoutForm.get('addrId').setValue(res.value.id);
-        this.getStore();
+        console.log(res);
+        if (res.value === '添加新地址') {
+          this.router.navigate(['/admin/setting/address/edit/0']);
+        } else {
+          this.store = '';
+          this.checkoutForm.get('storeId').setValue('');
+          this.checkoutForm.get('addrId').setValue('');
+          this.address = res.value;
+          this.checkoutForm.get('addrId').setValue(res.value.id);
+          this.getStore();
+        }
       });
     } else {
       this.pickerSvc.show([this.stores], '', [0], this.config).subscribe(res => {

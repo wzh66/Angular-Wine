@@ -13,8 +13,8 @@
     <div class="weui-panel__hd">配送信息<a *ngIf="address" (click)="show('address')" href="javascript:;"
                                        class="right">更换</a></div>
     <div class="weui-panel__bd">
-      <div (click)="show('address')" *ngIf="address" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}})</h4>
+      <div *ngIf="address" class="weui-media-box weui-media-box_text">
+        <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}}) [<a [routerLink]="['/admin/setting/address/edit',address.id]" href="javascript:;">修改</a>]</h4>
         <p class="weui-media-box__desc">{{address.province + address.city + address.district + address.address}}</p>
       </div>
       <div *ngIf="!address" routerLink="/admin/setting/address/edit/0" class="weui-media-box weui-media-box_text">

@@ -5,7 +5,8 @@ import {
   GetLabelPipe,
   PicNumberPipe,
   RmbPipe,
-  FormatSrcPipe
+  FormatSrcPipe,
+  DistancePipe
 } from './pipes.pipe';
 
 export const PIPES_DECLARATIONS = [
@@ -15,5 +16,6 @@ export const PIPES_DECLARATIONS = [
   GetLabelPipe,
   PicNumberPipe,
   RmbPipe,
-  FormatSrcPipe
+  FormatSrcPipe,
+  DistancePipe
 ];

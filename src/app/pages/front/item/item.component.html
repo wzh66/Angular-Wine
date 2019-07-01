@@ -1,4 +1,4 @@
-<app-header [show]="true" [title]="'草莓奶油蛋糕'" [rightNav]="'share'"></app-header>
+<app-header *ngIf="product" [show]="true" [title]="product.productname" [rightNav]="'share'"></app-header>
 <app-content *ngIf="product" [paddingFooter]="true" [paddingHeader]="false" [monitor]="'scroll'">
   <div class="banner">
     <swiper [config]="config" [index]="1" fxFlex="auto">

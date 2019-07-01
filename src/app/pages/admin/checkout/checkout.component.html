@@ -14,7 +14,8 @@
                                        class="right">更换</a></div>
     <div class="weui-panel__bd">
       <div *ngIf="address" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}}) [<a [routerLink]="['/admin/setting/address/edit',address.id]" href="javascript:;">修改</a>]</h4>
+        <h4 class="weui-media-box__title">{{address.consignee}}({{address.phone}}) [<a
+          [routerLink]="['/admin/setting/address/edit',address.id]" href="javascript:;">修改</a>]</h4>
         <p class="weui-media-box__desc">{{address.province + address.city + address.district + address.address}}</p>
       </div>
       <div *ngIf="!address" routerLink="/admin/setting/address/edit/0" class="weui-media-box weui-media-box_text">
@@ -41,6 +42,12 @@
         <h4 class="weui-media-box__title"><em>该区域没有服务门店</em></h4>
       </div>
     </div>
+    <div class="weui-penal__ft">
+      <div class="weui-cell">
+        <div class="weui-cell__bd"></div>
+        <div class="weui-cell__ft" [innerHTML]="store?.range | distance"></div>
+      </div>
+    </div>
   </div>
   <div class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">订单信息</div>
@@ -54,10 +61,12 @@
       </div>
     </div>
     <div class="weui-panel__ft">
-      <a *ngIf="store && checkoutForm.get('deliveryType').value == 1" href="javascript:void(0);" class="weui-cell weui-cell_link">
-        <div class="weui-cell__bd">运费</div>
+      <a *ngIf="store && checkoutForm.get('deliveryType').value == 1" href="javascript:void(0);"
+         class="weui-cell weui-cell_link">
+        <div class="weui-cell__bd">运费 (<span (click)="showOverlay()">什么是运费?</span>)</div>
         <span class="weui-cell__ft">
-          <em class="money" style="font-size: 0.18rem" [innerHTML]="(store?.deliveryamount ? store?.deliveryamount : 0) | rmb"></em>
+          <em class="money" style="font-size: 0.18rem"
+              [innerHTML]="(store?.deliveryamount ? store?.deliveryamount : 0) | rmb"></em>
         </span>
       </a>
       <a href="javascript:void(0);" class="weui-cell weui-cell_link">
@@ -85,7 +94,8 @@
 <div class="btns-group animated" [ngClass]="{'slideInUp':direction === 'down','slideOutDown':direction === 'up'}">
   <div class="total">
     <span class="label">应付合计：</span>
-    <em class="amount" [innerHTML]="(order?.totalAmount + (store?.deliveryamount && checkoutForm.get('deliveryType').value == 1 ? store?.deliveryamount : 0)) | rmb"></em>
+    <em class="amount"
+        [innerHTML]="(order?.totalAmount + (store?.deliveryamount && checkoutForm.get('deliveryType').value == 1 ? store?.deliveryamount : 0)) | rmb"></em>
   </div>
   <a (click)="checkout()" class="btn-primary" [ngClass]="{'disabled':checkoutForm.invalid}">结算</a>
 </div>
@@ -95,6 +105,30 @@
     <div class="weui-cell__bd"><input class="weui-input" name="{{item.key}}" value="{{item.value}}"></div>
   </div>
 </form>
+
+<app-overlay>
+  <!--  <nav>-->
+  <!--    <div class="nav-group right">-->
+  <!--      <a (click)="back()" class="logout nav-item" href="javascript:;"><span class="icons icons-close"></span></a>-->
+  <!--    </div>-->
+  <!--  </nav>-->
+  <div class="content-scrollable">
+    <article class="weui-article">
+      <section>
+        <p>
+          <img src="/assets/images/shippingFee.jpg">
+        </p>
+      </section>
+
+    </article>
+
+    <div class="btns-group">
+      <a (click)="back()" class="btn-primary">返回</a>
+    </div>
+  </div>
+
+</app-overlay>
+
 
 <weui-mask backdrop="true" #mask>
   <!--<img *ngIf="qrCodeUrl" [src]="qrCodeUrl">-->

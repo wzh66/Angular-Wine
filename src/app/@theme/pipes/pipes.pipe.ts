@@ -121,3 +121,25 @@ export class FormatSrcPipe implements PipeTransform {
     return content;
   }
 }
+
+@Pipe({
+  name: 'distance',
+  pure: false
+})
+// <em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i class="decimal">.00</i></em>
+@Injectable()
+export class DistancePipe implements PipeTransform {
+  transform(meters): any {
+    if (!meters) {
+      return meters;
+    }
+    let html = '';
+    if (meters < 1000) {
+      html = `<em class="money"><i class="rmb">距离</i><span>${meters}</span><i class="decimal">米</i></em>`;
+    } else {
+      html = `<em class="money"><i class="rmb">距离</i><span>${Math.round(meters / 1000)}</span><i class="decimal">公里</i></em>`;
+    }
+
+    return html;
+  }
+}

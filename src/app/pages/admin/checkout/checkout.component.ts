@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {LocationStrategy} from '@angular/common';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {PickerService, PickerConfig, ToastService, DialogService, MaskComponent} from 'ngx-weui';
 
@@ -10,6 +11,7 @@ import {GeoService} from '../../../@core/data/geo.service';
 import {UaService} from '../../../@core/data/ua.service';
 import {DirectionService} from '../../../@theme/animates/direction.service';
 import {FooterService} from '../../../@theme/modules/footer/footer.service';
+import {OverlayService} from '../../../@theme/modules/overlay';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from '../cart/cart.service';
 import {AddressService} from '../setting/address/address.service';
@@ -59,6 +61,7 @@ export class AdminCheckoutComponent implements OnInit {
   listenerTimer;
 
   constructor(private router: Router,
+              private loc: LocationStrategy,
               private uaSvc: UaService,
               private storageSvc: StorageService,
               private toastSvc: ToastService,
@@ -67,6 +70,7 @@ export class AdminCheckoutComponent implements OnInit {
               private directionSvc: DirectionService,
               private geoSvc: GeoService,
               private footerSvc: FooterService,
+              private overlaySvc: OverlayService,
               private authSvc: AuthService,
               private cartSvc: CartService,
               private addressSvc: AddressService,
@@ -89,6 +93,11 @@ export class AdminCheckoutComponent implements OnInit {
       addrId: new FormControl('', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), [])
     });
+
+    this.loc.onPopState(state => {
+      this.overlaySvc.hide();
+    });
+
     this.checkoutSvc.getItems(this.key).subscribe(res => {
       this.order = res;
     });
@@ -146,9 +155,15 @@ export class AdminCheckoutComponent implements OnInit {
         }).subscribe();
       } else {
         this.store = _res[0];
+        console.log(this.store);
         this.checkoutForm.get('storeId').setValue(this.store.id);
       }
     });
+  }
+
+  showOverlay() {
+    this.loc.pushState('advert', 'overlay', this.loc.path(), '');
+    this.overlaySvc.show();
   }
 
   show(type) {
@@ -158,9 +173,9 @@ export class AdminCheckoutComponent implements OnInit {
         if (res.value === '添加新地址') {
           this.router.navigate(['/admin/setting/address/edit/0']);
         } else {
-          this.store = '';
-          this.checkoutForm.get('storeId').setValue('');
-          this.checkoutForm.get('addrId').setValue('');
+          // this.store = '';
+          // this.checkoutForm.get('storeId').setValue('');
+          // this.checkoutForm.get('addrId').setValue('');
           this.address = res.value;
           this.checkoutForm.get('addrId').setValue(res.value.id);
           this.getStore();
@@ -168,8 +183,8 @@ export class AdminCheckoutComponent implements OnInit {
       });
     } else {
       this.pickerSvc.show([this.stores], '', [0], this.config).subscribe(res => {
-        this.checkoutForm.get('storeId').setValue('');
-        this.checkoutForm.get('addrId').setValue('');
+        // this.checkoutForm.get('storeId').setValue('');
+        // this.checkoutForm.get('addrId').setValue('');
         this.store = res.value;
         this.checkoutForm.get('storeId').setValue(res.value.id);
       });
@@ -280,5 +295,9 @@ export class AdminCheckoutComponent implements OnInit {
         this.mask.show();
       }
     });
+  }
+
+  back() {
+    this.loc.back();
   }
 }

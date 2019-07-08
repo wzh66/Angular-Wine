@@ -19,14 +19,23 @@ html, body {
   overflow: hidden;
 }
 
+body {
+  font-size: 12px
+}
+
 ul, li {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+i {
+  font-style: normal;
+}
+
 em {
   color: #F43530;
+  font-style: normal;
 
   &.money {
     .rmb {
@@ -82,9 +91,11 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+
   &.padding-header {
     padding-top: 0.48rem;
   }
+
   &.padding-footer {
     &:after {
       content: '';

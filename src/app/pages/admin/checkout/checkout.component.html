@@ -49,6 +49,17 @@
       </div>
     </div>
   </div>
+
+  <div class="weui-cells">
+    <a (click)="showDate()" class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__bd">
+        <p>{{checkoutForm.get('deliveryType').value == 0 ? '自提' : '配送'}}时间</p>
+      </div>
+      <div class="weui-cell__ft">{{checkoutForm.get('sendTime').valid ? checkoutForm.get('sendTime').value : '请选择' + (checkoutForm.get('deliveryType').value == 0 ? '自提' : '配送') + '时间'}}</div>
+    </a>
+
+  </div>
+
   <div class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">订单信息</div>
     <div class="weui-panel__bd">

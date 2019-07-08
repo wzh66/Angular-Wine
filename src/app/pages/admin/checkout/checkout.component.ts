@@ -91,7 +91,8 @@ export class AdminCheckoutComponent implements OnInit {
       deliveryType: new FormControl(1, [Validators.required]),
       storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required]),
-      openId: new FormControl(this.authSvc.getOid(), [])
+      openId: new FormControl(this.authSvc.getOid(), []),
+      sendTime: new FormControl('', [Validators.required])
     });
 
     this.loc.onPopState(state => {
@@ -133,6 +134,13 @@ export class AdminCheckoutComponent implements OnInit {
         this.checkoutForm.get('addrId').setValue(this.address.id);
         this.getStore();
       }
+    });
+  }
+
+  showDate() {
+    this.pickerSvc.showDateTime('date').subscribe((res: any) => {
+      console.log(res);
+      this.checkoutForm.get('sendTime').setValue(res.formatValue);
     });
   }
 

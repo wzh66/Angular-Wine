@@ -138,8 +138,7 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   showDate() {
-    this.pickerSvc.showDateTime('date').subscribe((res: any) => {
-      console.log(res);
+    this.pickerSvc.showDateTime('datetime').subscribe((res: any) => {
       this.checkoutForm.get('sendTime').setValue(res.formatValue);
     });
   }

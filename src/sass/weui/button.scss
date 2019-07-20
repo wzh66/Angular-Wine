@@ -2,4 +2,13 @@
 
 .weui-btn_primary {
   background: $color-primary;
+  &:not(.weui-btn_disabled) {
+    &:visited {
+      color: #FFFFFF;
+    }
+    &:active {
+      color: #FFFFFF;
+      background-color: $color-primary;
+    }
+  }
 }

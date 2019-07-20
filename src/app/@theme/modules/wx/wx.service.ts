@@ -19,10 +19,11 @@ export class WxService extends BaseService {
     title: '',
     desc: '',
     link: '',
-    imgUrl: '',
+    imgUrl: ''
   };
 
-  constructor(resolver: ComponentFactoryResolver,
+  constructor(@Inject('PREFIX_URL') private prefix_url,
+              resolver: ComponentFactoryResolver,
               applicationRef: ApplicationRef,
               injector: Injector,
               @Inject(DOCUMENT) private document: any,
@@ -75,12 +76,12 @@ export class WxService extends BaseService {
         });
 
         this.http
-          .get('/wx-config')
+          .get(this.prefix_url + 'getJsSdkAuth&url=' + encodeURIComponent(window.location.href))
           .pipe(
             catchError((error: Response | any) => {
               reject('无法获取签名数据');
               return Observable.throw('error');
-            }),
+            })
           )
           .subscribe((ret: any) => {
             if (!ret.success) {
@@ -95,14 +96,14 @@ export class WxService extends BaseService {
 
   private _onMenuShareTimeline() {
     wx.onMenuShareTimeline(
-      Object.assign({}, WxService.DEFAULTSHARE, this.share),
+      Object.assign({}, WxService.DEFAULTSHARE, this.share)
     );
     return this;
   }
 
   private _onMenuShareAppMessage() {
     wx.onMenuShareAppMessage(
-      Object.assign({}, WxService.DEFAULTSHARE, this.share),
+      Object.assign({}, WxService.DEFAULTSHARE, this.share)
     );
     return this;
   }

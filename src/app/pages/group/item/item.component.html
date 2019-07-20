@@ -55,6 +55,6 @@
     </section>
   </article>
 </app-content>
-<app-footer-btn *ngIf="activity?.activeTeamInfo.length < 1" [loading]="loading" [title]="'我要开团'"
+<app-footer-btn *ngIf="activity?.activeTeamInfo.length < 1" [loading]="loading" [title]="isOwner ? '我要开团' : '我要加入'"
                 (clicked)="onClick($event)"></app-footer-btn>
 <!--<app-footer></app-footer>-->

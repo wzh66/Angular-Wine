@@ -149,7 +149,7 @@ export class GroupItemComponent implements OnInit {
   }
 
   get isOwner() {
-    return this.groupForm.get('referee').value === this.key;
+    return !this.referee || this.referee === this.key;
   }
 
 }

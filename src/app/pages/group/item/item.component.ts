@@ -29,6 +29,7 @@ export class GroupItemComponent implements OnInit {
     }
   };
   key;
+  referee = this.route.snapshot.queryParams['referee'];
   activity;
   groupForm: FormGroup;
   address;
@@ -52,7 +53,7 @@ export class GroupItemComponent implements OnInit {
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
       actionId: new FormControl(this.route.snapshot.params['id'], [Validators.required]),
-      teamId: new FormControl('', [])
+      teamId: new FormControl(this.route.snapshot.queryParams['teamId'], [])
     });
 
     this.groupSvc.get(this.key).subscribe(res => {
@@ -131,7 +132,8 @@ export class GroupItemComponent implements OnInit {
     this.wxSvc.config({
       title: '新美食计划拼拼团！',
       desc: '1块钱的' + this.activity.activeAction.productname + '需要你的助力，谢谢啦>>>',
-      link: 'http://www.newplan123.com/group/item/' + this.activity.activeAction.activeno + '?referee=' + this.key + '&teamId=' + this.activity.activeTeamInfo[0].activeteamid,
+      link: 'http://www.newplan123.com/group/item/' + this.groupForm.get('actionId').value +
+        '?referee=' + this.key + '&teamId=' + this.activity.activeTeamInfo[0].activeteamid,
       imgUrl: 'http://www.newplan123.com/api' + this.activity.activeAction.headimage
     }).then(() => {
       console.log('注册成功');
@@ -144,6 +146,10 @@ export class GroupItemComponent implements OnInit {
     this.wxSvc.show({targetTips: '继续邀请好友吧！'}).subscribe(res => {
       console.log(res);
     });
+  }
+
+  get isOwner() {
+    return this.groupForm.get('referee').value === this.key;
   }
 
 }

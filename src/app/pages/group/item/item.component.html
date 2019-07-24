@@ -36,24 +36,7 @@
     </div>
   </div>
 
-  <article class="weui-article">
-    <h2>活动说明</h2>
-    <p>活动时间：2013年7月2日——2013年7月10日</p>
-    <section>
-      <h3>活动内容</h3>
-      <p>1.玩家需要使用450张银卡在兑换中心兑换幸运轮盘进行抽奖，一张轮盘卷只可以抽奖一次；</p>
-      <p>2.每个ID每天最多只可以抽奖三次；</p>
-      <p>3.玩家获得的奖品在60秒后自动加入到游戏账户中。</p>
-    </section>
-    <section>
-      <h3>活动步骤</h3>
-      <p>1.先进入兑换中心兑换自己所需要的轮盘抽奖券；</p>
-      <p>2.兑换成功后可直接进入幸运轮盘抽奖页面，进行抽奖，也可以进入商城，点击我的背包中的“道具”查看抽奖券数据后再进行抽奖。</p>
-      <p>
-        <img src="/assets/images/group/1.jpg">
-      </p>
-    </section>
-  </article>
+  <article class="weui-article" [innerHTML]="activity?.activeAction.detail"></article>
 </app-content>
 <app-footer-btn *ngIf="activity?.activeTeamInfo.length < 1" [loading]="loading" [title]="isOwner ? '我要开团' : '我要加入'"
                 (clicked)="onClick($event)"></app-footer-btn>

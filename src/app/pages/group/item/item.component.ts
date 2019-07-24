@@ -29,6 +29,7 @@ export class GroupItemComponent implements OnInit {
     }
   };
   key;
+  teamId;
   referee = this.route.snapshot.queryParams['referee'];
   activity;
   groupForm: FormGroup;
@@ -49,17 +50,14 @@ export class GroupItemComponent implements OnInit {
   ngOnInit() {
 
     this.key = this.authSvc.getKey();
-
+    this.teamId = this.route.snapshot.queryParams['teamId'] || '';
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
       actionId: new FormControl(this.route.snapshot.params['id'], [Validators.required]),
-      teamId: new FormControl(this.route.snapshot.queryParams['teamId'], [])
+      teamId: new FormControl(this.teamId, [])
     });
 
-    this.groupSvc.get(this.key).subscribe(res => {
-      console.log(res.activeAction);
-      // this.activity.info = res.activeAction;
-      // this.activity.group = res.activeTeamInfo;
+    this.groupSvc.get(this.key, this.teamId).subscribe(res => {
       this.activity = res;
       console.log(this.activity);
     });

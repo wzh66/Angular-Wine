@@ -15,7 +15,7 @@ import {WxComponent} from './wx.component';
 
 @Injectable({providedIn: 'root'})
 export class WxService extends BaseService {
-  private static DEFAULTSHARE: any = {
+  private DEFAULTSHARE: any = {
     title: '',
     desc: '',
     link: '',
@@ -33,9 +33,8 @@ export class WxService extends BaseService {
   }
 
   private share: any;
-
+  private jsApiList: string[] = ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone'];
   show(data): Observable<any> {
-    console.log(data);
     const componentRef = this.build(WxComponent);
 
     componentRef.instance.state = data;
@@ -53,8 +52,15 @@ export class WxService extends BaseService {
     componentRef.instance.hide();
   }
 
-  config(shareData: any): Promise<boolean> {
+  defaultConfig(config) {
+    this.DEFAULTSHARE = config;
+  }
+
+  config(shareData: any, jsApiList?: string[]): Promise<boolean> {
     this.share = shareData;
+    if (jsApiList) {
+      this.jsApiList = jsApiList;
+    }
     return new Promise((resolve, reject) => {
       this.wxService.get().then(res => {
         if (!res) {
@@ -84,11 +90,12 @@ export class WxService extends BaseService {
             })
           )
           .subscribe((ret: any) => {
-            if (!ret.success) {
+            if (ret.code !== '0000') {
               reject('jsapi 获取失败');
               return;
             }
-            wx.config(ret);
+            ret.result.jsApiList = this.jsApiList;
+            wx.config(ret.result);
           });
       });
     });
@@ -96,30 +103,30 @@ export class WxService extends BaseService {
 
   private _onMenuShareTimeline() {
     wx.onMenuShareTimeline(
-      Object.assign({}, WxService.DEFAULTSHARE, this.share)
+      Object.assign({}, this.DEFAULTSHARE, this.share)
     );
     return this;
   }
 
   private _onMenuShareAppMessage() {
     wx.onMenuShareAppMessage(
-      Object.assign({}, WxService.DEFAULTSHARE, this.share)
+      Object.assign({}, this.DEFAULTSHARE, this.share)
     );
     return this;
   }
 
   private _onMenuShareQQ() {
-    wx.onMenuShareQQ(Object.assign({}, WxService.DEFAULTSHARE, this.share));
+    wx.onMenuShareQQ(Object.assign({}, this.DEFAULTSHARE, this.share));
     return this;
   }
 
   private _onMenuShareWeibo() {
-    wx.onMenuShareWeibo(Object.assign({}, WxService.DEFAULTSHARE, this.share));
+    wx.onMenuShareWeibo(Object.assign({}, this.DEFAULTSHARE, this.share));
     return this;
   }
 
   private _onMenuShareQZone() {
-    wx.onMenuShareQZone(Object.assign({}, WxService.DEFAULTSHARE, this.share));
+    wx.onMenuShareQZone(Object.assign({}, this.DEFAULTSHARE, this.share));
     return this;
   }
 }

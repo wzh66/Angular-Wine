@@ -15,6 +15,8 @@ import {MsgInfoComponent} from './pages/msg/info/info.component';
 import {MsgErrorComponent} from './pages/msg/error/error.component';
 import {MsgRedComponent} from './pages/msg/red/red.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

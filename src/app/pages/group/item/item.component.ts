@@ -9,6 +9,7 @@ import {CheckoutService} from '../../admin/checkout/checkout.service';
 import {AddressService} from '../../admin/setting/address/address.service';
 import {GroupService} from '../group.service';
 import {PayDto} from '../../../@core/dto/pay.dto';
+import {getIndex} from "../../../utils/utils";
 
 @Component({
   selector: 'app-group-item',
@@ -30,7 +31,6 @@ export class GroupItemComponent implements OnInit {
   };
   key;
   teamId;
-  referee = this.route.snapshot.queryParams['referee'];
   activity;
   groupForm: FormGroup;
   address;
@@ -109,7 +109,6 @@ export class GroupItemComponent implements OnInit {
       this.loading = true;
       this.toastSvc.loading('处理中', 0);
       this.groupSvc.create(this.groupForm.value).subscribe(res => {
-        console.log(res);
         this.loading = false;
         this.toastSvc.hide();
         const body: PayDto = {
@@ -131,7 +130,7 @@ export class GroupItemComponent implements OnInit {
       title: '新美食计划拼拼团！',
       desc: '1块钱的' + this.activity.activeAction.productname + '需要你的助力，谢谢啦>>>',
       link: 'http://www.newplan123.com/group/item/' + this.groupForm.get('actionId').value +
-        '?referee=' + this.key + '&teamId=' + this.activity.activeTeamInfo[0].activeteamid,
+        '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
       imgUrl: 'http://www.newplan123.com/api' + this.activity.activeAction.headimage
     }).then(() => {
       console.log('注册成功');
@@ -147,7 +146,7 @@ export class GroupItemComponent implements OnInit {
   }
 
   get isOwner() {
-    return !this.referee || this.referee === this.key;
+    return this.authSvc.getUid() === this.activity.activeTeamInfo[getIndex(this.activity.activeTeamInfo, 'iscommander', 1)].userid;
   }
 
 }

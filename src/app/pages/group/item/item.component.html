@@ -38,6 +38,6 @@
 
   <article class="weui-article" [innerHTML]="activity?.activeAction.detail"></article>
 </app-content>
-<app-footer-btn [loading]="loading" [title]="isOwner ? '我要开团' : '我要加入'"
+<app-footer-btn [disabled]="isJoined || isClosed" [loading]="loading" [title]="btnTxt"
                 (clicked)="onClick($event)"></app-footer-btn>
 <!--<app-footer></app-footer>-->

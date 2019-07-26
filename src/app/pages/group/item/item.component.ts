@@ -29,12 +29,18 @@ export class GroupItemComponent implements OnInit {
       delay: 3000
     }
   };
-  key;
+  key = this.authSvc.getKey();
+  uid = this.authSvc.getUid();
   teamId;
   activity;
   groupForm: FormGroup;
   address;
   addresses;
+  isCreated = false;
+  isJoined = false;
+  isOwner = false;
+  isClosed = false;
+  btnTxt = '';
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -48,8 +54,6 @@ export class GroupItemComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.key = this.authSvc.getKey();
     this.teamId = this.route.snapshot.queryParams['teamId'] || '';
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
@@ -59,7 +63,29 @@ export class GroupItemComponent implements OnInit {
 
     this.groupSvc.get(this.key, this.teamId).subscribe(res => {
       this.activity = res;
-      console.log(this.activity);
+      this.isJoined = typeof getIndex(this.activity.activeTeamInfo, 'userid', parseInt(this.uid, 10)) === 'number';
+      this.isCreated = this.activity.activeTeamInfo.length > 0;
+      this.isClosed = this.activity.activeTeamInfo.length >= 3;
+      this.isOwner = this.authSvc.getUid() ===
+        this.activity.activeTeamInfo[getIndex(this.activity.activeTeamInfo, 'iscommander', 1)].userid;
+
+      if (this.isCreated) {
+        if (this.isClosed) {
+          this.btnTxt = '成功拼团';
+        } else {
+          if (this.isOwner) {
+            this.btnTxt = '您已成功开团';
+          } else {
+            if (this.isJoined) {
+              this.btnTxt = '您已成功入团';
+            } else {
+              this.btnTxt = '我要加入';
+            }
+          }
+        }
+      } else {
+        this.btnTxt = '我要开团';
+      }
     });
 
     this.addressSvc.get(this.key).subscribe(res => {
@@ -143,10 +169,6 @@ export class GroupItemComponent implements OnInit {
     this.wxSvc.show({targetTips: '继续邀请好友吧！'}).subscribe(res => {
       console.log(res);
     });
-  }
-
-  get isOwner() {
-    return this.authSvc.getUid() === this.activity.activeTeamInfo[getIndex(this.activity.activeTeamInfo, 'iscommander', 1)].userid;
   }
 
 }

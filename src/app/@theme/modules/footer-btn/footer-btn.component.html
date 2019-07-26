@@ -1,1 +1,2 @@
-<a weui-button [weui-block]="true" [weui-loading]="loading" [disabled]="loading" (click)="onClick()">{{title}}</a>
+<a weui-button [weui-block]="true" [weui-loading]="loading" [disabled]="loading || disabled"
+   (click)="onClick()">{{title}}</a>

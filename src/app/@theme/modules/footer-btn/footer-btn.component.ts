@@ -8,12 +8,13 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
 export class FooterBtnComponent {
   @Input() title = '确定';
   @Input() loading = false;
+  @Input() disabled = false;
   @Output() clicked = new EventEmitter<any>();
 
   constructor() {
   }
 
   onClick() {
-    this.clicked.emit(this.loading ? false : true);
+    this.clicked.emit(this.loading || this.disabled ? false : true);
   }
 }

@@ -31,6 +31,7 @@ export class AuthService {
   }
 
   requestAuth() {
+    this.storageSvc.remove('accessToken');
     if (this.router.url.indexOf('login') !== -1) {
       return false;
     }

@@ -17,7 +17,7 @@
           <p class="weui-media-box__desc">分享到多个微信群后，成团率更高哦~</p>
           <div class="avatars" style="margin-top: 10px">
             <div class="avatar" *ngFor="let item of activity.activeTeamInfo">
-              <img src="{{'/api/' + item.faceimg}}">
+              <img src="{{item.faceimg}}">
             </div>
             <div class="avatar" *ngIf="activity.activeTeamInfo.length < 2">
               <span>?</span>

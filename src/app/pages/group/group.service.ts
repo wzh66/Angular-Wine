@@ -32,8 +32,8 @@ export class GroupService {
   get(key, teamId?): Observable<any> {
     return this.http.get(this.prefix_url + 'getActive' + '&key=' + key + '&teamId=' + (teamId ? teamId : ''))
       .pipe(observableMargeMap((res: any) => {
-      return this.processResult(res);
-    }));
+        return this.processResult(res);
+      }));
   }
 
   create(body): Observable<any> {
@@ -81,8 +81,8 @@ export class GroupService {
     }
   }
 
-  orders(key): Observable<any> {
-    return this.http.get(this.prefix_url + 'getAllMyActivies' + '&key=' + key)
+  orders(key, type, page?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getAllMyActivies' + '&key=' + key + '&type=' + type + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

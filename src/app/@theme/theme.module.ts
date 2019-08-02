@@ -21,6 +21,7 @@ import {HeaderModule} from './modules/header/header.module';
 import {FooterModule} from './modules/footer/footer.module';
 import {ContentModule} from './modules/content/content.module';
 import {FooterBtnModule} from './modules/footer-btn/footer-btn.module';
+import {SInfiniteLoaderModule} from './modules/infiniteloader';
 
 import {COMPONENTS, DIRECTIVES, PIPES} from './index';
 
@@ -35,6 +36,7 @@ import {COMPONENTS, DIRECTIVES, PIPES} from './index';
     THIRD_PART,
     FabModule,
     WxModule.forRoot(),
+    SInfiniteLoaderModule.forRoot(),
     MenuModule.forRoot(),
     HeaderModule.forRoot(),
     FooterModule.forRoot(),
@@ -49,6 +51,7 @@ import {COMPONENTS, DIRECTIVES, PIPES} from './index';
     RouterModule,
     HttpClientModule,
     WeUiModule,
+    SInfiniteLoaderModule,
     THIRD_PART,
     FabModule,
     WxModule,

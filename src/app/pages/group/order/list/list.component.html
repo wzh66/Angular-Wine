@@ -1,4 +1,51 @@
-<app-header leftNav="home" [show]="true" [title]="'我的拼团'"></app-header>
-<app-content [paddingFooter]="true" [paddingHeader]="true" [monitor]="'scroll'">
-</app-content>
+<app-header [className]="''" [show]="true" [title]="'我的拼团'"></app-header>
+<weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
+  <div class="order weui-panel weui-panel_access" style="margin-top: 0">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box">
+        <div class="order-status weui-flex">
+          <div [routerLink]="['/group/order/list']" [queryParams]="{status: 0}" class="weui-flex__item">
+            <p class="weui-grid__label">全部</p>
+          </div>
+          <div [routerLink]="['/group/order/list']" [queryParams]="{status: 1}" class="weui-flex__item">
+            <p class="weui-grid__label">拼团中</p>
+          </div>
+          <div [routerLink]="['/group/order/list']" [queryParams]="{status: 2}" class="weui-flex__item">
+            <p class="weui-grid__label">已成团</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-msg *ngIf="orders.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty-cart.png"}'></app-msg>
+  <div *ngFor="let order of orders" class="order-list weui-panel">
+    <div class="weui-panel__hd">活动名称：{{order.activename}}<span
+      class="right">{{order.jointime | date : 'yyyy/MM/dd HH:mm:ss'}}</span></div>
+    <div class="weui-panel__bd">
+      <div [routerLink]="['/group/item',order.activeactionid]"
+           class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb" src="{{'/api' + order.headimage}}">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{order.productname}}
+            <span class="right">
+              <span *ngIf="order?.status === 0">待付款</span>
+              <span *ngIf="order?.status === 1">拼团中</span>
+              <span *ngIf="order?.status === 2">已成团</span>
+          </span>
+          </h4>
+<!--          <p class="weui-media-box__desc" style="margin-top: 0.05rem"><em class="money"><i-->
+<!--            class="rmb">￥</i><span>{{order.buymoney}}</span><i-->
+<!--            class="decimal"></i></em><span class="units">/{{order.count}}{{order.unit}}</span></p>-->
+<!--          <p class="weui-media-box__desc">数量 x{{order.buycount}}</p>-->
+          <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space"></div>
+</weui-infiniteloader>
 <app-footer></app-footer>
+

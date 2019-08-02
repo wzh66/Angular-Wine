@@ -36,6 +36,7 @@
 
   <article class="weui-article" [innerHTML]="activity?.activeAction.detail"></article>
 </app-content>
+<div class="order"><i class="icons icons-order"></i><p>我的拼团</p></div>
 <app-footer-btn [disabled]="isJoined || isClosed" [loading]="loading" [title]="btnTxt"
                 (clicked)="onClick($event)"></app-footer-btn>
 <!--<app-footer></app-footer>-->

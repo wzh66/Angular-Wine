@@ -127,7 +127,7 @@ export class GroupItemComponent implements OnInit {
     });
   }
 
-  onClick(e) {
+  open(e) {
     if (e) {
       if (this.loading) {
         return false;

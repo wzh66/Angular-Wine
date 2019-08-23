@@ -36,7 +36,8 @@
 
   <article class="weui-article" [innerHTML]="activity?.activeAction.detail"></article>
 </app-content>
-<div class="order"><i class="icons icons-order"></i><p>我的拼团</p></div>
-<app-footer-btn [disabled]="isJoined || isClosed" [loading]="loading" [title]="btnTxt"
-                (clicked)="onClick($event)"></app-footer-btn>
+<div class="order" routerLink="/group/order/list"><i class="icons icons-order"></i><p>我的拼团</p></div>
+<div class="btns-group" [ngClass]="{'disabled':isJoined || isClosed,'loading':loading}">
+  <a (click)="open($event)" [ngClass]="{'disabled':isJoined || isClosed,'loading':loading}" class="btn-secondary">{{btnTxt}}</a><a *ngIf="isClosed" (click)="open($event)" [ngClass]="{'loading':loading}" class="btn-primary">继续开团</a>
+</div>
 <!--<app-footer></app-footer>-->

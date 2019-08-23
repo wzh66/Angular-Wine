@@ -9,7 +9,7 @@ import {CheckoutService} from '../../admin/checkout/checkout.service';
 import {AddressService} from '../../admin/setting/address/address.service';
 import {GroupService} from '../group.service';
 import {PayDto} from '../../../@core/dto/pay.dto';
-import {getIndex} from "../../../utils/utils";
+import {getIndex} from '../../../utils/utils';
 
 @Component({
   selector: 'app-group-item',
@@ -58,7 +58,9 @@ export class GroupItemComponent implements OnInit {
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
       actionId: new FormControl(this.route.snapshot.params['id'], [Validators.required]),
-      teamId: new FormControl(this.teamId, [])
+      teamId: new FormControl(this.teamId, []),
+      storeId: new FormControl('', [Validators.required]),
+      addrId: new FormControl('', [Validators.required])
     });
 
     this.groupSvc.get(this.key, this.teamId).subscribe(res => {
@@ -103,7 +105,7 @@ export class GroupItemComponent implements OnInit {
         });
         addresses.push({label: '添加新地址', value: 0});
         this.addresses = addresses;
-        // this.checkoutForm.get('addrId').setValue(this.address.id);
+        this.groupForm.get('addrId').setValue(this.address.id);
       }
     });
   }
@@ -156,7 +158,7 @@ export class GroupItemComponent implements OnInit {
       title: '新美食计划拼拼团！',
       desc: '1块钱的' + this.activity.activeAction.productname + '需要你的助力，谢谢啦>>>',
       link: 'http://www.newplan123.com/group/item/' + this.groupForm.get('actionId').value +
-        '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
+      '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
       imgUrl: 'http://www.newplan123.com/api' + this.activity.activeAction.headimage
     }).then(() => {
       console.log('注册成功');

@@ -23,7 +23,7 @@
     <div class="weui-panel__hd">活动名称：{{order.activename}}<span
       class="right">{{order.jointime | date : 'yyyy/MM/dd HH:mm:ss'}}</span></div>
     <div class="weui-panel__bd">
-      <div [routerLink]="['/group/item',order.activeactionid]"
+      <div [routerLink]="['/group/item',order.activeactionid]" [queryParams]="{teamId:order.activeteamid}"
            class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           <img class="weui-media-box__thumb" src="{{'/api' + order.headimage}}">
@@ -36,10 +36,10 @@
               <span *ngIf="order?.status === 2">已成团</span>
           </span>
           </h4>
-<!--          <p class="weui-media-box__desc" style="margin-top: 0.05rem"><em class="money"><i-->
-<!--            class="rmb">￥</i><span>{{order.buymoney}}</span><i-->
-<!--            class="decimal"></i></em><span class="units">/{{order.count}}{{order.unit}}</span></p>-->
-<!--          <p class="weui-media-box__desc">数量 x{{order.buycount}}</p>-->
+          <!--          <p class="weui-media-box__desc" style="margin-top: 0.05rem"><em class="money"><i-->
+          <!--            class="rmb">￥</i><span>{{order.buymoney}}</span><i-->
+          <!--            class="decimal"></i></em><span class="units">/{{order.count}}{{order.unit}}</span></p>-->
+          <!--          <p class="weui-media-box__desc">数量 x{{order.buycount}}</p>-->
           <!--<span class="stock">(库存：{{item.stock}}件)</span>-->
         </div>
       </div>

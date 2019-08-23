@@ -9,7 +9,7 @@
     </swiper>
   </div>
 
-  <div *ngIf="activity.activeTeamInfo.length > 0" class="group">
+  <div *ngIf="activity.activeTeamInfo && activity.activeTeamInfo.length > 0" class="group">
     <div class="weui-panel weui-panel_access">
       <div class="weui-panel__hd">还差人{{3 - activity.activeTeamInfo.length}}成团</div>
       <div class="weui-panel__bd">
@@ -37,7 +37,7 @@
   <article class="weui-article" [innerHTML]="activity?.activeAction.detail"></article>
 </app-content>
 <div class="order" routerLink="/group/order/list"><i class="icons icons-order"></i><p>我的拼团</p></div>
-<div class="btns-group" [ngClass]="{'disabled':isJoined || isClosed,'loading':loading}">
-  <a (click)="open($event)" [ngClass]="{'disabled':isJoined || isClosed,'loading':loading}" class="btn-secondary">{{btnTxt}}</a><a *ngIf="isClosed" (click)="open($event)" [ngClass]="{'loading':loading}" class="btn-primary">继续开团</a>
+<div class="btns-group">
+  <a (click)="open()" [ngClass]="{'disabled':isJoined || isClosed,'loading':loading}" class="btn-primary">{{btnTxt}}</a><a *ngIf="isClosed" (click)="new()" [ngClass]="{'loading':loading}" class="btn-primary">继续开团</a>
 </div>
 <!--<app-footer></app-footer>-->

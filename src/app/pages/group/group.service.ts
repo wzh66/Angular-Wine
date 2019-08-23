@@ -48,6 +48,13 @@ export class GroupService {
     }));
   }
 
+  listener(key, orderNo): Observable<any> {
+    return this.http.get(this.prefix_url + 'getConsumeInfo&key=' + key + '&orderNo=' + orderNo)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
   wxPay(body: PayDto) {
     const that = this;
 
@@ -65,7 +72,7 @@ export class GroupService {
           if (res.err_msg === 'get_brand_wcpay_request:ok') {
             // 使用以上方式判断前端返回,微信团队郑重提示：
             // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-            window.location.href = '/group/item/1';
+            window.location.href = '/group/item/1?orderNo=' + body.tradeNo;
           } else {
             that.dialogSvc.show({content: res.err_msg, confirm: '我知道了', cancel: ''});
           }
@@ -84,6 +91,13 @@ export class GroupService {
   orders(key, type, page?): Observable<any> {
     return this.http.get(this.prefix_url + 'getAllMyActivies' + '&key=' + key + '&type=' + type + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  order(key, tradeNo): Observable<any> {
+    return this.http.get(this.prefix_url + 'getTeamInfoByTradeNo' + '&key=' + key + '&tradeNo=' + tradeNo)
+      .pipe(observableMargeMap((res) => {
         return this.processResult(res);
       }));
   }

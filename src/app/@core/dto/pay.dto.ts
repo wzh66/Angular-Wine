@@ -6,4 +6,5 @@ export class PayDto {
   signType: string;         // 微信签名方式：
   paySign: string;
   orderNo?: string;
+  tradeNo?: string;
 }

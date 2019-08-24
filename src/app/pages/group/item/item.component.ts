@@ -62,22 +62,9 @@ export class GroupItemComponent implements OnInit {
 
   ngOnInit() {
     if (this.orderNo) {
-      this.groupSvc.listener(this.key, this.orderNo).subscribe(res => {
-        console.log(res);
-        if (res.consume.paystatus !== 0) {
-          // this.userInfo.balance = _res.userInfo.balance;
-          this.listenerTimer.unsubscribe();
-          if (res.consume.paystatus === 1) {
-            this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
-              console.log(order);
-              this.router.navigate(['/group/item/1'], {queryParams: {teamId: order.teamId}});
-            });
-          }
-          if (res.consume.paystatus === 2) {
-            this.toastSvc.success('支付失败', 3000);
-          }
-          /*this.mask.hide();*/
-        }
+      this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
+        console.log(order);
+        this.router.navigate(['/group/item/1'], {queryParams: {teamId: order.teamId}});
       });
     }
     this.teamId = this.route.snapshot.queryParams['teamId'] || '';

@@ -44,7 +44,7 @@ export class GroupItemComponent implements OnInit {
   isOwner = false;
   isClosed = false;
   btnTxt = '';
-  orderNo = this.route.snapshot.queryParams['orderNo'];
+  orderNo;
   listenerTimer;
 
   constructor(private router: Router,
@@ -61,12 +61,19 @@ export class GroupItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.orderNo) {
-      this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
-        console.log(order);
-        this.router.navigate(['/group/item/1'], {queryParams: {teamId: order.teamId}});
-      });
-    }
+    this.route.queryParamMap.subscribe(() => {
+      this.orderNo = this.route.snapshot.queryParams['orderNo'] || '';
+      if (this.orderNo) {
+        alert(this.orderNo);
+        this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
+          alert(JSON.stringify(order));
+          this.router.navigate(['/group/item/1'], {queryParams: {teamId: order.teamId}});
+          this.teamId = order.teamId;
+          this.groupForm.get('teamId').setValue(this.teamId);
+          this.getData();
+        });
+      }
+    });
     this.teamId = this.route.snapshot.queryParams['teamId'] || '';
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
@@ -76,6 +83,28 @@ export class GroupItemComponent implements OnInit {
       addrId: new FormControl('', [Validators.required])
     });
 
+    this.getData();
+
+    this.addressSvc.get(this.key).subscribe(res => {
+      if (res.list.length > 0) {
+        this.address = res.list[0];
+        const addresses = [];
+        res.list.forEach(address => {
+          addresses.push({
+            label: '[' + address.consignee + ']' + address.province + address.city + address.district + address.address,
+            value: address
+          });
+          if (address.status === 1) {
+            this.address = address;
+          }
+        });
+        addresses.push({label: '添加新地址', value: 0});
+        this.addresses = addresses;
+      }
+    });
+  }
+
+  getData() {
     this.groupSvc.get(this.key, this.teamId).subscribe(res => {
       this.activity = res;
       if (this.activity.activeTeamInfo) {
@@ -102,24 +131,6 @@ export class GroupItemComponent implements OnInit {
         }
       } else {
         this.btnTxt = '我要开团';
-      }
-    });
-
-    this.addressSvc.get(this.key).subscribe(res => {
-      if (res.list.length > 0) {
-        this.address = res.list[0];
-        const addresses = [];
-        res.list.forEach(address => {
-          addresses.push({
-            label: '[' + address.consignee + ']' + address.province + address.city + address.district + address.address,
-            value: address
-          });
-          if (address.status === 1) {
-            this.address = address;
-          }
-        });
-        addresses.push({label: '添加新地址', value: 0});
-        this.addresses = addresses;
       }
     });
   }
@@ -181,7 +192,7 @@ export class GroupItemComponent implements OnInit {
     this.loading = true;
     this.toastSvc.loading('处理中', 0);
     this.groupSvc.create(this.groupForm.value).subscribe(res => {
-      console.log(res);
+      alert(JSON.stringify(res));
       this.loading = false;
       this.toastSvc.hide();
       const body: PayDto = {
@@ -191,8 +202,9 @@ export class GroupItemComponent implements OnInit {
         package: res.package,
         signType: res.signType,
         paySign: res.paySign,
-        orderNo: res.orderNo
+        tradeNo: res.tradeNo
       };
+      console.log(body);
       this.groupSvc.wxPay(body);
     });
   }
@@ -208,7 +220,7 @@ export class GroupItemComponent implements OnInit {
       title: '新美食计划拼拼团！',
       desc: '1块钱的' + this.activity.activeAction.productname + '需要你的助力，谢谢啦>>>',
       link: 'http://www.newplan123.com/group/item/' + this.groupForm.get('actionId').value +
-      '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
+        '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
       imgUrl: 'http://www.newplan123.com/api' + this.activity.activeAction.headimage
     }).then(() => {
       console.log('注册成功');

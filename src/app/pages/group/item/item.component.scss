@@ -21,10 +21,15 @@
   }
 
   .avatars {
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
     .avatar {
       width: 0.4rem;
       height: 0.4rem;
-      display: inline-block;
+      display: block;
       border-radius: 50%;
       overflow: hidden;
       border: 1px solid #d8d8d8;
@@ -32,7 +37,7 @@
       line-height: 0.38rem;
       margin-right: 0.05rem;
       font-size: 0.2rem;
-
+      float: left;
       img {
         display: block;
         width: 100%;

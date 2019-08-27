@@ -34,7 +34,7 @@ export class GroupOrderListComponent implements OnInit {
     this.route.queryParamMap.subscribe(status => {
       console.log(status);
       this.status = this.route.snapshot.queryParams['status'] || '';
-      this.groupSvc.orders(this.key, this.status).subscribe(res => {
+      this.groupSvc.orders(this.key, this.status ? this.status : '').subscribe(res => {
         this.orders = res.list;
         console.log(this.orders);
       });

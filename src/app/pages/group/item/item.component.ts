@@ -32,7 +32,7 @@ export class GroupItemComponent implements OnInit {
   };
   key = this.authSvc.getKey();
   uid = this.authSvc.getUid();
-  teamId;
+  teamId = this.route.snapshot.queryParams['teamId'] || '';
   activity;
   groupForm: FormGroup;
   address;
@@ -45,7 +45,6 @@ export class GroupItemComponent implements OnInit {
   isClosed = false;
   btnTxt = '';
   orderNo;
-  listenerTimer;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -61,20 +60,6 @@ export class GroupItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(() => {
-      this.orderNo = this.route.snapshot.queryParams['orderNo'] || '';
-      if (this.orderNo) {
-        alert(this.orderNo);
-        this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
-          alert(JSON.stringify(order));
-          this.router.navigate(['/group/item/1'], {queryParams: {teamId: order.teamId}});
-          this.teamId = order.teamId;
-          this.groupForm.get('teamId').setValue(this.teamId);
-          this.getData();
-        });
-      }
-    });
-    this.teamId = this.route.snapshot.queryParams['teamId'] || '';
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
       actionId: new FormControl(this.route.snapshot.params['id'], [Validators.required]),
@@ -82,8 +67,29 @@ export class GroupItemComponent implements OnInit {
       storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required])
     });
+    this.route.queryParamMap.subscribe(() => {
+      this.orderNo = this.route.snapshot.queryParams['orderNo'] || '';
+      if (this.orderNo) {
+        this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
+          console.log(order);
+          this.teamId = order.teamid;
+          this.groupForm.get('teamId').setValue(this.teamId);
+          this.getData();
+        });
+      } else {
+        this.getData();
+      }
+    });
 
-    this.getData();
+    if (!this.teamId) {
+      this.groupSvc.orders(this.key, '').subscribe(res => {
+        if (res.list && res.list.length > 0) {
+          this.teamId = res.list[0].activeteamid;
+          this.groupForm.get('teamId').setValue(this.teamId);
+          this.getData();
+        }
+      });
+    }
 
     this.addressSvc.get(this.key).subscribe(res => {
       if (res.list.length > 0) {
@@ -111,8 +117,9 @@ export class GroupItemComponent implements OnInit {
         this.isJoined = typeof getIndex(this.activity.activeTeamInfo, 'userid', parseInt(this.uid, 10)) === 'number';
         this.isCreated = this.activity.activeTeamInfo.length > 0;
         this.isClosed = this.activity.activeTeamInfo.length >= 3;
-        this.isOwner = this.authSvc.getUid() ===
+        this.isOwner = parseInt(this.uid, 10) ===
           this.activity.activeTeamInfo[getIndex(this.activity.activeTeamInfo, 'iscommander', 1)].userid;
+        this.wxConfig();
       }
 
       if (this.isCreated) {
@@ -155,7 +162,7 @@ export class GroupItemComponent implements OnInit {
       } else {
         this.store = res[0];
         this.groupForm.get('storeId').setValue(this.store.id);
-        this.new();
+        this.open();
       }
     });
   }
@@ -166,7 +173,6 @@ export class GroupItemComponent implements OnInit {
       confirm: '确定',
       backdrop: true
     }).subscribe(res => {
-      console.log(res);
       if (res.value === '添加新地址') {
         this.router.navigate(['/admin/setting/address/edit/0']);
       } else {
@@ -181,7 +187,7 @@ export class GroupItemComponent implements OnInit {
   }
 
   open() {
-    console.log(this.groupForm);
+    console.log(this.groupForm.value);
     if (this.loading) {
       return false;
     }
@@ -191,8 +197,8 @@ export class GroupItemComponent implements OnInit {
     }
     this.loading = true;
     this.toastSvc.loading('处理中', 0);
+    console.log(this.groupForm.value);
     this.groupSvc.create(this.groupForm.value).subscribe(res => {
-      alert(JSON.stringify(res));
       this.loading = false;
       this.toastSvc.hide();
       const body: PayDto = {
@@ -204,23 +210,21 @@ export class GroupItemComponent implements OnInit {
         paySign: res.paySign,
         tradeNo: res.tradeNo
       };
-      console.log(body);
       this.groupSvc.wxPay(body);
     });
   }
 
   new() {
-    console.log('new');
     this.groupForm.get('teamId').setValue('');
     this.open();
   }
 
-  onShare() {
+  wxConfig() {
     this.wxSvc.config({
       title: '新美食计划拼拼团！',
       desc: '1块钱的' + this.activity.activeAction.productname + '需要你的助力，谢谢啦>>>',
       link: 'http://www.newplan123.com/group/item/' + this.groupForm.get('actionId').value +
-        '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
+      '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
       imgUrl: 'http://www.newplan123.com/api' + this.activity.activeAction.headimage
     }).then(() => {
       console.log('注册成功');
@@ -230,6 +234,9 @@ export class GroupItemComponent implements OnInit {
       console.log(`注册失败，原因：${err}`);
       // this.status = `注册失败，原因：${err}`;
     });
+  }
+
+  onShare() {
     this.wxSvc.show({targetTips: '继续邀请好友吧！'}).subscribe(res => {
       console.log(res);
     });

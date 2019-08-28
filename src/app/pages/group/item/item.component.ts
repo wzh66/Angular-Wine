@@ -128,22 +128,27 @@ export class GroupItemComponent implements OnInit {
       }
 
 
-      if (this.isCreated) {
-        if (this.isFull) {
-          this.btnTxt = '成功拼团';
-        } else {
-          if (this.isOwner) {
-            this.btnTxt = '您已成功开团';
+      if (this.isClosed) {
+        this.btnTxt = '活动已结束';
+      } else {
+        if (this.isCreated) {
+          if (this.isFull) {
+            this.btnTxt = '成功拼团';
           } else {
-            if (this.isJoined) {
-              this.btnTxt = '您已成功入团';
+            if (this.isOwner) {
+              this.btnTxt = '您已成功开团';
             } else {
-              this.btnTxt = '我要加入';
+              if (this.isJoined) {
+                this.btnTxt = '您已成功入团';
+              } else {
+                this.btnTxt = '我要加入';
+              }
             }
           }
+        } else {
+          this.btnTxt = '我要开团';
         }
-      } else {
-        this.btnTxt = '我要开团';
+
       }
     });
   }
@@ -193,8 +198,7 @@ export class GroupItemComponent implements OnInit {
   }
 
   open() {
-    console.log(this.groupForm.value);
-    if (this.loading) {
+    if (this.loading || (this.isJoined || this.isFull || this.isClosed)) {
       return false;
     }
     if (this.groupForm.invalid) {
@@ -203,7 +207,6 @@ export class GroupItemComponent implements OnInit {
     }
     this.loading = true;
     this.toastSvc.loading('处理中', 0);
-    console.log(this.groupForm.value);
     this.groupSvc.create(this.groupForm.value).subscribe(res => {
       this.loading = false;
       this.toastSvc.hide();

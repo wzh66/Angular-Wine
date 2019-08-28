@@ -42,8 +42,8 @@
 <div class="order" routerLink="/group/order/list"><i class="icons icons-order"></i>
   <p>我的拼团</p></div>
 <div class="btns-group">
-  <a *ngIf="!isClosed" (click)="open()" [ngClass]="{'disabled':isJoined || isFull,'loading':loading}"
-     class="btn-primary">{{btnTxt}}</a><a *ngIf="isCreated" (click)="new()" [ngClass]="{'loading':loading}"
+  <a (click)="open()" [ngClass]="{'disabled':isJoined || isFull || isClosed,'loading':loading}"
+     class="btn-primary">{{btnTxt}}</a><a *ngIf="isCreated && !isClosed" (click)="new()" [ngClass]="{'loading':loading}"
                                           class="btn-primary">{{isOwner ? '继续开团' : '我要开团'}}</a>
 </div>
 <!--<app-footer></app-footer>-->

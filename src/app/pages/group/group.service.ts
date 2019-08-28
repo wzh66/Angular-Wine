@@ -29,8 +29,8 @@ export class GroupService {
               private dialogSvc: DialogService) {
   }
 
-  get(key, teamId?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getActive' + '&key=' + key + '&teamId=' + (teamId ? teamId : ''))
+  get(key, actionId, teamId?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getActive' + '&key=' + key + '&actionId=' + actionId + '&teamId=' + (teamId ? teamId : ''))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

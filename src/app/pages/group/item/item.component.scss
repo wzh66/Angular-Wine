@@ -26,6 +26,7 @@
       display: block;
       clear: both;
     }
+
     .avatar {
       width: 0.4rem;
       height: 0.4rem;
@@ -38,6 +39,7 @@
       margin-right: 0.05rem;
       font-size: 0.2rem;
       float: left;
+
       img {
         display: block;
         width: 100%;
@@ -79,5 +81,17 @@
       color: #fff;
       margin: 0.05rem auto;
     }
+  }
+}
+
+.status {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  width: 50%;
+  z-index: 999;
+  img {
+    display: block;
+    width: 100%;
   }
 }

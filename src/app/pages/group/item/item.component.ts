@@ -43,6 +43,8 @@ export class GroupItemComponent implements OnInit {
   isJoined = false;
   isOwner = false;
   isClosed = false;
+  isFull = false;
+  isWin = false;
   btnTxt = '';
   orderNo;
 
@@ -111,19 +113,23 @@ export class GroupItemComponent implements OnInit {
   }
 
   getData() {
-    this.groupSvc.get(this.key, this.teamId).subscribe(res => {
+    this.groupSvc.get(this.key, this.groupForm.get('actionId').value, this.teamId).subscribe(res => {
       this.activity = res;
-      if (this.activity.activeTeamInfo) {
+      console.log(this.activity);
+      if (this.activity.activeTeamInfo && this.activity.activeTeamInfo.length > 0) {
         this.isJoined = typeof getIndex(this.activity.activeTeamInfo, 'userid', parseInt(this.uid, 10)) === 'number';
         this.isCreated = this.activity.activeTeamInfo.length > 0;
-        this.isClosed = this.activity.activeTeamInfo.length >= 3;
+        this.isFull = this.activity.activeTeamInfo.length >= 3;
+        this.isClosed = this.activity.activeAction.status === 2;
+        this.isWin = this.activity.activeAction.status === 2 && this.activity.lotteryStatus === 1;
         this.isOwner = parseInt(this.uid, 10) ===
           this.activity.activeTeamInfo[getIndex(this.activity.activeTeamInfo, 'iscommander', 1)].userid;
         this.wxConfig();
       }
 
+
       if (this.isCreated) {
-        if (this.isClosed) {
+        if (this.isFull) {
           this.btnTxt = '成功拼团';
         } else {
           if (this.isOwner) {
@@ -224,7 +230,7 @@ export class GroupItemComponent implements OnInit {
       title: '新美食计划拼拼团！',
       desc: '1块钱的' + this.activity.activeAction.productname + '需要你的助力，谢谢啦>>>',
       link: 'http://www.newplan123.com/group/item/' + this.groupForm.get('actionId').value +
-      '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
+        '?teamId=' + this.activity.activeTeamInfo[0].activeteamid,
       imgUrl: 'http://www.newplan123.com/api' + this.activity.activeAction.headimage
     }).then(() => {
       console.log('注册成功');

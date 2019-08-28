@@ -4,13 +4,13 @@
     <div class="weui-panel__bd">
       <div class="weui-media-box">
         <div class="order-status weui-flex">
-          <div [routerLink]="['/group/order/list']" [queryParams]="{status: 0}" class="weui-flex__item">
+          <div [routerLink]="['/group/order/list']" [queryParams]="{status: ''}" class="weui-flex__item">
             <p class="weui-grid__label">全部</p>
           </div>
-          <div [routerLink]="['/group/order/list']" [queryParams]="{status: 1}" class="weui-flex__item">
+          <div [routerLink]="['/group/order/list']" [queryParams]="{status: '1'}" class="weui-flex__item">
             <p class="weui-grid__label">拼团中</p>
           </div>
-          <div [routerLink]="['/group/order/list']" [queryParams]="{status: 2}" class="weui-flex__item">
+          <div [routerLink]="['/group/order/list']" [queryParams]="{status: '2'}" class="weui-flex__item">
             <p class="weui-grid__label">已成团</p>
           </div>
         </div>
@@ -32,8 +32,8 @@
           <h4 class="weui-media-box__title">{{order.productname}}
             <span class="right">
               <span *ngIf="order?.status === 0">待付款</span>
-              <span *ngIf="order?.status === 1">拼团中</span>
-              <span *ngIf="order?.status === 2">已成团</span>
+              <span *ngIf="order?.status === 1">进行中</span>
+              <span *ngIf="order?.status === 2">{{order.lotterystatus ? '中奖' : '未中奖'}}</span>
           </span>
           </h4>
           <!--          <p class="weui-media-box__desc" style="margin-top: 0.05rem"><em class="money"><i-->

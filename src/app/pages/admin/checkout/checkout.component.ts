@@ -19,6 +19,7 @@ import {StoreService} from '../../../@core/data/store.service';
 import {CheckoutService} from './checkout.service';
 import {getIndex, onBridgeReady} from '../../../utils/utils';
 import {PayDto} from '../../../@core/dto/pay.dto';
+import {DateAdapter} from '@angular/material';
 
 declare interface Wish {
   text: string;
@@ -138,7 +139,9 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   showDate() {
-    this.pickerSvc.showDateTime('datetime').subscribe((res: any) => {
+    const now = Date.parse(new Date().toDateString());
+    const tomorrow = now + 24 * 60 * 60 * 1000;
+    this.pickerSvc.showDateTime('datetime', '', new Date(tomorrow), new Date(now), new Date(tomorrow)).subscribe((res: any) => {
       this.checkoutForm.get('sendTime').setValue(res.formatValue);
     });
   }

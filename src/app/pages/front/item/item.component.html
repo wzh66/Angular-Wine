@@ -10,8 +10,8 @@
   <div class="weui-panel weui-panel_access">
     <div class="weui-panel__bd">
       <div class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">{{product.productname}}<span class="right"><del>价格：￥{{spec.originalprice}}</del><span>促销价：</span><em
-          class="money"><i class="rmb">￥</i>{{spec.price}}<i class="decimal">.00</i></em></span></h4>
+        <h4 class="weui-media-box__title">{{product.productname}}<span class="right"><del>价格：￥{{spec.originalprice}}</del><span>计划价格：</span><em
+          class="money" [innerHtml]="spec.price | rmb"></em></span></h4>
         <p class="weui-media-box__desc">{{product.synopsis}}</p>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">
@@ -50,7 +50,7 @@
           温馨提示
         </div>
         <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">3~5小时预定，适合<em>5-7</em>人食用</p>
+          <p class="weui-media-box__desc">需要特别嘱咐的请添加备注信息！</p>
         </div>
       </div>
       <div class="weui-media-box weui-media-box_appmsg">

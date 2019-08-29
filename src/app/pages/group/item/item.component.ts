@@ -18,6 +18,7 @@ import {getIndex} from '../../../utils/utils';
   styleUrls: ['./item.component.scss']
 })
 export class GroupItemComponent implements OnInit {
+  actionId = this.route.snapshot.params['id'] !== '0' ? this.route.snapshot.params['id'] : '';
   imgs = ['/assets/images/group/banner.jpg'];
   qty = 1;
   loading = false;
@@ -64,7 +65,7 @@ export class GroupItemComponent implements OnInit {
   ngOnInit() {
     this.groupForm = new FormGroup({
       key: new FormControl(this.key, [Validators.required]),
-      actionId: new FormControl(this.route.snapshot.params['id'], [Validators.required]),
+      actionId: new FormControl(this.actionId, []),
       teamId: new FormControl(this.teamId, []),
       storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required])
@@ -83,7 +84,7 @@ export class GroupItemComponent implements OnInit {
       }
     });
 
-    if (!this.teamId) {
+    if (!this.teamId && this.actionId) {
       this.groupSvc.orders(this.key, '').subscribe(res => {
         if (res.list && res.list.length > 0) {
           this.teamId = res.list[0].activeteamid;
@@ -116,6 +117,8 @@ export class GroupItemComponent implements OnInit {
     this.groupSvc.get(this.key, this.groupForm.get('actionId').value, this.teamId).subscribe(res => {
       this.activity = res;
       console.log(this.activity);
+      this.actionId = this.activity.activeAction.activeactionid;
+      this.groupForm.get('actionId').setValue(this.actionId);
       if (this.activity.activeTeamInfo && this.activity.activeTeamInfo.length > 0) {
         this.isJoined = typeof getIndex(this.activity.activeTeamInfo, 'userid', parseInt(this.uid, 10)) === 'number';
         this.isCreated = this.activity.activeTeamInfo.length > 0;
@@ -208,6 +211,7 @@ export class GroupItemComponent implements OnInit {
     this.loading = true;
     this.toastSvc.loading('处理中', 0);
     this.groupSvc.create(this.groupForm.value).subscribe(res => {
+      console.log(res);
       this.loading = false;
       this.toastSvc.hide();
       const body: PayDto = {

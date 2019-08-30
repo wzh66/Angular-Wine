@@ -143,3 +143,18 @@ export class DistancePipe implements PipeTransform {
     return html;
   }
 }
+
+@Pipe({
+  name: 'detail',
+  pure: false
+})
+// <em class="money"><i class="rmb">￥</i><span>{{item.price}}</span><i class="decimal">.00</i></em>
+@Injectable()
+export class DetailPipe implements PipeTransform {
+  transform(html): any {
+    if (!html) {
+      return html;
+    }
+    return html.replace(/img src="/g, 'img src="/api');
+  }
+}

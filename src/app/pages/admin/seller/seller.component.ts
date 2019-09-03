@@ -183,12 +183,14 @@ export class AdminSellerComponent implements OnInit {
         this.sellerForm.get('x').setValue(res.result.location.lng);
         this.sellerForm.get('y').setValue(res.result.location.lat);
       }
-      this.sellerSvc.create(this.sellerForm.value).subscribe(() => {
+      this.sellerSvc.create(this.sellerForm.value).subscribe((ret) => {
         this.loading = false;
         this.toastSvc.hide();
-        this.dialogSvc.show({content: '您的入驻申请已成功提交！', confirm: '我知道了', cancel: ''}).subscribe(() => {
-          this.location.back();
-        });
+        if (ret) {
+          this.dialogSvc.show({content: '您的入驻申请已成功提交！', confirm: '我知道了', cancel: ''}).subscribe(() => {
+            this.location.back();
+          });
+        }
       });
     });
   }

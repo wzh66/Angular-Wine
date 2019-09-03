@@ -12,7 +12,6 @@ import {UaService} from '../../@core/data/ua.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-
   private redirectUrl = '';
   private accessToken = {
     key: '',
@@ -80,6 +79,16 @@ export class AuthService {
   getOid() {
     if (this.storageSvc.get('accessToken')) {
       return JSON.parse(this.storageSvc.get('accessToken')).openid;
+    }
+  }
+
+  referee(referee?) {
+    if (referee) {
+      this.storageSvc.set('referee', referee);
+    } else if (referee === null) {
+      this.storageSvc.remove('referee');
+    } else {
+      return this.storageSvc.get('referee');
     }
   }
 

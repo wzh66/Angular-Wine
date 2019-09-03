@@ -1,34 +1,60 @@
-.banner {
+.content-scrollable {
+  background-image: url("/assets/images/share/bg.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+.qr-code::ng-deep {
+  margin-top: 0.95rem;
+  img {
+    display: block;
+    width: 2rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: 0.2rem solid #fff;
+    border-bottom: 0.6rem solid #fff;
+    border-radius: 0.08rem;
+  }
+}
+.weui-cell_title {
+  margin-top: -0.45rem;
+  margin-bottom: 0.1rem;
+  display: block;
+  text-align: center;
+}
+.envelope {
+  width: 2.4rem;
+  margin: 0 auto;
+  position: relative;
   img {
     display: block;
     width: 100%;
   }
-}
-
-.qr-code::ng-deep {
-  margin-top: -0.95rem;
-  img {
-    display: block;
-    width: 1.5rem;
-    margin: 0 auto;
-    box-sizing: border-box;
-    border: 10px solid #fff;
+  .target {
+    position: absolute;
+    top: 0.5rem;
+    font-size: 0.14rem;
+    color: #fff;
+    overflow: hidden;
+    text-align:center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 2rem;
+    left: 50%;
+    margin-left: -1rem;
   }
-}
-
-.weui-cell_title {
-  margin-top: 0.1rem;
-  display: block;
-  text-align: center;
-}
-
-.form-control_btn {
-  button {
-    display: block;
-    width: 40%;
-    border: 1px solid #fff;
-    margin: 0.15rem auto 0;
-    border-radius: 0.04rem;
-    line-height: 0.32rem;
+  .form-control_btn {
+    position: absolute;
+    top: 0.8rem;
+    left: 50%;
+    margin-left: -0.7rem;
+    button {
+      display: block;
+      width: 1.4rem;
+      border-radius: 0.04rem;
+      line-height: 0.32rem;
+      background: #ff7183;
+      border: 0;
+      color: #fff;
+    }
   }
 }

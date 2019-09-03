@@ -1,13 +1,12 @@
-<app-header [show]="true" [title]="'我要推广'" [rightNav]="'custom'"></app-header>
 <div class="content-scrollable">
-  <div class="banner">
-    <img src="/assets/images/share/banner.png">
-  </div>
   <div id="qrcode" class="qr-code"></div>
   <p class="weui-cell_title">我的专属推广二维码</p>
-  <div #target style="font-size: 0.1rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap" class="form-control form-control_mobile"><span id="invite_code">{{webHost}}</span></div>
-  <div class="form-control form-control_btn">
-    <button (click)="copy()">复制推广链接</button>
+  <div class="envelope">
+    <img src="/assets/images/share/envelope.png">
+    <div #target style=""
+         class="target form-control form-control_mobile"><span id="invite_code">{{webHost}}</span></div>
+    <div class="form-control form-control_btn">
+      <button (click)="copy()">复制推广链接</button>
+    </div>
   </div>
 </div>
-<app-footer></app-footer>

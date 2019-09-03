@@ -7,6 +7,7 @@ import {catchError} from 'rxjs/operators';
 import {JWeiXinService} from 'ngx-weui';
 
 import {BaseService} from '../../../@core/utils/base.service';
+import {AuthService} from '../../../pages/auth/auth.service';
 import {WxComponent} from './wx.component';
 
 /**
@@ -16,10 +17,10 @@ import {WxComponent} from './wx.component';
 @Injectable({providedIn: 'root'})
 export class WxService extends BaseService {
   private DEFAULTSHARE: any = {
-    title: '',
-    desc: '',
-    link: '',
-    imgUrl: ''
+    title: '新美食计划',
+    desc: '新美食计划',
+    link: 'http://www.newplan123.com/index',
+    imgUrl: 'http://www.newplan123.com/assets/images/logo.jpg',
   };
 
   constructor(@Inject('PREFIX_URL') private prefix_url,
@@ -28,12 +29,14 @@ export class WxService extends BaseService {
               injector: Injector,
               @Inject(DOCUMENT) private document: any,
               private wxService: JWeiXinService,
+              private authSvc: AuthService,
               private http: HttpClient) {
     super(resolver, applicationRef, injector, document);
   }
 
   private share: any;
   private jsApiList: string[] = ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone'];
+
   show(data): Observable<any> {
     const componentRef = this.build(WxComponent);
 
@@ -52,12 +55,8 @@ export class WxService extends BaseService {
     componentRef.instance.hide();
   }
 
-  defaultConfig(config) {
-    this.DEFAULTSHARE = config;
-  }
-
   config(shareData: any, jsApiList?: string[]): Promise<boolean> {
-    this.share = shareData;
+    this.share = Object.assign({}, shareData, this.share);
     if (jsApiList) {
       this.jsApiList = jsApiList;
     }

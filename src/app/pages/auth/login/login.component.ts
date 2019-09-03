@@ -26,7 +26,7 @@ export class AuthLoginComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('auth', {static: false}) private auth: any;
 
   openid = this.route.snapshot.queryParams['openid'] ? this.route.snapshot.queryParams['openid'] : '';
-  referee = this.storageSvc.get('referee') ? this.storageSvc.get('referee') : '';
+  referee = this.authSvc.referee();
   sourceChannel = this.storageSvc.get('sourceChannel') ? this.storageSvc.get('sourceChannel') : '';
   callbackUrl = this.route.snapshot.queryParams['callbackUrl'];
   appConfig;
@@ -77,7 +77,9 @@ export class AuthLoginComponent implements OnInit, AfterViewInit, OnDestroy {
       loginid: new FormControl('', [Validators.required, Validators.min(10000000000), Validators.max(19999999999)]),
       pwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
       tradepwd: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]),
-      validCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{4}$/)]),
+      validCode: new FormControl('', [Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(4)]),
       openid: new FormControl(this.openid, []),
       usid: new FormControl('', []),
       referee: new FormControl(this.referee, []),

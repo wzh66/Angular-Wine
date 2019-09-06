@@ -48,7 +48,9 @@ export class AdminFinanceRecordsComponent implements OnInit {
     });
   }
 
-  back() {
-    this.location.back();
+  onCancel(e) {
+    if (e === 'cancel') {
+      this.location.back();
+    }
   }
 }

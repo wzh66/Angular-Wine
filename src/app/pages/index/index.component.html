@@ -25,7 +25,7 @@
         <div class="weui-media-box__bd">
           <div class="banner">
             <swiper [config]="albumConfig" [index]="0" fxFlex="auto">
-                  <span class="img-box swiper-slide" *ngFor="let slide of hots">
+                  <span [routerLink]="['/front/item',slide.productid]" class="img-box swiper-slide" *ngFor="let slide of hots">
                     <img src="{{'/api' + slide.headimage}}">
                   </span>
             </swiper>

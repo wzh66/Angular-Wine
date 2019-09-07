@@ -33,15 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (!this.status) {
           this.status = true;
           if (res.body.code === '1001') {
-            this.dialogSvc.show({
-              title: '',
-              content: res.body.msg,
-              cancel: '',
-              confirm: '现在登录'
-            }).subscribe(value => {
-              this.authSvc.requestAuth();
-              this.status = false;
-            });
+            this.authSvc.requestAuth();
           } else {
             this.dialogSvc.show({
               title: '',

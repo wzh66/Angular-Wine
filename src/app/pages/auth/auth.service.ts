@@ -47,7 +47,12 @@ export class AuthService {
         window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
       } else {
         if (!key) {// 无key
-          return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
+          return this.router.navigate(['/auth/login'], {
+            queryParams: {
+              openid: openid,
+              callbackUrl: this.redirectUrl
+            }
+          });
         } else {// 有key
           const expires_time = Date.parse(String(new Date())) + 144000000;
           this.storageSvc.set('accessToken', JSON.stringify({
@@ -109,7 +114,13 @@ export class AuthService {
           window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         } else {
           if (!key) {// 无key
-            return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
+            return this.router.navigate(['/auth/login'], {
+              queryParams: {
+                openid: openid,
+                callbackUrl: this.router.url
+              }
+            });
+            // return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
           } else {// 有key
             const expires_time = Date.parse(String(new Date())) + 144000000;
             this.storageSvc.set('accessToken', JSON.stringify({

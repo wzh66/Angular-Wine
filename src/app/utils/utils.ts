@@ -35,6 +35,27 @@ export function getIndex(arr, key, value) {
   }
 }
 
+export function fmtCallbackUrl(url) {
+  const params = [];
+  if (url.indexOf('?') === -1) {
+    return url;
+  } else {
+    const arr = url.split('?');
+    let path = arr[0];
+    const queryParams = arr[1].split('&');
+    queryParams.forEach((param) => {
+      const key = param.slice(0, param.indexOf('='));
+      if (key !== 'openid' && key !== 'key' && key !== 'id' && key !== 'referee') {
+        params.push(param);
+      }
+    });
+    params.forEach((param, index) => {
+      path = path + (index === 0 ? '?' : '&') + param;
+    });
+    return path;
+  }
+}
+
 import {PayDto} from '../@core/dto/pay.dto';
 
 declare var WeixinJSBridge: any;

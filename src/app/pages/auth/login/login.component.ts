@@ -11,6 +11,7 @@ import {AppService} from '../../../app.service';
 import {DialogService} from 'ngx-weui';
 import {StorageService} from '../../../@core/utils/storage.service';
 import {OverlayService, OverlayComponent} from '../../../@theme/modules/overlay';
+import {fmtCallbackUrl} from '../../../utils/utils';
 
 declare var initGeetest: any;
 
@@ -201,7 +202,7 @@ export class AuthLoginComponent implements OnInit, AfterViewInit, OnDestroy {
           expires_time: Date.parse(String(new Date())) + 144000000
         }));
         if (this.callbackUrl && (this.callbackUrl.indexOf('signIn') === -1 && this.callbackUrl.indexOf('signUp') === -1)) {
-          this.router.navigate([this.route.snapshot.queryParams['callbackUrl']]);
+          this.router.navigateByUrl(fmtCallbackUrl(this.route.snapshot.queryParams['callbackUrl']));
         } else {
           this.router.navigate(['/admin/home']);
         }
@@ -228,7 +229,7 @@ export class AuthLoginComponent implements OnInit, AfterViewInit, OnDestroy {
         }));
 
         if (this.callbackUrl && (this.callbackUrl.indexOf('signIn') === -1 && this.callbackUrl.indexOf('signUp') === -1)) {
-          this.router.navigate([this.route.snapshot.queryParams['callbackUrl']]);
+          this.router.navigateByUrl(fmtCallbackUrl(this.route.snapshot.queryParams['callbackUrl']));
         } else {
           this.router.navigate(['/admin/home']);
         }

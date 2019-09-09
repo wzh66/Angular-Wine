@@ -25,6 +25,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   config = {
     grabCursor: true,
     centeredSlides: true,
+    items: 4,
     slidesPerView: 'auto',
     pagination: true,
     autoplay: {
@@ -34,9 +35,12 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   albumConfig = {
     grabCursor: true,
-    centeredSlides: false,
+    centeredSlides: true,
     slidesPerView: 'auto',
-    pagination: true
+    pagination: true,
+    autoplay: {
+      delay: 3000,
+    }
   };
 
   imgs = ['/assets/images/banner/1.png'];

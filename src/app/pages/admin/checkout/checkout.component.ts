@@ -139,9 +139,10 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   showDate() {
-    const now = Date.parse(new Date().toDateString());
+    const now = Date.parse(new Date().toString());
     const tomorrow = now + 24 * 60 * 60 * 1000;
-    this.pickerSvc.showDateTime('datetime', '', new Date(tomorrow), new Date(now), new Date(tomorrow)).subscribe((res: any) => {
+    console.log(new Date(now));
+    this.pickerSvc.showDateTime('datetime', '', new Date(tomorrow), new Date(tomorrow)).subscribe((res: any) => {
       this.checkoutForm.get('sendTime').setValue(res.formatValue);
     });
   }

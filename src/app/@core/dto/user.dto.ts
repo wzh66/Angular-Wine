@@ -26,4 +26,5 @@ export class UserDto {
   x: string;
   y: string;
   leayingCount: number;
+  wxQRCode: string;
 }

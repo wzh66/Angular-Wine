@@ -33,7 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (!this.status) {
           this.status = true;
           if (res.body.code === '1001') {
-            this.authSvc.requestAuth();
+            /*this.authSvc.requestAuth();*/
           } else {
             this.dialogSvc.show({
               title: '',

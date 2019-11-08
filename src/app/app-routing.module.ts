@@ -9,6 +9,7 @@ import {MsgSuccessComponent} from './pages/msg/success/success.component';
 import {MsgInfoComponent} from './pages/msg/info/info.component';
 import {MsgErrorComponent} from './pages/msg/error/error.component';
 import {MsgRedComponent} from './pages/msg/red/red.component';
+import {SearchComponent} from './@theme/modules/search-bar/search.component';
 
 const routes: Routes = [
   {
@@ -28,11 +29,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/group/group.module').then(m => m.GroupModule),
     data: {state: 'front'}
   },
-  {
+  /*{
     path: 'auth',
     loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule),
     data: {state: 'admin'}
-  },
+  },*/
   {
     path: 'admin',
     loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),

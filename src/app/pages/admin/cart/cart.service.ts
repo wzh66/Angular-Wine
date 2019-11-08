@@ -14,7 +14,7 @@ export class CartService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  get(key): Observable<any[]> {
+  get(key?): Observable<any[]> {
     return this.http.get(this.prefix_url + 'getCarts' + '&key=' + key).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));
@@ -46,7 +46,7 @@ export class CartService {
     }));
   }
 
-  clear(key): Observable<any> {
+  clear(key?): Observable<any> {
     return this.http.post(this.prefix_url + 'clearCart' + '&key=' + key, {}).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));

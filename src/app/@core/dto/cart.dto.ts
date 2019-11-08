@@ -3,9 +3,7 @@ import {ProductDto} from './product.dto';
 export class CartDto {
   key?: string;
   productId: number; // 商品id
-  specId: number; // 规格id
   qty: number; // 数量
-  remark: string; // 备注
 }
 
 export class AddCartInputDto extends CartDto {

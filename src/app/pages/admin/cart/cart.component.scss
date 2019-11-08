@@ -22,25 +22,35 @@
 }
 
 .weui-media-box__title {
-  font-size: 0.12rem;
+  color: #a9825e;
+  font-size: 0.17rem;
+  margin: 0.05rem;
 }
-
 .weui-media-box__desc {
-  font-size: 0.12rem;
-  color: #bb9772;
-
+  font-size: 0.16rem;
+  color: #9a9a9a;
+  margin: 0.02rem;
+  .num{
+    margin-left: 0.02rem;
+    color: #686868;
+    font-size: 0.18rem;
+    white-space: nowrap;
+    line-height: 0.18rem;
+  }
   .money {
+    color: #ff6200;
     margin-right: 0.05rem;
+    font-size: 0.2rem;
   }
 }
 
 .stock {
   display: inline-block;
-  vertical-align: middle;
-  margin-left: 0.1rem;
-  color: #999;
-  font-size: 0.12rem;
+  margin-left: 0.08rem;
+  color: #e0e0e0;
+  font-size: 0.17rem;
   line-height: 0.2rem;
+  vertical-align: middle;
 }
 
 .space {
@@ -58,7 +68,7 @@
     position: absolute;
     top: -0.2rem;
     line-height: 0.2rem;
-    font-size: 0.1rem;
+    font-size: 0.15rem;
     text-align: center;
     display: block;
     background: #fff5ec;
@@ -74,8 +84,9 @@
 
     .label {
       line-height: 0.2rem;
-      font-size: 0.12rem;
+      font-size: 0.18rem;
       padding-top: 0.18rem;
+      color: #8d8d8d;
     }
 
     em {

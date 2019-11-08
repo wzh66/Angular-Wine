@@ -37,7 +37,7 @@ export class GeoService {
       }));
   }
 
-  gps(body: { key: string, addr: string, city: string }): Observable<any> {
+  gps(body: { key?: string, addr: string, city: string }): Observable<any> {
     return this.http.post(this.prefix_url + 'getCoordinateByAddr', formData(body))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {Observable, of as observableOf} from 'rxjs';
@@ -10,11 +10,18 @@ import {DialogService} from 'ngx-weui';
 export class ShareService {
 
   constructor(private http: HttpClient,
-              private dialogSvc: DialogService) {
+              @Inject('PREFIX_URL') private prefix_url) {
   }
 
   get(key, page?): Observable<any> {
     return this.http.get('/wApi/interface/call.html?action=getInvites&key=' + key + '&page=' + (page ? page : 1))
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  getList(rows?, page?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getSpreads&rows=' + (rows ? rows : 10) + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

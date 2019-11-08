@@ -24,12 +24,16 @@
 
       .weui-media-box_text {
         .weui-media-box__title {
-          font-size: 0.16rem;
+          margin: 0.15rem 0.1rem;
+          color: #936b40;
+          font-size: 0.2rem;
           line-height: 0.25rem;
-
-          span.right {
+        }
+        .weui-media-box__desc{
+          margin: 0.14rem 0.1rem 0;
+          span{
             white-space: nowrap;
-            font-size: 0.12rem;
+            font-size: 0.18rem;
             color: #999;
             line-height: 0.25rem;
 
@@ -38,26 +42,28 @@
             }
 
             del {
-              margin-right: 0.1rem;
+              margin-right: 0.14rem;
             }
 
             em {
-              font-size: 0.16rem;
+              font-size: 0.2rem;
+              color: #fe6600;
             }
           }
         }
       }
 
       .weui-media-box_appmsg {
+          margin: 0.25rem 0.1rem 0;
         .weui-media-box__hd {
           align-self: start;
           text-align-last: justify;
-          font-size: 0.12rem;
-          color: #666;
+          font-size: 0.18rem;
+          color: #7d7d7d;
           width: 3em;
           height: auto;
           white-space: nowrap;
-          line-height: inherit;
+          line-height: 0.18rem;
         }
 
         .weui-media-box__bd {
@@ -84,15 +90,40 @@
           weui-stepper {
             justify-content: left;
           }
+          .stock{
+            font-size: 0.18rem;
+            color: #cdcdcd;
+            margin-left: 0.1rem;
+          }
         }
       }
     }
   }
-  .article {
-    &::ng-deep {
-      img {
-        display: block;
-        width: 100%;
+  .weui-panel {
+    .weui-panel__hd {
+      font-weight: bold;
+      font-size: 0.19rem;
+      margin: 0.1rem;
+      color: #541217;
+      line-height: 1;
+      background: #fafafa;
+    }
+    .weui-panel__bd{
+      margin-top: -0.15rem;
+      .weui-media-box__title{
+        margin: 0.06rem 0.1rem;
+        color: #999;
+        font-size: 0.18rem;
+      }
+    }
+
+    .article {
+      margin: 0.1rem;
+      &::ng-deep {
+        img {
+          display: block;
+          width: 100%;
+        }
       }
     }
   }

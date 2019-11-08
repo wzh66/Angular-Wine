@@ -17,14 +17,19 @@ export class FinanceService {
       }));
   }
 
-  getWithdrawals(key, page): Observable<any> {
+  getWithdrawals(key?, page?): Observable<any> {
     return this.http.get(this.prefix_url + 'getMyApplymentionData' + '&key=' + key + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));
   }
 
-  // myAccFlowList
+  uploadWxQrCode(body: { key: string, file: any }) {
+    return this.http.post(this.prefix_url + 'uploadWxQrCode', formData(body))
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
 
   protected processResult(res): Observable<any> {
     if (res.code === '0000') {

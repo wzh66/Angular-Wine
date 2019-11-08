@@ -1,0 +1,125 @@
+.bonus{
+  background: #fafafa;
+  width: 100%;
+  .this-bonus{
+    text-align: center;
+    color: #ccb294;
+    font-size: 0.18rem;
+    margin: 0.14rem auto;
+    .amount{
+      color: #fe6600;
+      font-size: 0.2rem;
+    }
+  }
+  .record{
+    margin: 0.14rem auto;
+    background: #fff;
+    width: 96%;
+    height: 0.6rem;
+    color: #aaa;
+    .people,.total{
+      font-size: 0.16rem;
+      line-height: 0.4rem;
+      width: 48%;
+      display: block;
+      text-align: center;
+      margin-top: 0.1rem;
+      em{
+        color:#ccb294 ;
+      }
+    }
+    .people{
+      border-right: 1px solid #ccc;
+    }
+  }
+
+.vip{
+  .title{
+    text-align: center;
+    color: #ccb294;
+    font-size: 0.18rem;
+    margin: 0.14rem auto;
+  }
+  .content {
+    margin: 0.14rem auto;
+    background: #fff;
+    width: 96%;
+    color: #aaa;
+    table {
+      background: #fff;
+      width: 100%;
+      font-size: 0.16rem;
+      line-height: 1;
+      padding: 0 0.15rem;
+      thead {
+        border-bottom: 1px solid #ccc;
+        background: #f3f3f3;
+        tr {
+          th {
+            font-weight: normal;
+            color: #898989;
+            padding: 0.15rem 0.1rem;
+            position: relative;
+            &.grade {
+              text-align: left;
+              width: 30%;
+            }
+            &.num {
+              width: 30%;
+            }
+            &.consumption {
+              text-align: right;
+              width: 40%;
+            }
+            &:after {
+              content: " ";
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              height: 1px;
+              border-bottom: 1px solid #CCCCCC;
+              color: #CCCCCC;
+              -webkit-transform-origin: 0 100%;
+              transform-origin: 0 100%;
+              -webkit-transform: scaleY(0.5);
+              transform: scaleY(0.5);
+            }
+          }
+        }
+      }
+      tbody {
+        padding: 0.075rem 0;
+        tr {
+          td {
+            font-weight: normal;
+            color: #898989;
+            padding: 0.15rem 0.1rem;
+            position: relative;
+            &.grade {
+              text-align: left;
+              width: 30%;
+            }
+            &.num {
+              width: 30%;
+              padding-left: 0.32rem;
+            }
+            &.consumption {
+              text-align: right;
+              width: 40%;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+}
+
+
+
+
+
+

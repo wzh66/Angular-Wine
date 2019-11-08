@@ -12,7 +12,7 @@ import {FinanceService} from '../finance.service';
   styleUrls: ['./records.component.scss']
 })
 export class AdminFinanceRecordsComponent implements OnInit {
-  key = this.authSvc.getKey();
+  /*key = this.authSvc.getKey();*/
   records;
   page = 1;
   totalPages;
@@ -23,7 +23,7 @@ export class AdminFinanceRecordsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.financeSvc.getWithdrawals(this.key, 1).subscribe(res => {
+    this.financeSvc.getWithdrawals('', 1).subscribe(res => {
       this.records = res.list;
       console.log(this.records);
       this.totalPages = res.totalPages;
@@ -35,7 +35,7 @@ export class AdminFinanceRecordsComponent implements OnInit {
 
       this.page = this.page + 1;
 
-      this.financeSvc.getWithdrawals(this.key, this.page).subscribe(res => {
+      this.financeSvc.getWithdrawals('', this.page).subscribe(res => {
         this.records = this.records.concat(res.list);
         this.totalPages = res.totalPages;
       });

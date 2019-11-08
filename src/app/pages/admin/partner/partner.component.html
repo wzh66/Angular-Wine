@@ -1,0 +1,34 @@
+<app-header [className]="''" [show]="true" [title]="'合伙人权益'"></app-header>
+<app-content [paddingHeader]="true" [paddingFooter]="true">
+  <app-admin-user></app-admin-user>
+  <div class="bonus">
+    <p class="this-bonus">本次分红： <span class="amount">￥158.00</span></p>
+    <div class="record">
+      <span class="people left">分红人数: <em>10人</em></span><span class="total right">分红总额: <em>￥33336</em></span>
+    </div>
+
+    <div class="vip">
+      <p class="title">下级会员</p>
+      <div class="content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+          <tr>
+            <th class="grade">级别</th>
+            <th class="num">人数</th>
+            <th class="consumption">总消费</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let partner of partners">
+            <td class="grade">{{partner.subLevelName}}</td>
+            <td class="num">{{partner.count}}人</td>
+            <td class="consumption">￥{{partner.totalConsumeAmount}}.00</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</app-content>
+<app-footer></app-footer>

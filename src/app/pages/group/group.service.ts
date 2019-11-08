@@ -88,14 +88,14 @@ export class GroupService {
     }
   }
 
-  orders(key, type, page?): Observable<any> {
+  orders(key?, type?, page?): Observable<any> {
     return this.http.get(this.prefix_url + 'getAllMyActivies' + '&key=' + key + '&type=' + type + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));
   }
 
-  order(key, tradeNo): Observable<any> {
+  order(key?, tradeNo?): Observable<any> {
     return this.http.get(this.prefix_url + 'getTeamInfoByTradeNo' + '&key=' + key + '&tradeNo=' + tradeNo)
       .pipe(observableMargeMap((res) => {
         return this.processResult(res);

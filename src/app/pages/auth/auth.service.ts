@@ -4,11 +4,12 @@ import {HttpClient} from '@angular/common/http';
 import {Router, ActivatedRoute} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 
-import {Observable} from 'rxjs';
+import {Observable, of as observableOf} from 'rxjs';
 
 import {formData} from '../../utils/utils';
 import {StorageService} from '../../@core/utils/storage.service';
 import {UaService} from '../../@core/data/ua.service';
+import {mergeMap as observableMargeMap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -114,12 +115,12 @@ export class AuthService {
           window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         } else {
           if (!key) {// 无key
-            return this.router.navigate(['/auth/login'], {
+            /*return this.router.navigate(['/admin/home'], {
               queryParams: {
                 openid: openid,
                 callbackUrl: this.router.url
               }
-            });
+            });*/
             // return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
           } else {// 有key
             const expires_time = Date.parse(String(new Date())) + 144000000;
@@ -133,7 +134,7 @@ export class AuthService {
           }
         }
       } else {// 非微信环境
-        this.router.navigate(['/auth/login'], {queryParams: {callbackUrl: this.router.url}});
+        /*this.router.navigate(['/admin/home'], {queryParams: {callbackUrl: this.router.url}});*/
       }
     }
   }
@@ -176,6 +177,6 @@ export class AuthService {
 
   logout() {
     this.storageSvc.remove('accessToken');
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/admin/home']);
   }
 }

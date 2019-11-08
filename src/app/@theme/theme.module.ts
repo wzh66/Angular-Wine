@@ -24,6 +24,8 @@ import {FooterBtnModule} from './modules/footer-btn/footer-btn.module';
 import {SInfiniteLoaderModule} from './modules/infiniteloader';
 
 import {COMPONENTS, DIRECTIVES, PIPES} from './index';
+import { SearchComponent } from './modules/search-bar/search.component';
+import {SearchModule} from './modules/search-bar/search.module';
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import {COMPONENTS, DIRECTIVES, PIPES} from './index';
     FooterModule.forRoot(),
     ContentModule.forRoot(),
     OverlayModule.forRoot(),
-    FooterBtnModule.forRoot()
+    FooterBtnModule.forRoot(),
+    SearchModule.forRoot()
   ],
   exports: [
     CommonModule,
@@ -61,6 +64,7 @@ import {COMPONENTS, DIRECTIVES, PIPES} from './index';
     ContentModule,
     OverlayModule,
     FooterBtnModule,
+    SearchModule,
     ...DIRECTIVES,
     ...COMPONENTS,
     ...PIPES

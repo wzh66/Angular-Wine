@@ -16,8 +16,8 @@ export class AddressService {
               private dialogSvc: DialogService) {
   }
 
-  get(key, id?): Observable<any> {
-    return this.http.get(this.prefix_url + (id ? 'getMyAddr' : 'getMyAddrList') + '&key=' + key + '&id=' + (id ? id : ''))
+  get(id?): Observable<any> {
+    return this.http.get(this.prefix_url + (id ? 'getMyAddr' : 'getMyAddrList') + '&id=' + (id ? id : ''))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

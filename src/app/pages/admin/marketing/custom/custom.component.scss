@@ -1,0 +1,70 @@
+weui-navbar{
+  height: auto;
+  color: #976b3c;
+}
+.custom{
+  background: #fff;
+  width: 100%;
+  color: #aaa;
+  margin-top: 0.1rem;
+  table {
+    background: #fff;
+    width: 100%;
+    font-size: 0.14rem;
+    line-height: 1;
+    padding: 0 0.1rem;
+    thead {
+      border-bottom: 1px solid #ccc;
+      background: #fafafa;
+      tr {
+        th {
+          font-weight: normal;
+          color: #898989;
+          padding: 0.15rem 0.1rem;
+          &.grade {
+            text-align: left;
+            width: 50%;
+          }
+          &.num {
+            width: 50%;
+            text-align: right;
+          }
+          &:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 1px;
+            border-bottom: 1px solid #CCCCCC;
+            color: #CCCCCC;
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+        }
+      }
+    }
+    tbody {
+      padding: 0.075rem 0;
+      tr {
+        td {
+          font-weight: normal;
+          color: #666;
+          padding: 0.15rem 0.1rem;
+          position: relative;
+          &.grade {
+            text-align: left;
+            width: 50%;
+          }
+          &.num {
+            width: 50%;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+}

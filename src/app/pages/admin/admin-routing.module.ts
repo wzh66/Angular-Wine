@@ -20,8 +20,18 @@ import {AdminSellerComponent} from './seller/seller.component';
 import {AdminProfileComponent} from './profile/profile.component';
 
 import {AdminShareComponent} from './share/share.component';
+import {AdminShareListComponent} from './share/list/list.component';
 
 import {AdminCommissionListComponent} from './commission/list/list.component';
+import {AdminSearchComponent} from './search/search.component';
+import {AdminPartnerComponent} from './partner/partner.component';
+
+import {AdminMarketingComponent} from './marketing/marketing.component';
+import {AdminMarketingBonusComponent} from './marketing/bonus/bonus.component';
+import {AdminMarketingCustomComponent} from './marketing/custom/custom.component';
+import {AdminMarketingCommissionListComponent} from './marketing/commission/list/list.component';
+import {AdminCashCardComponent} from './cash-card/cash-card.component';
+
 
 const routes: Routes = [
   {
@@ -38,6 +48,10 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: AdminCheckoutComponent
+  },
+  {
+    path: 'search',
+    component: AdminSearchComponent
   },
   {
     path: 'order/list',
@@ -60,7 +74,14 @@ const routes: Routes = [
   {path: 'reseller', component: AdminResellerComponent},
   {path: 'seller', component: AdminSellerComponent},
   {path: 'profile', component: AdminProfileComponent},
-  {path: 'share', component: AdminShareComponent}
+  {path: 'share', component: AdminShareComponent},
+  {path: 'share/list', component: AdminShareListComponent},
+  {path: 'partner', component: AdminPartnerComponent},
+  {path: 'marketing', component: AdminMarketingComponent},
+  {path: 'marketing/bonus', component: AdminMarketingBonusComponent},
+  {path: 'marketing/custom', component: AdminMarketingCustomComponent},
+  {path: 'marketing/commission/list', component: AdminMarketingCommissionListComponent},
+  {path: 'cash', component: AdminCashCardComponent}
 ];
 
 @NgModule({

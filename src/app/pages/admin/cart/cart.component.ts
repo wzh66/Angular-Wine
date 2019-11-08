@@ -18,7 +18,6 @@ declare interface Wish {
   styleUrls: ['./cart.component.scss']
 })
 export class AdminCartComponent implements OnInit {
-  key;
   items = [];
   total = 0;
   wishes: Wish[] = [
@@ -52,19 +51,15 @@ export class AdminCartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
     this.cartForm = new FormGroup({
-      key: new FormControl(this.key, [Validators.required]),
-      productId: new FormControl(this.key, [Validators.required]),
-      specId: new FormControl(this.key, [Validators.required]),
-      qty: new FormControl(this.key, [Validators.required]),
-      remark: new FormControl(this.key, [Validators.required])
+      productId: new FormControl('', [Validators.required]),
+      qty: new FormControl('', [Validators.required]),
     });
     this.getData();
   }
 
   getData() {
-    this.cartSvc.get(this.key).subscribe(res => {
+    this.cartSvc.get().subscribe(res => {
       this.items = res;
       this.cartSvc.updateCount(this.items.length);
       this.getTotal();
@@ -73,9 +68,7 @@ export class AdminCartComponent implements OnInit {
 
   numChange(item, e) {
     this.cartForm.get('productId').setValue(item.productid);
-    this.cartForm.get('specId').setValue(item.specid);
     this.cartForm.get('qty').setValue(e);
-    this.cartForm.get('remark').setValue(item.remark);
     this.save(this.cartForm.value);
   }
 
@@ -87,7 +80,7 @@ export class AdminCartComponent implements OnInit {
     this.total = total;
   }
 
-  show(e, item) {
+  /*show(e, item) {
     this.actionSheetSvc.show(this.wishes, this.config).subscribe((res: any) => {
       if (!res.value) {
         e.target.previousElementSibling.querySelector('input').focus();
@@ -98,7 +91,7 @@ export class AdminCartComponent implements OnInit {
         this.setMark(item.id, item.remark);
       }
     });
-  }
+  }*/
 
   save(body) {
     this.cartSvc.save(body).subscribe(res => {
@@ -106,25 +99,30 @@ export class AdminCartComponent implements OnInit {
     });
   }
 
-  setMark(id, remark) {
+  /*setMark(id, remark) {
     this.cartSvc.saveMark({key: this.key, cartId: id, remark: remark})
       .subscribe(res => {
         console.log(res);
       });
-  }
+  }*/
 
   remove(id) {
-    this.cartSvc.remove({key: this.key, cartId: id}).subscribe(res => {
-      console.log(res);
-      this.getData();
+    this.dialogSvc.show({title: '', content: '你确定要删除？', cancel: '取消', confirm: '确定'}).subscribe(value => {
+      if (value.value) {
+        this.cartSvc.remove({cartId: id}).subscribe(res => {
+          console.log(res);
+          this.getData();
+        });
+      }
     });
   }
 
   onCustom(e) {
-    this.dialogSvc.show({title: '', content: '您确定要清空购物车吗？', cancel: '不了', confirm: '是的'}).subscribe(value => {
-      if (value) {
+    this.dialogSvc.show({title: '', content: '您确定要清空购物车吗？', cancel: '取消', confirm: '确定'}).subscribe(value => {
+      if (value.value) {
+        console.log(value);
         this.toastSvc.loading('', 0);
-        this.cartSvc.clear(this.key).subscribe(res => {
+        this.cartSvc.clear().subscribe(res => {
           this.toastSvc.hide();
           this.getData();
         });

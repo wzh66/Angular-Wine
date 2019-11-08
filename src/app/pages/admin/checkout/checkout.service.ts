@@ -19,7 +19,7 @@ export class CheckoutService {
               private dialogSvc: DialogService) {
   }
 
-  getItems(key): Observable<any> {
+  getItems(key?): Observable<any> {
     return this.http.get(this.prefix_url + 'toPay' + '&key=' + key)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

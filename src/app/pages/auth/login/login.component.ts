@@ -111,9 +111,9 @@ export class AuthLoginComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
 
-    this.appSvc.get().subscribe(res => {
+    /*this.appSvc.get().subscribe(res => {
       this.appConfig = res.result;
-    });
+    });*/
   }
 
   handlerPopup(captchaObj) {

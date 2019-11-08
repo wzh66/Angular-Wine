@@ -1,0 +1,38 @@
+.userinfo {
+  background-image: url("/assets/images/join/banner.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  height: 2rem;
+  .user {
+    margin: 0.4rem 0.3rem;
+
+    .userinfo-avatar {
+      width: 0.65rem;
+      height: 0.65rem;
+      display: block;
+      border-radius: 50%;
+    }
+    .info{
+      display: block;
+      .name{
+        color: #fff;
+        font-size: 0.18rem;
+        display: block;
+        margin-right: 1.1rem;
+        .grade{
+          color: #ffff00;
+          padding-left: 0.1rem;
+        }
+      }
+      .phone{
+        color: #fff;
+        font-size: 0.19rem;
+        padding-top: 0.03rem;
+      }
+    }
+
+  }
+
+}

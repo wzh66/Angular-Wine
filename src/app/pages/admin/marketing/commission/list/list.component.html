@@ -1,0 +1,82 @@
+<app-header className="''" [show]="true" [title]="'佣金列表'"></app-header>
+<app-content [paddingHeader]="true" [paddingFooter]="true">
+  <app-admin-marketing-commission></app-admin-marketing-commission>
+
+  <weui-navbar>
+    <weui-tab heading="所有">
+      <div class="content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+          <tr>
+            <th class="grade">用户名称</th>
+            <th class="num">购买时间</th>
+            <th class="consumption">获得佣金</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="grade">Muc豪</td>
+            <td class="num">2019-10-29 21:00:00</td>
+            <td class="consumption">￥15.00</td>
+          </tr>
+          <tr>
+            <td class="grade">沙雕</td>
+            <td class="num">2019-10-29 21:00:00</td>
+            <td class="consumption">￥15.00</td>
+          </tr>
+          <tr>
+            <td class="grade">小丸子</td>
+            <td class="num">2019-10-29 21:00:00</td>
+            <td class="consumption">￥15.00</td>
+          </tr>
+          <tr>
+            <td class="grade">Muc豪</td>
+            <td class="num">2019-10-29 21:00:00</td>
+            <td class="consumption">￥15.00</td>
+          </tr><tr>
+            <td class="grade">隔壁老王</td>
+            <td class="num">2019-10-29 21:00:00</td>
+            <td class="consumption">￥15.00</td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </weui-tab>
+    <weui-tab heading="待付款">
+      <div class="content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+          <tr>
+            <th class="grade">用户名称</th>
+            <th class="num">加入时间</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="grade">Mike</td>
+            <td class="num">2019-10-29 21:00:00</td>
+          </tr>
+          <tr>
+            <td class="grade">Tom</td>
+            <td class="num">2019-10-29 21:00:00</td>
+          </tr>
+          <tr>
+            <td class="grade">小丸子</td>
+            <td class="num">2019-10-29 21:00:00</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </weui-tab>
+    <weui-tab heading="已付款">
+
+    </weui-tab>
+
+    <weui-tab heading="已完成">
+
+    </weui-tab>
+  </weui-navbar>
+</app-content>
+<app-footer></app-footer>
+

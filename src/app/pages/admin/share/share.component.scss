@@ -1,21 +1,29 @@
 .content-scrollable {
-  background-image: url("/assets/images/share/bg.jpg");
-  background-position: center center;
+  background-image: url("/assets/images/join/banner.jpg");
   background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  height: 3rem;
 }
 .qr-code::ng-deep {
-  margin-top: 0.95rem;
+  position: relative;
+  margin-top: 1.8rem;
+  z-index:100;
   img {
     display: block;
-    width: 2rem;
+    width: 2.2rem;
     margin: 0 auto;
     box-sizing: border-box;
     border: 0.2rem solid #fff;
     border-bottom: 0.6rem solid #fff;
-    border-radius: 0.08rem;
   }
 }
 .weui-cell_title {
+  position: relative;
+  z-index:120;
+  font-size: 0.18rem;
+  color: #8c8c8c;
   margin-top: -0.45rem;
   margin-bottom: 0.1rem;
   display: block;
@@ -25,13 +33,9 @@
   width: 2.4rem;
   margin: 0 auto;
   position: relative;
-  img {
-    display: block;
-    width: 100%;
-  }
   .target {
     position: absolute;
-    top: 0.5rem;
+    top: 0.7rem;
     font-size: 0.14rem;
     color: #fff;
     overflow: hidden;
@@ -44,17 +48,36 @@
   }
   .form-control_btn {
     position: absolute;
-    top: 0.8rem;
+    top: 0.2rem;
     left: 50%;
     margin-left: -0.7rem;
     button {
       display: block;
-      width: 1.4rem;
-      border-radius: 0.04rem;
+      width: 1.2rem;
+      height: 0.46rem;
+      border-radius: 50px;
+      font-size: 0.17rem;
       line-height: 0.32rem;
-      background: #ff7183;
+      background: #976c3c;
       border: 0;
       color: #fff;
     }
+    a{
+      color: #676767;
+      text-decoration: underline;
+      text-align: center;
+      display: block;
+      font-size: 0.18rem;
+      margin-top: 0.2rem;
+    }
+  }
+}
+
+.weui-msg__tips-area{
+  position: relative;
+  margin-top: 1.3rem;
+
+  .weui-msg__tips{
+    font-size: 0.14rem;
   }
 }

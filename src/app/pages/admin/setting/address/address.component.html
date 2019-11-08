@@ -6,7 +6,7 @@
     <div *ngFor="let address of addresses" class="weui-cells weui-cells_checkbox">
       <div class="weui-cell weui-check__label">
         <label class="weui-cell__hd">
-          <input type="radio" class="weui-check" name="checkbox1" checked="{{address.status === 1 ? true : false}}">
+          <input type="radio" class="weui-check" name="checkbox1" checked="{{address.status === 0 ? true : false}}">
           <i class="weui-icon-checked"></i>
         </label>
         <div class="weui-cell__bd">
@@ -18,7 +18,7 @@
         <div class="weui-cell__bd"></div>
         <div class="weui-cell__ft">
           <span [routerLink]="['/admin/setting/address/edit',address.id]"><i
-            class="icon-edit"></i> <span>编辑</span></span>
+            class="icon-edit"></i> <span>修改</span></span>
           <em (click)="del(address.id)"><i class="icon-trash"></i> <span>删除</span></em>
         </div>
       </div>

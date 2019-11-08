@@ -15,6 +15,6 @@ export class GroupListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
+    /*this.key = this.authSvc.getKey();*/
   }
 }

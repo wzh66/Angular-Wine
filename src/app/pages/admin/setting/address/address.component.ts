@@ -7,6 +7,7 @@ import {StorageService} from '../../../../@core/utils/storage.service';
 import {FooterService} from '../../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../../auth/auth.service';
 import {AddressService} from './address.service';
+import {DialogService} from 'ngx-weui';
 
 @Component({
   selector: 'app-admin-setting-address',
@@ -27,15 +28,16 @@ export class AdminSettingAddressComponent implements OnInit {
               private storageSvc: StorageService,
               private footerSvc: FooterService,
               private authSvc: AuthService,
-              private addressSvc: AddressService) {
+              private addressSvc: AddressService,
+              private dialogSvc: DialogService) {
     footerSvc.setActive(3);
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
+    /*this.key = this.authSvc.getKey();*/
 
     this.settingForm = new FormGroup({
-      key: new FormControl(this.key, [Validators.required]),
+      /*key: new FormControl(this.key, [Validators.required]),*/
       addrId: new FormControl('', [Validators.required])
     });
 
@@ -43,15 +45,20 @@ export class AdminSettingAddressComponent implements OnInit {
   }
 
   getAddresses() {
-    this.addressSvc.get(this.key).subscribe(res => {
+    this.addressSvc.get().subscribe(res => {
       this.addresses = res.list;
+      console.log(this.addresses);
     });
   }
 
   del(id) {
     this.settingForm.get('addrId').setValue(id);
-    this.addressSvc.del(this.settingForm.value).subscribe(res => {
-      this.getAddresses();
+    this.dialogSvc.show({title: '', content: '您确定要删除地址吗？', cancel: '取消', confirm: '确定'}).subscribe(value => {
+      if (value.value) {
+        this.addressSvc.del(this.settingForm.value).subscribe(res => {
+          this.getAddresses();
+        });
+      }
     });
   }
 

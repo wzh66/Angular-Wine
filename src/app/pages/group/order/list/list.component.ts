@@ -18,7 +18,7 @@ import {OrderService} from '../../../admin/order/order.service';
 })
 export class GroupOrderListComponent implements OnInit {
   status: any = this.route.snapshot.queryParams['status'] || '';
-  key = this.authSvc.getKey();
+  /*key = this.authSvc.getKey();*/
   orders = [];
   page = 1;
 
@@ -34,7 +34,7 @@ export class GroupOrderListComponent implements OnInit {
     this.route.queryParamMap.subscribe(status => {
       console.log(status);
       this.status = this.route.snapshot.queryParams['status'] || '';
-      this.groupSvc.orders(this.key, this.status ? this.status : '').subscribe(res => {
+      this.groupSvc.orders('', this.status ? this.status : '').subscribe(res => {
         this.orders = res.list;
       });
     });
@@ -44,7 +44,7 @@ export class GroupOrderListComponent implements OnInit {
     observableTimer(1500).subscribe(() => {
       this.page = this.page + 1;
       // 获取当前页数据
-      this.groupSvc.orders(this.key, this.status, this.page).subscribe(res => {
+      this.groupSvc.orders('', this.status, this.page).subscribe(res => {
         if (res.code === '0000') {
           this.orders = this.orders.concat(res.list);
           if (this.page >= res.totalPages) {

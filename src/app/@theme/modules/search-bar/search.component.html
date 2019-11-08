@@ -1,0 +1,36 @@
+<weui-searchbar
+  (search)="onSearch($event)"
+  (cancel)="onCancel()"
+  (clear)="onClear()"
+  (submit)="onSubmit($event)"
+></weui-searchbar>
+
+<div class="weui-panel" style="margin-top: 0px;" *ngIf="value">
+  <!--<div class="weui-panel__hd">查询【{{ value }}】</div>-->
+  <div class="weui-panel__bd" *ngIf="items; let items; else: loading">
+    <div class="weui-cell weui-cell_access" *ngFor="let item of items">
+      <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+        <div [routerLink]="['/front/item',item.productid]" class="weui-media-box__hd">
+          <img class="weui-media-box__thumb" src="{{'/api/wine' + item.headimage}}">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 [routerLink]="['/front/item',item.productid]" class="weui-media-box__title">{{item.productname}}</h4>
+          <p class="weui-media-box__desc"><em class="money">{{item.productprice}}</em><span
+            class="units">元/瓶</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="weui-media-box weui-media-box_text" *ngIf="items?.length === 0">抱歉！没有相关商品信息</div>
+  </div>
+  <ng-template #loading>
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text">Loading...</div>
+    </div>
+  </ng-template>
+ <!-- <a class="weui-panel__ft" href="javascript:void(0);">
+    <div class="weui-cell weui-cell_access weui-cell_link">
+      <div class="weui-cell__bd">More</div>
+      <div class="weui-cell__ft"></div>
+    </div>
+  </a>-->
+</div>

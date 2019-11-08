@@ -1,0 +1,40 @@
+.commission{
+  background-image: url("/assets/images/marketing/banner.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  height: 1rem;
+  .record{
+    width: 74%;
+    height: 1rem;
+    color: #fff;
+    .people,.total{
+      font-size: 0.16rem;
+      line-height: 0.4rem;
+      width: 45%;
+      display: block;
+      margin: 0.1rem 0.06rem;
+      .amount{
+        color: #f2eb14;
+        font-size: 0.2rem;
+      }
+    }
+    .people{
+      padding-right:0.02rem ;
+      border-right: 1px solid #ccc;
+    }
+  }
+
+  .weui-badge{
+    background: #9d7242;
+    width: 0.7rem;
+    height: 0.35rem;
+    display: block;
+    text-align: center;
+    font-size: 0.16rem;
+    line-height: 0.3rem;
+    margin-top: 0.3rem;
+    margin-right: 0.1rem;
+  }
+}

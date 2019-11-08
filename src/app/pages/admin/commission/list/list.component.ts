@@ -28,7 +28,7 @@ export class AdminCommissionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
+    /*this.key = this.authSvc.getKey();*/
 
     this.getData();
   }

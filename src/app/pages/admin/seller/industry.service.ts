@@ -10,7 +10,7 @@ export class IndustryService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient) {
   }
 
-  get(key: string) {
+  get(key?: string) {
     return this.http.get(this.prefix_url + 'getIndustries&key=' + key)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

@@ -38,7 +38,7 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.settingForm = new FormGroup({
       // id: new FormControl('', [Validators.required]),
-      key: new FormControl(this.authSvc.getKey(), [Validators.required]),
+      // key: new FormControl(this.authSvc.getKey(), [Validators.required]),
       addrId: new FormControl(this.id ? this.id : '', [Validators.required]),
       lnker: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(4)]),
       mobile: new FormControl('', [Validators.required]),
@@ -56,7 +56,7 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
     }
 
     if (this.id) {
-      this.addressSvc.get(this.settingForm.get('key').value, this.id).subscribe(res => {
+      this.addressSvc.get(this.id).subscribe(res => {
         this.settingForm.get('lnker').setValue(res.busMemberAddress.consignee);
         this.settingForm.get('mobile').setValue(res.busMemberAddress.phone);
         this.settingForm.get('rgnpro').setValue(res.busMemberAddress.province);
@@ -64,40 +64,6 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
         this.settingForm.get('rgnarea').setValue(res.busMemberAddress.district);
         this.settingForm.get('rgndtl').setValue(res.busMemberAddress.address);
         this.settingForm.get('areaCode').setValue(res.busMemberAddress.areacode);
-        this.settingForm.get('x').setValue(res.busMemberAddress.x);
-        this.settingForm.get('y').setValue(res.busMemberAddress.y);
-        if (this.settingForm.get('x').invalid || this.settingForm.get('y').invalid) {
-          this.geoSvc.get().then(() => {
-            const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
-            geo.getLocation((position) => {
-              const body = {key: this.settingForm.get('key').value, lat: position.lat, lng: position.lng};
-              this.geoSvc.getPosition(body).subscribe((result) => {
-                this.settingForm.get('x').setValue(result.location.lng);
-                this.settingForm.get('y').setValue(result.location.lat);
-              });
-            }, (err) => {
-              this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
-            }, {failTipFlag: true});
-          });
-        }
-      });
-    } else {
-      this.geoSvc.get().then((res) => {
-        const geo = new qq.maps.Geolocation('PDBBZ-2NVWV-7GAPA-UKVP5-YED6S-FRB6L', 'danius');
-        geo.getLocation((position) => {
-          const body = {key: this.settingForm.get('key').value, lat: position.lat, lng: position.lng};
-          this.geoSvc.getPosition(body).subscribe((result) => {
-            this.settingForm.get('rgnpro').setValue(result.addressComponent.province);
-            this.settingForm.get('rgncity').setValue(result.addressComponent.city);
-            this.settingForm.get('rgnarea').setValue(result.addressComponent.district);
-            this.settingForm.get('rgndtl').setValue(result.addressComponent.street + result.sematic_description);
-            this.settingForm.get('areaCode').setValue(result.addressComponent.adcode);
-            this.settingForm.get('x').setValue(result.location.lng);
-            this.settingForm.get('y').setValue(result.location.lat);
-          });
-        }, (err) => {
-          this.dialogSvc.show({content: '请打开授权或打开定位开关', cancel: '', confirm: '我知道了'}).subscribe();
-        }, {failTipFlag: true});
       });
     }
   }
@@ -121,19 +87,18 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
     this.toastSvc.loading('操作中...', 0);
-    this.geoSvc.gps({
-      key: this.authSvc.getKey(),
+    const body = {
+      lnker: this.settingForm.get('lnker').value,
       city: this.settingForm.get('rgncity').value,
       addr: this.settingForm.get('rgndtl').value
-    }).subscribe(res => {
-      this.settingForm.get('x').setValue(res.result.location.lng);
-      this.settingForm.get('y').setValue(res.result.location.lat);
-      this.addressSvc.save(this.settingForm.value).subscribe(() => {
-        this.loading = false;
-        this.toastSvc.hide();
-        window.history.back();
-      });
+    };
+    console.log(body);
+    this.addressSvc.save(this.settingForm.value).subscribe(() => {
+      this.loading = false;
+      this.toastSvc.hide();
+      window.history.back();
     });
+
   }
 
   ngOnDestroy() {

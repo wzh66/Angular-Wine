@@ -1,28 +1,196 @@
-<app-header [className]="''" [show]="true" [title]="'所有商品'"></app-header>
-<weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
-  <div class="categories">
-    <swiper [config]="config" [index]="typeId" fxFlex="auto">
-      <span [routerLink]="['/front/list']" [queryParams]="{typeId: category.typeid}" class="swiper-slide" *ngFor="let category of categories;let i = index"
-            [ngClass]="{'selected':category.typeid == typeId}">{{category.typename}}</span>
-    </swiper>
-  </div>
-  <div class="items">
-    <div class="weui-grids">
-      <div *ngFor="let item of items" [routerLink]="['/front/item',item.productid]" class="weui-grid">
-        <div class="item">
-          <div class="item-img">
-            <div class="img-box">
-              <img src="/api{{item.headimage}}">
-            </div>
+<app-header [className]="''" [show]="true" [title]="'分类'"></app-header>
+<!--<weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
+<div class="categories">
+  <swiper [config]="config" [index]="typeId" fxFlex="auto">
+    <span [routerLink]="['/front/list']" [queryParams]="{typeId: category.typeid}" class="swiper-slide" *ngFor="let category of categories;let i = index"
+          [ngClass]="{'selected':category.typeid == typeId}">{{category.typename}}</span>
+  </swiper>
+</div>
+<div class="items">
+  <div class="weui-grids">
+    <div *ngFor="let item of items" [routerLink]="['/front/item',item.productid]" class="weui-grid">
+      <div class="item">
+        <div class="item-img">
+          <div class="img-box">
+            <img src="/api{{item.headimage}}">
           </div>
-          <div class="item-txt">
-            <div class="title">{{item.productname}}</div>
-            <div class="desc"><em class="money" [innerHTML]="item.price | rmb"></em> /<span class="units">{{item.count}}{{item.unit}}</span></div>
-          </div>
+        </div>
+        <div class="item-txt">
+          <div class="title">{{item.productname}}</div>
+          <div class="desc"><em class="money" [innerHTML]="item.price | rmb"></em> /<span class="units">{{item.count}}{{item.unit}}</span></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="black-space"></div>
-</weui-infiniteloader>
+</div>
+</weui-infiniteloader>-->
+
+<div class="search-bar">
+  <a routerLink="/admin/search" class="search"><i class="icon-search"></i>搜索商品</a>
+</div>
+
+<div class="navMenu">
+  <div class="menu-items left">
+    <div class="weui-cells">
+      <a [routerLink]="['/front/list']" [queryParams]="{typeId: category.typeid}" *ngFor="let category of categories;let i = index"
+         [ngClass]="{'selected':typeId === (i + 1).toString()}" class="weui-cell weui-cell_link">
+        {{category.typename}}
+      </a>
+    </div>
+  </div>
+
+  <div class="product-item right">
+    <div class="title" style="border-left: 5px solid orange;">
+      <span class="hot left">热门品牌</span>
+      <!--<a href="javascript:;" class="all-items right">全部商品 <img src="/assets/images/right.png" height="14"
+                                                               width="14"/></a>-->
+    </div>
+    <div class="items">
+      <div class="weui-grids">
+        <div class="weui-grid" *ngFor="let item of items">
+          <div class="item">
+            <div class="item-img">
+              <div class="img-box">
+                <img src="/api/wine{{item.imageurl}}"/>
+              </div>
+            </div>
+            <div class="item-txt">
+              <div class="item-title">{{item.brandname}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aroma" [ngClass]="{'show':typeId === '1'}">
+      <div class="title" style="border-left: 5px solid #00fff8;">
+        <span class="hot left">香型</span>
+      </div>
+      <div class="items">
+        <div class="weui-grids">
+          <div class="weui-grid" *ngFor="let aroma of aromas">
+            <div class="item">
+              <div class="item-txt">
+                <div class="item-title">{{aroma.aroma}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grape" [ngClass]="{'show':typeId === '2'}">
+      <div class="title" style="border-left: 5px solid #ff2700;">
+        <span class="hot left">类型</span>
+      </div>
+      <div class="items">
+        <div class="weui-grids">
+          <div class="weui-grid" *ngFor="let grape of grapeCategories">
+            <div class="item">
+              <div class="item-txt">
+                <div class="item-title">{{grape.categoryname}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imported" [ngClass]="{'show':typeId === '3'}">
+      <div class="title" style="border-left: 5px solid #00fff8;">
+        <span class="hot left">类型</span>
+      </div>
+      <div class="items">
+        <div class="weui-grids">
+          <div class="weui-grid" *ngFor="let imported of importedCategories">
+            <div class="item">
+              <div class="item-txt">
+                <div class="item-title">{{imported.categoryname}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="place" [ngClass]="{'show':typeId === '1'}">
+    <div class="title" style="border-left: 5px solid #ff00c5;">
+      <span class="hot left">产地</span>
+    </div>
+    <div class="items">
+      <div class="weui-grids">
+        <div class="weui-grid" *ngFor="let place of places">
+          <div class="item">
+            <div class="item-txt">
+              <div class="item-title">{{place.place}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="vars" [ngClass]="{'show':typeId === '2'}">
+      <div class="title" style="border-left: 5px solid #00fff8;">
+        <span class="hot left">品种</span>
+      </div>
+      <div class="items">
+        <div class="weui-grids">
+          <div class="weui-grid" *ngFor="let vary of vars">
+            <div class="item">
+              <div class="item-txt">
+                <div class="item-title">{{vary.varname}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="country" [ngClass]="{'show':typeId === '2'}">
+    <div class="title" style="border-left: 5px solid #ff00c5;">
+      <span class="hot left">国家</span>
+    </div>
+    <div class="items">
+      <div class="weui-grids">
+        <div class="weui-grid" *ngFor="let country of countries">
+          <div class="item">
+            <div class="item-img">
+              <div class="img-box">
+                <img src="/api/wine{{country.imageurl}}"/>
+              </div>
+            </div>
+            <div class="item-txt">
+              <div class="item-title">{{country.place}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="price" [ngClass]="{'show':typeId === '1' || typeId === '2' || typeId === '3'}">
+    <div class="title" style="border-left: 5px solid #ffe000;">
+      <span class="hot left">价位</span>
+    </div>
+    <div class="items">
+      <div class="weui-grids">
+        <div class="weui-grid" *ngFor="let price of prices;last as isLast">
+          <div class="item">
+            <div class="item-txt">
+              <div class="item-title"><p>{{price.startprice}}<span [hidden]="isLast">-</span>{{price.endprice}}元<span
+                class="over" [class.show]="price.startprice>1999">以上</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="white-space" style="height: 1.5rem;"></div>
+  </div>
+</div>
+<div class="black-space">
+</div>
 <app-footer></app-footer>

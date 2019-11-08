@@ -19,7 +19,7 @@ declare var qq: any;
 })
 
 export class AdminSellerComponent implements OnInit {
-  key = this.authSvc.getKey();
+  /*key = this.authSvc.getKey();*/
   img: any;
   imgShow = false;
   industries = [];
@@ -33,7 +33,7 @@ export class AdminSellerComponent implements OnInit {
     auto: true,
     // headers: [{name: 'auth', value: 'test'}],
     params: {
-      key: this.key
+      /*key: this.key*/
     },
     onUploadSuccess: (file, res) => {
       const _res = JSON.parse(res);
@@ -58,7 +58,7 @@ export class AdminSellerComponent implements OnInit {
   ngOnInit() {
 
     this.sellerForm = new FormGroup({
-      key: new FormControl(this.key, [Validators.required]),
+      /*key: new FormControl(this.key, [Validators.required]),*/
       storeId: new FormControl('', []),
       storeName: new FormControl('', [Validators.required]),
       industryId: new FormControl('', [Validators.required]),
@@ -73,7 +73,7 @@ export class AdminSellerComponent implements OnInit {
       synopsis: new FormControl('', [])
     });
 
-    this.industrySvc.get(this.key).subscribe(res => {
+    this.industrySvc.get().subscribe(res => {
       const items = [];
       res.forEach((industry, index) => {
         const item = {
@@ -85,7 +85,7 @@ export class AdminSellerComponent implements OnInit {
       this.industries = items;
     });
 
-    this.sellerSvc.get(this.key).subscribe(res => {
+    this.sellerSvc.get().subscribe(res => {
       if (!res) {
         return false;
       }
@@ -175,7 +175,7 @@ export class AdminSellerComponent implements OnInit {
     this.loading = true;
     this.toastSvc.loading('操作中...', 0);
     this.geoSvc.gps({
-      key: this.authSvc.getKey(),
+      /*key: this.authSvc.getKey(),*/
       city: this.sellerForm.get('areaCode').value,
       addr: this.sellerForm.get('address').value
     }).subscribe(res => {

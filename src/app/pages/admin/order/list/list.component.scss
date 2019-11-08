@@ -11,7 +11,7 @@
     }
 
     img {
-      width: 0.2rem;
+      width: 0.4rem;
       margin-right: 0.08rem;
     }
   }
@@ -20,18 +20,31 @@
 
 .order-list {
   .weui-panel__hd {
-    font-size: 0.1rem;
+    font-weight: normal;
+    font-size: 0.12rem;
+    color: #ababab;
   }
   .weui-media-box__title {
-    font-size: 0.12rem;
+    color: #a9825e;
+    font-size: 0.17rem;
   }
 
   .weui-media-box__desc {
-    font-size: 0.12rem;
-    color: #bb9772;
-
+    font-size: 0.16rem;
+    color: #9a9a9a;
     .money {
+      color: #9a9a9a;
       margin-right: 0.05rem;
+      font-size: 0.18rem;
     }
   }
+}
+.weui-badge{
+  background: #9d7242;
+  width: 0.6rem;
+  height: 0.2rem;
+  display: block;
+  text-align: center;
+  font-size: 0.14rem;
+  margin-right: 0.2rem;
 }

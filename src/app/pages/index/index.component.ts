@@ -8,6 +8,7 @@ import {FooterService} from '../../@theme/modules/footer/footer.service';
 import {CategoryService} from '../../@core/data/category.service';
 import {IndexService} from './index.service';
 
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -43,7 +44,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
   };
 
-  imgs = ['/assets/images/banner/1.png'];
+  imgs = ['/assets/images/banner/1.png', '/assets/images/banner/2.png', '/assets/images/banner/3.png'];
   hots = [];
   news = [];
   direction;
@@ -60,15 +61,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.direction = res.direction;
     });
     this.indexSvc.get().subscribe(res => {
-      this.hots = res.goodsList.filter(item => item.style === 'goods_xs');
-      this.news = res.goodsList.filter(item => item.style === 'goods_xp');
+      this.hots = res.goodsList.filter(item => item.style === 'goods_xp');
+      this.news = res.goodsList.filter(item => item.style === 'goods_tj');
     });
-    this.categorySvc.get().subscribe(res => {
-      this.categories = res;
-    });
-  }
-
-  onClick(e) {
   }
 
   ngOnInit() {

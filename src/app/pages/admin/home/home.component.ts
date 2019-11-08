@@ -14,8 +14,6 @@ import {FooterService} from '../../../@theme/modules/footer/footer.service';
   styleUrls: ['./home.component.scss']
 })
 export class AdminHomeComponent implements OnInit {
-  key = this.authSvc.getKey();
-  user;
   address;
 
   constructor(private router: Router,
@@ -26,7 +24,7 @@ export class AdminHomeComponent implements OnInit {
               private userSvc: UserService,
               private addressSvc: AddressService) {
     footerSvc.setActive(3);
-    addressSvc.get(this.key).subscribe(res => {
+    addressSvc.get().subscribe(res => {
       if (!res) {
         return false;
       }
@@ -38,16 +36,10 @@ export class AdminHomeComponent implements OnInit {
         }
       });
     });
+
   }
 
   ngOnInit() {
-    this.userSvc.get(this.key).subscribe(res => {
-      if (!res) {
-        return false;
-      }
-      this.user = res;
-      console.log(res);
-    });
   }
 
   toAddress(hasAddr) {

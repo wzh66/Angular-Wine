@@ -14,8 +14,8 @@ export class OrderService {
     return this.http.get(this.prefix_url + 'getOrders' + '&key=' + key + '&status=' + status + '&page=' + (page ? page : 1) + '&rows=' + (rows ? rows : 10));
   }
 
-  getOrderInfo(key, no) {
-    return this.http.get(this.prefix_url + 'getOrderInfo' + '&key=' + key + '&orderNo=' + no)
+  getOrderInfo(key?, no?) {
+    return this.http.get(this.prefix_url + 'orderLogisticsDetail' + '&key=' + key + '&orderNo=' + no)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));
@@ -25,6 +25,13 @@ export class OrderService {
     return this.http.post(this.prefix_url + 'orderPay', formData(body)).pipe(observableMargeMap((res: any) => {
       return this.processResult(res);
     }));
+  }
+
+  updateOrderToComp(key, no) {
+    return this.http.get(this.prefix_url + 'updateOrderToComp' + '&key=' + key + '&orderNo=' + no)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
   }
 
   /*count(key): Observable<number> {

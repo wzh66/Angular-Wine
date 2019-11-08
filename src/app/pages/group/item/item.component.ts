@@ -31,7 +31,7 @@ export class GroupItemComponent implements OnInit {
       delay: 3000
     }
   };
-  key = this.authSvc.getKey();
+  /* key = this.authSvc.getKey();*/
   uid = this.authSvc.getUid();
   teamId = this.route.snapshot.queryParams['teamId'] || '';
   activity;
@@ -64,7 +64,7 @@ export class GroupItemComponent implements OnInit {
 
   ngOnInit() {
     this.groupForm = new FormGroup({
-      key: new FormControl(this.key, [Validators.required]),
+      /*key: new FormControl(this.key, [Validators.required]),*/
       actionId: new FormControl(this.actionId, []),
       teamId: new FormControl(this.teamId, []),
       storeId: new FormControl('', [Validators.required]),
@@ -73,7 +73,7 @@ export class GroupItemComponent implements OnInit {
     this.route.queryParamMap.subscribe(() => {
       this.orderNo = this.route.snapshot.queryParams['orderNo'] || '';
       if (this.orderNo) {
-        this.groupSvc.order(this.key, this.orderNo).subscribe(order => {
+        this.groupSvc.order('', this.orderNo).subscribe(order => {
           console.log(order);
           this.teamId = order.teamid;
           this.groupForm.get('teamId').setValue(this.teamId);
@@ -85,7 +85,7 @@ export class GroupItemComponent implements OnInit {
     });
 
     if (!this.teamId && this.actionId) {
-      this.groupSvc.orders(this.key, '').subscribe(res => {
+      this.groupSvc.orders('', '').subscribe(res => {
         if (res.list && res.list.length > 0) {
           this.teamId = res.list[0].activeteamid;
           this.groupForm.get('teamId').setValue(this.teamId);
@@ -94,7 +94,7 @@ export class GroupItemComponent implements OnInit {
       });
     }
 
-    this.addressSvc.get(this.key).subscribe(res => {
+    this.addressSvc.get().subscribe(res => {
       if (res.list.length > 0) {
         this.address = res.list[0];
         const addresses = [];
@@ -114,7 +114,7 @@ export class GroupItemComponent implements OnInit {
   }
 
   getData() {
-    this.groupSvc.get(this.key, this.groupForm.get('actionId').value, this.teamId).subscribe(res => {
+    this.groupSvc.get('', this.groupForm.get('actionId').value, this.teamId).subscribe(res => {
       this.activity = res;
       console.log(this.activity);
       this.actionId = this.activity.activeAction.activeactionid;
@@ -157,7 +157,7 @@ export class GroupItemComponent implements OnInit {
   }
 
   getStore() {
-    this.storeSvc.get({key: this.key, addrId: this.groupForm.get('addrId').value}).subscribe(res => {
+    this.storeSvc.get({key: '', addrId: this.groupForm.get('addrId').value}).subscribe(res => {
       const stores = [];
       res.forEach(store => {
         stores.push({

@@ -69,7 +69,7 @@
 
     .weui-grids {
       .weui-grid {
-        width: 20%;
+        width: 33%;
       }
     }
 
@@ -84,15 +84,15 @@
     }
 
     .weui-grid__label {
-      font-size: 0.11rem;
+      font-size: 0.14rem;
       margin-top: 0.1rem;
       line-height: 1;
-      color: #666;
+      color: #999;
     }
   }
 }
 
-.hot, .new {
+.hot,.new {
   background: none;
   margin-top: 0.1rem;
 
@@ -101,15 +101,14 @@
   }
 
   .weui-panel__hd {
-    padding: 0.05rem 0.15rem 0;
+    padding: 0.05rem 0.078rem 0;
 
     &:after {
       display: none;
     }
 
-    .weui-badge {
-      font-size: 0.12rem;
-      background: #f4ebe2;
+    span{
+      font-size: 0.16rem;
       color: #541217;
       line-height: 1;
       padding: 0.05rem 0.125rem;
@@ -136,11 +135,12 @@
   }
 }
 
-.new {
+.hot {
   .weui-media-box {
     &:before {
       display: none;
     }
+
   }
 
   .item-box {
@@ -150,7 +150,7 @@
     margin: 0.1rem 0.15rem;
 
     .item-img {
-      height: 1.5rem;
+      height: 2rem;
       overflow: hidden;
 
       img {
@@ -169,30 +169,72 @@
       }
 
       .title {
-        color: #541217;
-        font-size: 0.14rem;
+        color: #c69c6d;
+        font-size: 0.19rem;
       }
 
       .price {
-        font-size: 0.16rem;
-        color: #c69c6d;
+        font-size: 0.2rem;
+        color: #fe6600;
         margin-left: 0.15rem;
       }
 
       .units {
-        font-size: 0.12rem;
+        font-size: 0.16rem;
         color: #999;
         margin-left: 0.05rem;
       }
 
       .desc {
-        font-size: 0.12rem;
+        margin-top: 0.05rem;
+        font-size: 0.16rem;
         color: #999;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
+      }
+    }
+  }
+}
+
+.new{
+  .weui-grids {
+    padding: 0.05rem;
+    .weui-grid {
+      width: 50%;
+      padding: 0.1rem;
+      .item {
+        overflow: hidden;
+        border-top-left-radius: 0.04rem;
+        border-top-right-radius: 0.04rem;
+        background: #fff;
+        .item-txt {
+          padding: 0.05rem;
+          .title {
+            color: #c69c6d;
+            font-size: 0.16rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .desc {
+            .price {
+              font-size: 0.18rem;
+              color: #fe6600;
+            }
+            .weui-badge{
+              background: #9d7242;
+              width: 0.5rem;
+              height: 0.2rem;
+              display: block;
+              text-align: center;
+              font-size: 0.13rem;
+              line-height: 0.18rem;
+              margin-top: 0.05rem;
+            }
+          }
+        }
       }
     }
   }
@@ -215,3 +257,5 @@ app-overlay {
     }
   }
 }
+
+

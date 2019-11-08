@@ -4,8 +4,42 @@
   .weui-icon_msg {
     img {
       display: block;
-      margin: 0 auto;
-      width: 0.93rem;
+      margin: 0.2rem auto;
+      width: 1rem;
+    }
+  }
+
+  .weui-msg__text-area {
+    margin-top: -0.2rem;
+
+    .weui-msg__title {
+      color: #b1b1b1;
+      font-weight: normal;
+      font-size: 0.18rem;
+    }
+
+    .weui-msg__desc {
+      margin-top: -0.1rem;
+
+      .money {
+        font-size: 0.26rem;
+      }
+    }
+  }
+
+  .weui-msg__opr-area {
+    position: absolute;
+    margin: 2.5rem 1.1rem;
+  }
+  .weui-msg__tips-area{
+    position: absolute;
+    padding: 0 0.2rem;
+    margin-top: 3.8rem;
+    .weui-msg__tips{
+      font-size: 0.14rem;
+      text-align: left;
+      color: #b1b1b1;
+      line-height: 0.23rem;
     }
   }
 }

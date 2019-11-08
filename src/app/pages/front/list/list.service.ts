@@ -10,8 +10,43 @@ export class ProdService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient, private dialogSvc: DialogService) {
   }
 
-  list(typeId, word?, ord?, page?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getProductList' + '&typeId=' + typeId + '&word=' + word + '&ord=' + ord + '&page=' + page)
+  list(typeid): Observable<any> {
+    return this.http.get(this.prefix_url + 'getBrands' + '&typeid=' + typeid)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  getAromas(): Observable<any> {
+    return this.http.get(this.prefix_url + 'getAromas')
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  getPrices(): Observable<any> {
+    return this.http.get(this.prefix_url + 'getPrices')
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  getPlaces(type): Observable<any> {
+    return this.http.get(this.prefix_url + 'getPlaces' + '&type=' + type)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  getVars(): Observable<any> {
+    return this.http.get(this.prefix_url + 'getVars')
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
+  }
+
+  getCategorys(typeid): Observable<any> {
+    return this.http.get(this.prefix_url + 'getCategorys' + '&typeid=' + typeid)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

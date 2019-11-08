@@ -1,8 +1,23 @@
-<app-header [leftNav]="'menu'" [show]="true" [title]="'会员中心'"></app-header>
-<app-content *ngIf="user" [paddingHeader]="true" [paddingFooter]="true">
-<!--  <div class="user-info"></div>-->
+<app-header [className]="''" [show]="true" [title]="'个人中心'"></app-header>
+<app-content [paddingHeader]="true" [paddingFooter]="true">
+  <app-admin-user>
+    <div class="partner">
+      <a routerLink="/admin/partner" class="equity">合伙人权益<img src="/assets/images/right.png" height="17" width="17" style="padding-left: 0.03rem;"/></a>
+    </div>
+  </app-admin-user>
+
+  <div class="weui-cells">
+
+    <a routerLink="/admin/order/list" class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/orders.png" alt=""
+                                      style="width:0.2rem;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <span style="vertical-align: middle">我的订单</span>
+      </div>
+      <div class="weui-cell__ft"></div>
+    </a>
+  </div>
   <div class="order weui-panel weui-panel_access" style="margin-top: 0">
-    <div class="weui-panel__hd"><img src="/assets/images/home/orders.png"><span>我的订单</span></div>
     <div class="weui-panel__bd">
       <div class="weui-media-box">
         <div class="order-status weui-flex">
@@ -39,9 +54,9 @@
 
     <a routerLink="/admin/profile" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd"><img src="/assets/images/home/profile.png" alt=""
-                                      style="width:20px;margin-right:5px;display:block"></div>
+                                      style="width:0.25rem;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
-        <p>我的资料</p>
+        <span style="vertical-align: middle">我的资料</span>
       </div>
       <div class="weui-cell__ft">
         <span style="vertical-align:middle;">详细信息</span>
@@ -50,7 +65,7 @@
     </a>
     <a (click)="toAddress(address)" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd"><img src="/assets/images/home/addr.png" alt=""
-                                      style="width:20px;margin-right:5px;display:block"></div>
+                                      style="width:0.25rem;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">收货地址</span>
         <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
@@ -62,40 +77,44 @@
 
   <div class="weui-cells">
 
-<!--    <a routerLink="/admin/reseller" class="weui-cell weui-cell_access">-->
-<!--      <div class="weui-cell__hd"><img src="/assets/images/home/agent.png" alt=""-->
-<!--                                      style="width:20px;margin-right:5px;display:block"></div>-->
-<!--      <div class="weui-cell__bd">-->
-<!--        <p>申请代理</p>-->
-<!--      </div>-->
-<!--      <div class="weui-cell__ft">现在充值<em>￥600</em>元即可成为金牌代理</div>-->
-<!--    </a>-->
     <a routerLink="/admin/finance" class="weui-cell weui-cell_access" href="javascript:;">
       <div class="weui-cell__hd"><img src="/assets/images/home/withdraw.png" alt=""
-                                      style="width:20px;margin-right:5px;display:block"></div>
+                                      style="width:0.25rem;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">佣金提现</span>
       </div>
-      <div class="weui-cell__ft">余额：<em [innerHTML]="user.amountBalance | rmb"></em></div>
+      <div class="weui-cell__ft"></div>
     </a>
     <a routerLink="/admin/commission/list" class="weui-cell weui-cell_access" href="javascript:;">
-      <div class="weui-cell__hd"><img src="/assets/images/home/red.png" alt=""
-                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__hd"><img src="/assets/images/home/record.png" alt=""
+                                      style="width:0.25rem;margin-right:5px;display:block"></div>
       <div class="weui-cell__bd">
         <span style="vertical-align: middle">佣金记录</span>
       </div>
-      <div class="weui-cell__ft">累计赚取佣金：<em [innerHTML]="user.amountCounts | rmb"></em></div>
+      <!--<div class="weui-cell__ft">累计赚取佣金：<em [innerHTML]="user.amountCounts | rmb"></em></div>-->
     </a>
   </div>
 
-  <div class="weui-cells">
+  <!--<div class="weui-cells">
 
     <a routerLink="/admin/seller" class="weui-cell weui-cell_access">
       <div class="weui-cell__hd">
         <img src="/assets/images/home/seller.png" alt="" style="width:20px;margin-right:5px;display:block">
       </div>
       <div class="weui-cell__bd">
-        <p>申请入驻</p>
+        <span style="vertical-align: middle">申请入驻</span>
+      </div>
+      <div class="weui-cell__ft"></div>
+    </a>
+  </div>-->
+
+  <div class="weui-cells">
+
+    <a routerLink="/admin/share" class="weui-cell weui-cell_access" href="javascript:;">
+      <div class="weui-cell__hd"><img src="/assets/images/home/code.png" alt=""
+                                      style="width:0.25rem;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <span style="vertical-align: middle">我要推广</span>
       </div>
       <div class="weui-cell__ft"></div>
     </a>
@@ -103,19 +122,20 @@
 
   <div class="weui-cells">
 
-    <a routerLink="/admin/share" class="weui-cell weui-cell_access" href="javascript:;">
-      <div class="weui-cell__hd"><img src="/assets/images/home/code.png" alt=""
-                                      style="width:20px;margin-right:5px;display:block"></div>
-      <div class="weui-cell__bd">
-        <p>我要推广</p>
+    <a routerLink="/admin/marketing" class="weui-cell weui-cell_access">
+      <div class="weui-cell__hd">
+        <img src="/assets/images/home/marketing.png" alt="" style="width:0.25rem;margin-right:5px;display:block">
       </div>
-      <div class="weui-cell__ft">您已发展了<em>{{user.refereeNo}}</em>名成员</div>
+      <div class="weui-cell__bd">
+       <span style="vertical-align: middle">营销中心</span>
+      </div>
+      <div class="weui-cell__ft"></div>
     </a>
   </div>
 
-  <div *ngIf="!uaSvc.isWx()" class="weui-btn-area">
+  <!--<div *ngIf="!uaSvc.isWx()" class="weui-btn-area">
     <a (click)="logout()" class="weui-btn weui-btn_default" href="javascript:">退出登录</a>
-  </div>
+  </div>-->
 
 </app-content>
 <app-footer></app-footer>

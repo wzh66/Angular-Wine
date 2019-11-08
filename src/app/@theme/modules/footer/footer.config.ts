@@ -13,7 +13,7 @@ export const FOOTER_NAV_ITEMS: Nav[] = [
     page: '/front/list',
     icon: 'icons-newshot',
     selectedIcon: 'icons-newshot_fill',
-    name: '所有商品',
+    name: '分类',
     selected: false,
     badge: 0
   },
@@ -29,7 +29,7 @@ export const FOOTER_NAV_ITEMS: Nav[] = [
     page: '/admin/home',
     icon: 'icons-people',
     selectedIcon: 'icons-people_fill',
-    name: '我的',
+    name: '个人中心',
     selected: false,
     badge: 0
   }

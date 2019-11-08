@@ -1,0 +1,55 @@
+.weui-panel {
+  .weui-panel__hd {
+    span {
+      font-size: 0.16rem;
+      color: #2c0b0c;
+      line-height: 1;
+      padding: 0.05rem 0.125rem;
+    }
+  }
+
+  .weui-panel__bd {
+    margin: 0.06rem 0.1rem;
+    .weui-media-box__title {
+      color: #a9825e;
+      font-size: 0.18rem;
+    }
+
+    .weui-media-box__desc {
+      font-size: 0.16rem;
+      color: #9a9a9a;
+      margin: 0.02rem;
+
+      .num {
+        margin-left: 0.02rem;
+        white-space: nowrap;
+        line-height: 0.2rem;
+      }
+      .units{
+        font-size: 0.2rem;
+      }
+
+      .money {
+        color: #9a9a9a;
+        margin-right: 0.05rem;
+        font-size: 0.18rem;
+      }
+    }
+  }
+
+  .weui-cell{
+    color: #999;
+    font-size: 0.15rem;
+    vertical-align: middle;
+  }
+}
+
+.weui-media-box_text{
+  text-align: right;
+
+  .weui-media-box__title{
+    color: #646464;
+    font-size: 0.16rem;
+    line-height: 0.3rem;
+  }
+}

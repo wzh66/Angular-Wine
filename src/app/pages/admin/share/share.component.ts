@@ -31,8 +31,8 @@ export class AdminShareComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
-    this.userSvc.get(this.key).subscribe(res => {
+    /*this.key = this.authSvc.getKey();*/
+    this.userSvc.get().subscribe(res => {
       this.webHost = res.shortLinks;
 
       this.qrCode = new QRCode(document.getElementById('qrcode'), {
@@ -49,7 +49,6 @@ export class AdminShareComponent implements OnInit {
   copy() {
     const copyHttp = this.target.nativeElement.querySelector('#invite_code');
     const range = document.createRange();
-
     range.selectNode(copyHttp);
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(range);

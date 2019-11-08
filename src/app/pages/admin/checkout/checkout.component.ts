@@ -1,8 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {PickerService, PickerConfig, ToastService, DialogService, MaskComponent} from 'ngx-weui';
+import {
+  PickerService,
+  PickerConfig,
+  ToastService,
+  DialogService,
+  MaskComponent,
+  ActionSheetComponent,
+  ActionSheetConfig,
+  ActionSheetService, SkinType
+} from 'ngx-weui';
 
 import {timer as observableTimer, interval as observableInterval} from 'rxjs';
 
@@ -19,9 +28,8 @@ import {StoreService} from '../../../@core/data/store.service';
 import {CheckoutService} from './checkout.service';
 import {getIndex, onBridgeReady} from '../../../utils/utils';
 import {PayDto} from '../../../@core/dto/pay.dto';
-import {DateAdapter} from '@angular/material';
 
-declare interface Wish {
+declare interface Coupon {
   text: string;
   value: number;
 }
@@ -34,7 +42,7 @@ declare var WeixinJSBridge: any;
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
-export class AdminCheckoutComponent implements OnInit {
+export class AdminCheckoutComponent implements OnInit, OnDestroy {
   key;
   items;
   order;
@@ -52,6 +60,7 @@ export class AdminCheckoutComponent implements OnInit {
   direction;
   @ViewChild('customForm', {static: false}) private customForm;
   @ViewChild('mask', {static: false}) private mask: MaskComponent;
+  @ViewChild('auto', {static: true}) private auto: ActionSheetComponent;
   formData;
   payQrCode;
   qrCodeUrl;
@@ -60,6 +69,15 @@ export class AdminCheckoutComponent implements OnInit {
   payType;
   showType;
   listenerTimer;
+  coupon: Coupon = {
+    text: '',
+    value: 0
+  };
+
+  menus: any[] = [{text: '不使用代金券', value: 0}];
+  sheetConfig: ActionSheetConfig = {
+    title: '请选择代金券',
+  } as ActionSheetConfig;
 
   constructor(private router: Router,
               private loc: LocationStrategy,
@@ -76,7 +94,8 @@ export class AdminCheckoutComponent implements OnInit {
               private cartSvc: CartService,
               private addressSvc: AddressService,
               private storeSvc: StoreService,
-              private checkoutSvc: CheckoutService) {
+              private checkoutSvc: CheckoutService,
+              private actionSheetSvc: ActionSheetService) {
     directionSvc.get().subscribe(res => {
       this.direction = res.direction;
     });
@@ -84,26 +103,39 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
+    /*this.key = this.authSvc.getKey();*/
     this.checkoutForm = new FormGroup({
       payType: new FormControl('', [Validators.required]),
-      key: new FormControl(this.key, [Validators.required]),
+      /*key: new FormControl(this.key, [Validators.required]),*/
       returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),
       deliveryType: new FormControl(1, [Validators.required]),
-      storeId: new FormControl('', [Validators.required]),
+      /*storeId: new FormControl('', [Validators.required]),*/
       addrId: new FormControl('', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), []),
-      sendTime: new FormControl('', [Validators.required])
+      sendTime: new FormControl('', [Validators.required]),
     });
 
     this.loc.onPopState(state => {
       this.overlaySvc.hide();
     });
 
-    this.checkoutSvc.getItems(this.key).subscribe(res => {
+    this.checkoutSvc.getItems().subscribe(res => {
       this.order = res;
+      if (res.giveCashCard) {
+        const name = res.giveCashCard.name;
+        this.dialogSvc.show({title: '', content: `<p>恭喜你获得一张${name}!</p><p>(可用于兑换商品)</p>`, cancel: '不了', confirm: '去看看'}).subscribe(value => {
+          if (value.value) {
+            this.router.navigate(['/admin/cash']);
+          }
+        });
+      }
+      const body = {
+        text: res.giveCashCard.name,
+        value: res.giveCashCard.amount
+      };
+      this.menus.push(body);
     });
-    this.checkoutSvc.get(2, this.key).subscribe(res => {
+    this.checkoutSvc.get(2).subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
         payTypes.push({
@@ -117,7 +149,7 @@ export class AdminCheckoutComponent implements OnInit {
       this.payType = this.payTypes[this.payTypeIndex];
       this.checkoutForm.get('payType').setValue(this.payType.value);
     });
-    this.addressSvc.get(this.key).subscribe(res => {
+    this.addressSvc.get().subscribe(res => {
       if (res.list.length > 0) {
         this.address = res.list[0];
         const addresses = [];
@@ -133,7 +165,7 @@ export class AdminCheckoutComponent implements OnInit {
         addresses.push({label: '添加新地址', value: 0});
         this.addresses = addresses;
         this.checkoutForm.get('addrId').setValue(this.address.id);
-        this.getStore();
+        /*this.getStore();*/
       }
     });
   }
@@ -189,17 +221,17 @@ export class AdminCheckoutComponent implements OnInit {
           // this.checkoutForm.get('addrId').setValue('');
           this.address = res.value;
           this.checkoutForm.get('addrId').setValue(res.value.id);
-          this.getStore();
+          /*this.getStore();*/
         }
       });
-    } else {
+    } /*else {
       this.pickerSvc.show([this.stores], '', [0], this.config).subscribe(res => {
         // this.checkoutForm.get('storeId').setValue('');
         // this.checkoutForm.get('addrId').setValue('');
         this.store = res.value;
         this.checkoutForm.get('storeId').setValue(res.value.id);
       });
-    }
+    }*/
   }
 
   showPayTypes() {
@@ -219,9 +251,9 @@ export class AdminCheckoutComponent implements OnInit {
   }
 
   checkout() {
-    if (this.checkoutForm.invalid) {
+    /*if (this.checkoutForm.invalid) {
       return false;
-    }
+    }*/
     this.toastSvc.loading('结算中', 0);
     this.checkoutSvc.pay(this.checkoutForm.value).subscribe(res => {
       if (!res) {
@@ -310,5 +342,17 @@ export class AdminCheckoutComponent implements OnInit {
 
   back() {
     this.loc.back();
+  }
+
+  showCoupon(type: SkinType, backdrop: boolean = true) {
+    this.sheetConfig.skin = type;
+    this.sheetConfig.backdrop = backdrop;
+    this.actionSheetSvc.show(this.menus, this.sheetConfig).subscribe(res => {
+      this.coupon = res;
+    });
+  }
+
+  ngOnDestroy() {
+    this.actionSheetSvc.destroyAll();
   }
 }

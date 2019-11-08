@@ -1,47 +1,69 @@
-<app-header [show]="true" [title]="'成为代理'" [rightNav]="'search'"></app-header>
-<div class="content-scrollable">
-  <div class="banner">
-    <img src="/assets/images/join/banner.jpg">
-  </div>
-  <div class="weui-cells weui-cells_form">
-    <div class="weui-cell">
-      <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
-      <div class="weui-cell__bd">
-        <input class="weui-input" type="text" placeholder="请输入您的姓名">
-      </div>
-      <div class="weui-cell__ft">
-        <i class="weui-icon-warn"></i>
-      </div>
-    </div>
-    <div class="weui-cell">
-      <div class="weui-cell__hd"><label class="weui-label">地址</label></div>
-      <div class="weui-cell__bd">
-        <input class="weui-input" type="text" placeholder="请输入你的地址">
-      </div>
-      <div class="weui-cell__ft">
-        <i class="weui-icon-warn"></i>
-      </div>
-    </div>
-    <div class="weui-cell">
-      <div class="weui-cell__hd"><label class="weui-label">联系号码</label></div>
-      <div class="weui-cell__bd">
-        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入您的联系号码">
-      </div>
-      <div class="weui-cell__ft">
-        <i class="weui-icon-warn"></i>
-      </div>
-    </div>
+<app-header [show]="true" [title]="'成为代理'"></app-header>
+<div class="auth-content">
+  <div class="userinfo">
+    <img class="userinfo-avatar" src="/assets/images/avatar.png"/>
   </div>
 
-  <div class="weui-cells__title">说明</div>
-  <div class="weui-cells weui-cells_form">
-    <div class="weui-cell">
-      <div class="weui-cell__bd">
-        <textarea class="weui-textarea" placeholder="请输入说明" rows="3"></textarea>
-        <div class="weui-textarea-counter"><span>0</span>/200</div>
-      </div>
-    </div>
-  </div>
+  <weui-navbar>
+    <weui-tab heading="我的信息">
+        <div class="weui-cells weui-cells_form">
+          <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+            <div class="weui-cell__bd">
+              <input class="weui-input"  type="text" placeholder="请输入您的姓名">
+            </div>
+            <div class="weui-cell__ft">
+              <i class="weui-icon-warn"></i>
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">联系号码</label></div>
+            <div class="weui-cell__bd">
+              <input class="weui-input"  type="number" pattern="[0-9]*" placeholder="请输入您的联系号码">
+            </div>
+            <div class="weui-cell__ft">
+              <i class="weui-icon-warn"></i>
+            </div>
+          </div>
+          <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">收货地址</label></div>
+            <div class="weui-cell__bd">
+              <input class="weui-input"  type="text" placeholder="请输入您的地址">
+            </div>
+            <div class="weui-cell__ft">
+              <i class="weui-icon-warn"></i>
+            </div>
+          </div>
+        </div>
+    </weui-tab>
+    <weui-tab heading="我的成员">
+      <article class="weui-article">
+        <div class="weui-cells">
+          <a routerLink="" class="weui-cell weui-cell_access">
+            <div class="weui-cell__hd">
+              <img src="/assets/images/avatar.png" alt="" style="width: 0.5rem;height: 0.5rem;border-radius: 50%;border: 2px solid #999;">
+            </div>
+            <div class="weui-cell__bd">
+              <p style="margin:0.1rem 0.1rem">成员1</p>
+            </div>
+            <div class="weui-cell__ft"></div>
+          </a>
+        </div>
 
-  <app-footer-btn [title]="'申请'"></app-footer-btn>
+        <div class="weui-cells">
+          <a routerLink="" class="weui-cell weui-cell_access">
+            <div class="weui-cell__hd">
+              <img src="/assets/images/avatar.png" alt="" style="width: 0.5rem;height: 0.5rem;border-radius: 50%;border: 2px solid #999;">
+            </div>
+            <div class="weui-cell__bd">
+              <p style="margin:0.1rem 0.1rem">成员2</p>
+            </div>
+            <div class="weui-cell__ft"></div>
+          </a>
+        </div>
+
+      </article>
+    </weui-tab>
+  </weui-navbar>
+
 </div>

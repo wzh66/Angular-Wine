@@ -1,31 +1,66 @@
-<app-header [leftNav]="'menu'" [show]="true" [title]="'主页'"></app-header>
 <app-content [paddingHeader]="false" [paddingFooter]="true" [monitor]="'scroll'">
   <div class="banner">
-    <swiper [config]="config" [index]="1" fxFlex="auto">
+    <div class="search-bar"
+         style="position: fixed;margin-top: 0.05rem;margin-left:0.1rem;z-index:99;opacity: 0.9;background: #fff">
+      <a routerLink="/admin/search" class="search"><i class="icon-search"></i>搜索商品</a>
+    </div>
+  </div>
+  <swiper [config]="config" [index]="1" fxFlex="auto">
           <span class="img-box swiper-slide" *ngFor="let img of imgs">
             <img src="{{img}}">
           </span>
-    </swiper>
-  </div>
+  </swiper>
+
   <div class="menus">
     <div class="weui-grids">
-      <div [routerLink]="['/front/list']" [queryParams]="{typeId: category.typeid}" *ngFor="let category of categories" class="weui-grid">
+      <div [routerLink]="['/front/list']" [queryParams]="{typeId: 1}" class="weui-grid">
         <div class="weui-grid__icon">
-          <img src="{{'/api' + category.imageurl}}">
+          <img src="/assets/images/categories/spirit.jpg">
         </div>
-        <p class="weui-grid__label">{{category.typename}}</p>
+        <p class="weui-grid__label">白酒</p>
+      </div>
+      <div [routerLink]="['/front/list']" [queryParams]="{typeId: 2}" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/categories/grape.jpg">
+        </div>
+        <p class="weui-grid__label">葡萄酒</p>
+      </div>
+      <div [routerLink]="['/front/list']" [queryParams]="{typeId: 3}" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/categories/importedWine.jpg">
+        </div>
+        <p class="weui-grid__label">洋酒</p>
+      </div>
+      <div [routerLink]="['/front/list']" [queryParams]="{typeId: 4}" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/categories/beef.jpg">
+        </div>
+        <p class="weui-grid__label">啤酒</p>
+      </div>
+      <div [routerLink]="['/front/list']" [queryParams]="{typeId: 5}" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/categories/health.jpg">
+        </div>
+        <p class="weui-grid__label">养生酒</p>
+      </div>
+      <div [routerLink]="['/front/list']" [queryParams]="{typeId: 6}" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/categories/yellow.jpg">
+        </div>
+        <p class="weui-grid__label">黄酒</p>
       </div>
     </div>
   </div>
 
-  <div class="hot weui-panel">
+  <!--<div class="hot weui-panel">
     <div class="weui-panel__hd"><span class="weui-badge">今日热销</span></div>
     <div class="weui-panel__bd">
       <div class="weui-media-box">
         <div class="weui-media-box__bd">
           <div class="banner">
             <swiper *ngIf="hots.length > 0" [config]="albumConfig" [index]="1" fxFlex="auto">
-                  <span [routerLink]="['/front/item',slide.productid]" class="img-box swiper-slide" *ngFor="let slide of hots">
+                  <span [routerLink]="['/front/item',slide.productid]" class="img-box swiper-slide"
+                        *ngFor="let slide of hots">
                     <img src="{{'/api' + slide.headimage}}">
                   </span>
             </swiper>
@@ -33,21 +68,42 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
-  <div class="new weui-panel">
-    <div class="weui-panel__hd"><span class="weui-badge">新品上架</span></div>
+  <div class="hot weui-panel">
+    <div class="weui-panel__hd"><span>热销商品</span></div>
     <div class="weui-panel__bd">
-      <div [routerLink]="['/front/item',item.productid]" *ngFor="let item of news" class="weui-media-box">
+      <div [routerLink]="['/front/item',item.productid]" *ngFor="let item of hots" class="weui-media-box">
         <div class="weui-media-box__bd">
           <div class="item-box">
             <div class="item-img">
-              <img src="{{'/api' + item.headimage}}">
+              <img src="{{'/api/wine' + item.headimage}}">
             </div>
             <div class="item-text">
-              <span class="title">{{item.productname}}</span><span class="price">{{item.price}}元</span><span
-              class="units">{{item.count}}{{item.unit}}</span>
+              <span class="title">{{item.productname}}</span><span class="price">{{item.productprice}}</span><span
+              class="units">元/瓶</span>
               <p class="desc">{{item.synopsis.slice(0, 50)}} {{item.synopsis.length > 50 ? '...' : ''}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="new weui-panel">
+    <div class="weui-panel__hd"><span>商品推荐</span></div>
+    <div class="weui-grids">
+      <div *ngFor="let item of news" [routerLink]="['/front/item',item.productid]" class="weui-grid">
+        <div class="item">
+          <div class="item-img">
+            <div class="img-box">
+              <img src="{{'/api/wine' + item.headimage}}">
+            </div>
+          </div>
+          <div class="item-txt">
+            <div class="title">{{item.productname}}</div>
+            <div class="desc"><span class="price" [innerHTML]="item.productprice | rmb"></span><span
+              class="weui-badge right">去抢购</span>
             </div>
           </div>
         </div>

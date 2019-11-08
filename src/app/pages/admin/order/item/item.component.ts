@@ -31,8 +31,8 @@ export class AdminOrderItemComponent implements OnInit {
 
   key;
   order;
-  products;
-  address;
+  products = [];
+  oda;
   payType;
   orderNo = this.route.snapshot.params['no'];
 
@@ -61,16 +61,16 @@ export class AdminOrderItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.key = this.authSvc.getKey();
+    /*this.key = this.authSvc.getKey();*/
     this.checkoutForm = new FormGroup({
       orderNos: new FormControl('', [Validators.required]),
       payType: new FormControl('', [Validators.required]),
-      key: new FormControl(this.key, [Validators.required]),
-      returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),
+      /*key: new FormControl(this.key, [Validators.required]),*/
+      /*  returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),*/
       openId: new FormControl(this.authSvc.getOid(), [])
     });
 
-    this.checkoutSvc.get(2, this.key).subscribe(res => {
+    this.checkoutSvc.get(2).subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
         payTypes.push({
@@ -85,13 +85,13 @@ export class AdminOrderItemComponent implements OnInit {
       this.checkoutForm.get('payType').setValue(this.payType.value);
     });
 
-    this.orderSvc.getOrderInfo(this.key, this.orderNo).subscribe(res => {
-      console.log(res);
+    this.orderSvc.getOrderInfo('', this.orderNo).subscribe(res => {
+      console.log('res:', res);
       this.order = res.order;
-      this.address = res.addr;
-      this.products = res.orderGoods;
+      this.oda = res.oda;
+      this.products = res.goods;
       this.payType = res.payType;
-
+      console.log(this.products);
       this.checkoutForm.get('orderNos').setValue(this.order.orderno);
     });
   }
@@ -105,7 +105,6 @@ export class AdminOrderItemComponent implements OnInit {
   }
 
   checkout() {
-    console.log(this.checkoutForm.value);
     if (this.checkoutForm.invalid) {
       return false;
     }

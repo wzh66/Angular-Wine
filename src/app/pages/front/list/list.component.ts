@@ -31,22 +31,49 @@ export class FrontListComponent implements OnInit {
   items = [];
   page = 1;
   typeId;
+  aromas = [];
+  prices = [];
+  places = [];
+  countries = [];
+  vars = [];
+  grapeCategories = [];
+  importedCategories = [];
   @ViewChild(InfiniteLoaderComponent, {static: false}) il;
 
   constructor(private route: ActivatedRoute,
               private footerSvc: FooterService,
-              private categorySvc: CategoryService,
-              private prodService: ProdService) {
+              private prodService: ProdService,
+              private categorySvc: CategoryService) {
     footerSvc.setActive(1);
+    route.queryParamMap.subscribe(() => {
+      this.typeId = this.route.snapshot.queryParams['typeId'] || '';
+      prodService.list(this.typeId).subscribe(res => {
+        this.items = res;
+      });
+    });
     categorySvc.get().subscribe(res => {
       this.categories = res;
     });
-    route.queryParamMap.subscribe(() => {
-      this.page = 1;
-      this.typeId = this.route.snapshot.queryParams['typeId'] || '';
-      prodService.list(this.typeId, '', '', this.page).subscribe(res => {
-        this.items = res;
-      });
+    prodService.getAromas().subscribe(res => {
+      this.aromas = res;
+    });
+    prodService.getPrices().subscribe(res => {
+      this.prices = res;
+    });
+    prodService.getPlaces(0).subscribe(res => {
+      this.places = res;
+    });
+    prodService.getPlaces(1).subscribe(res => {
+      this.countries = res;
+    });
+    prodService.getVars().subscribe(res => {
+      this.vars = res;
+    });
+    prodService.getCategorys(2).subscribe(res => {
+      this.grapeCategories = res;
+    });
+    prodService.getCategorys(3).subscribe(res => {
+      this.importedCategories = res;
     });
   }
 
@@ -58,7 +85,7 @@ export class FrontListComponent implements OnInit {
       this.page = this.page + 1;
 
       // 获取当前页数据
-      this.prodService.list(this.typeId, '', '', this.page).subscribe(res => {
+      this.prodService.list(this.typeId).subscribe(res => {
         this.items = this.items.concat(res);
         if (res.length < 20) {
           comp.setFinished();

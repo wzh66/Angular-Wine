@@ -1,9 +1,9 @@
-<app-header [className]="'scroll'" [show]="true" [title]="'提现'"></app-header>
-<div *ngIf="user" class="weui-msg">
+<app-header [className]="'scroll'" [show]="true" [title]="'佣金提现'"></app-header>
+<div  class="weui-msg">
   <div class="weui-msg__icon-area"><i class="weui-icon_msg"><img src="/assets/images/withdraw/icon.png"></i></div>
   <div class="weui-msg__text-area">
-    <h2 class="weui-msg__title"><em class="money"><i class="rmb">￥</i><span>{{user.amountBalance}}</span></em></h2>
-    <p class="weui-msg__desc">可提现佣金</p>
+    <p class="weui-msg__title">可提现佣金</p>
+    <h2 class="weui-msg__desc"><em class="money"><i class="rmb">￥</i><span>{{user?.amountBalance}}</span></em></h2>
   </div>
   <div class="weui-msg__opr-area">
     <p class="weui-btn-area">
@@ -15,3 +15,4 @@
     <p class="weui-msg__tips">注:微信实名用户提现每次金额在1-20000之间,非微信实名用户提现每次金额在1-2000之间,每天最多可以提现10次,每15秒只能提现一次!提现收取1%手续费!</p>
   </div>
 </div>
+<app-footer></app-footer>

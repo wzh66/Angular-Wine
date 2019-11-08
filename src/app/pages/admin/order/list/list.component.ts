@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 import {timer as observableTimer} from 'rxjs';
 
-import {InfiniteLoaderComponent} from 'ngx-weui';
+import {DialogService, InfiniteLoaderComponent} from 'ngx-weui';
 
 import {Slide} from '../../../../@theme/animates/router.animation';
 import {FooterService} from '../../../../@theme/modules/footer/footer.service';
@@ -33,7 +33,8 @@ export class AdminOrderListComponent implements OnInit {
               private location: LocationStrategy,
               private footerSvc: FooterService,
               private authSvc: AuthService,
-              private orderSvc: OrderService) {
+              private orderSvc: OrderService,
+              private dialogSvc: DialogService) {
     footerSvc.setActive(3);
   }
 
@@ -70,6 +71,15 @@ export class AdminOrderListComponent implements OnInit {
     if (e === 'cancel') {
       this.location.back();
     }
+  }
+
+  receive() {
+    this.dialogSvc.show({title: '', content: '您确定以收到商品？', cancel: '取消', confirm: '确定'}).subscribe(value => {
+      if (value.value) {
+        console.log('收获成功');
+      }
+    });
+
   }
 
 }

@@ -21,6 +21,16 @@ import {AdminProfileComponent} from './profile/profile.component';
 import {AdminShareComponent} from './share/share.component';
 
 import {AdminCommissionListComponent} from './commission/list/list.component';
+import {AdminSearchComponent} from './search/search.component';
+import {AdminPartnerComponent} from './partner/partner.component';
+import {AdminUserComponent} from './user/user.component';
+import {AdminMarketingComponent} from './marketing/marketing.component';
+import {AdminShareListComponent} from './share/list/list.component';
+import {AdminMarketingCommissionComponent} from './marketing/commission/commission.component';
+import {AdminMarketingBonusComponent} from './marketing/bonus/bonus.component';
+import {AdminMarketingCustomComponent} from './marketing/custom/custom.component';
+import {AdminMarketingCommissionListComponent} from './marketing/commission/list/list.component';
+import {AdminCashCardComponent} from './cash-card/cash-card.component';
 
 export const ADMIN_PAGES = [
   AdminComponent,
@@ -38,5 +48,15 @@ export const ADMIN_PAGES = [
   AdminSellerComponent,
   AdminProfileComponent,
   AdminShareComponent,
-  AdminCommissionListComponent
+  AdminShareListComponent,
+  AdminCommissionListComponent,
+  AdminSearchComponent,
+  AdminPartnerComponent,
+  AdminUserComponent,
+  AdminMarketingComponent,
+  AdminMarketingCommissionComponent,
+  AdminMarketingBonusComponent,
+  AdminMarketingCustomComponent,
+  AdminMarketingCommissionListComponent,
+  AdminCashCardComponent
 ];

@@ -1,6 +1,6 @@
-<app-header [className]="''" [show]="true" [title]="'我的订单'"></app-header>
+<app-header [className]="''" [show]="true" [title]="'订单详情'"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true" [monitor]="'scroll'">
-<div class="weui-form-preview">
+<!--<div class="weui-form-preview">
   <div class="weui-form-preview__hd">
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label">付款金额</label>
@@ -43,7 +43,89 @@
     <a (click)="back()" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返回</a>
     <a *ngIf="order?.status === 0" (click)="showPayTypes()" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">去支付</a>
   </div>
+</div>-->
+<div *ngIf="products" class="weui-panel">
+  <div class="weui-panel__hd"><span>商品信息</span></div>
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_appmsg" *ngFor="let product of products">
+      <div  class="weui-media-box__hd">
+        <img class="weui-media-box__thumb" src="/api/wine{{product.productimg}}">
+      </div>
+      <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title">{{product.productname}}</h4>
+        <p class="weui-media-box__desc"><em class="money">{{product.buymoney}}</em><span
+          class="units">元</span></p>
+        <p class="weui-media-box__desc">
+          <span class="num">数 &nbsp;&nbsp;量：x{{product.buycount}}</span>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div *ngIf="order" class="weui-panel">
+  <div class="weui-panel__hd"><span>订单信息</span></div>
+  <div class="weui-panel__bd">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">订单号：</label></div>
+        <div class="weui-cell__bd">{{order.orderno}}</div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">订单金额：</label></div>
+        <div class="weui-cell__bd">￥{{order.amount}}.00</div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">订单状态：</label></div>
+        <div class="weui-cell__bd">
+          <span  *ngIf="order.status === 0">待付款</span>
+          <span *ngIf="order.status === 1">待发货</span>
+          <span *ngIf="order.status === 2">确认收货</span>
+          <span  *ngIf="order.status === 3">已完成</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="weui-panel">
+    <div class="weui-panel__hd"><span>收货信息</span></div>
+    <div class="weui-panel__bd">
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+          <div class="weui-cell__hd"><label class="weui-label">收货人：</label></div>
+          <div class="weui-cell__bd">{{oda?.consignee}}</div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd"><label class="weui-label">手机号码：</label></div>
+          <div class="weui-cell__bd">{{oda?.phone}}</div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__hd"><label class="weui-label">收货地址：</label></div>
+          <div class="weui-cell__bd">{{oda?.address}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="weui-panel">
+    <div class="weui-panel__hd"><span>支付信息</span></div>
+    <div class="weui-panel__bd">
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+          <div class="weui-cell__hd">支付方式：微信支付</div>
+          <div class="weui-cell__bd" style="margin-left: 0.5rem">支付金额：{{order?.payedAmount}}.00元</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">商品总金额：{{order?.amount}}.00元</h4>
+    <h4 class="weui-media-box__title">-优惠券抵扣优惠： {{order?.cashCardAmount ? order?.cashCardAmount : 0}}.00元</h4>
+    <h4 class="weui-media-box__title">-其他优惠(包括订单立减)： 0.00元</h4>
+    <h4 class="weui-media-box__title">-余额支付： 0.00元</h4>
+    <h4 class="weui-media-box__title">订单支付金额： {{order?.payedAmount}}.00元</h4>
+  </div>
 </app-content>
 <app-footer></app-footer>
 

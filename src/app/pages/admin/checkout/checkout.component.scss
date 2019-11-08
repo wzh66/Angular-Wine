@@ -22,11 +22,11 @@
 }
 
 .weui-media-box__title {
-  font-size: 0.12rem;
+  font-size: 0.16rem;
 }
 
 .weui-media-box__desc {
-  font-size: 0.12rem;
+  font-size: 0.14rem;
   color: #bb9772;
 
   .money {
@@ -85,6 +85,10 @@
       }
     }
   }
+}
+
+weui-actionsheet{
+  text-align: center;
 }
 
 @keyframes slideOutDown {

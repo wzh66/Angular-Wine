@@ -1,0 +1,28 @@
+.weui-media-box__desc{
+  margin: 0 0.1rem;
+  span{
+    white-space: nowrap;
+    font-size: 0.18rem;
+    color: #999;
+    line-height: 0.25rem;
+
+    del, span, em {
+      display: inline-block;
+    }
+
+    del {
+      margin-right: 0.14rem;
+    }
+
+    em {
+      font-size: 0.2rem;
+      color: #fe6600;
+    }
+  }
+}
+.weui-media-box__title {
+  margin: 0.1rem 0.1rem;
+  color: #936b40;
+  font-size: 0.18rem;
+  line-height: 0.16rem;
+}

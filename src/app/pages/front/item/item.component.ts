@@ -37,7 +37,6 @@ export class FrontItemComponent implements OnInit {
               private directionSvc: DirectionService,
               private toastSvc: ToastService,
               private footerSvc: FooterService,
-              private authSvc: AuthService,
               private cartSvc: CartService,
               private prodSvc: ProdService,
               private router: Router) {
@@ -47,9 +46,8 @@ export class FrontItemComponent implements OnInit {
   ngOnInit() {
     this.prodSvc.item(this.route.snapshot.params['id']).subscribe(res => {
       this.product = res.product;
-      console.log(res);
-      this.specs = res.specs;
-      this.spec = this.specs[0];
+      /*this.specs = res.specs;
+      this.spec = this.specs[0];*/
     });
 
     this.directionSvc.get().subscribe(res => {
@@ -68,12 +66,10 @@ export class FrontItemComponent implements OnInit {
   addCart(isRedirect?) {
     this.toastSvc.loading('操作中', 0);
     this.cartSvc.save({
-      key: this.authSvc.getKey(),
       productId: this.product.productid,
-      specId: this.spec.id,
-      qty: this.qty,
-      remark: ''
+      qty: this.qty
     }).subscribe(res => {
+      console.log(res);
       this.cartSvc.updateCount(res.goodsCount);
       this.toastSvc.hide();
       this.toastSvc.success('成功加入购物车');

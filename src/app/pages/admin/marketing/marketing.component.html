@@ -1,0 +1,31 @@
+<app-header [className]="''" [show]="true" [title]="'营销中心'"></app-header>
+<app-content [paddingHeader]="true" [paddingFooter]="true">
+  <app-admin-marketing-commission></app-admin-marketing-commission>
+  <div class="weui-grids">
+    <a routerLink="/admin/marketing/bonus" href="javascript:;" class="weui-grid" style="border-left: none">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/home/bonus.png" alt=""/>
+      </div>
+      <p class="weui-grid__label">分红记录</p>
+    </a>
+    <a routerLink="/admin/marketing/custom" href="javascript:;" class="weui-grid" style="border-left: none;border-right: none">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/home/custom.png" alt=""/>
+      </div>
+      <p class="weui-grid__label">我的客户</p>
+    </a>
+    <a routerLink="/admin/marketing/commission/list" href="javascript:;" class="weui-grid" style="border-top: none;border-left: none">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/home/detail.png" alt=""/>
+      </div>
+      <p class="weui-grid__label">佣金列表</p>
+    </a>
+    <a routerLink="/admin/finance" href="javascript:;" class="weui-grid" style="border-left: none;border-right:none;border-top: none ">
+      <div class="weui-grid__icon">
+        <img src="/assets/images/home/cash-out.png" alt=""/>
+      </div>
+      <p class="weui-grid__label">佣金提现</p>
+    </a>
+  </div>
+</app-content>
+<app-footer></app-footer>

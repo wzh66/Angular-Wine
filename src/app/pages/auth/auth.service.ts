@@ -115,12 +115,12 @@ export class AuthService {
           window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         } else {
           if (!key) {// 无key
-            /*return this.router.navigate(['/admin/home'], {
+            return this.router.navigate(['/admin/home'], {
               queryParams: {
                 openid: openid,
                 callbackUrl: this.router.url
               }
-            });*/
+            });
             // return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
           } else {// 有key
             const expires_time = Date.parse(String(new Date())) + 144000000;
@@ -134,7 +134,7 @@ export class AuthService {
           }
         }
       } else {// 非微信环境
-        /*this.router.navigate(['/admin/home'], {queryParams: {callbackUrl: this.router.url}});*/
+        this.router.navigate(['/admin/home'], {queryParams: {callbackUrl: this.router.url}});
       }
     }
   }

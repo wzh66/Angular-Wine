@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  prefix_url:'/api/interface/call.html?action='
 };

@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="weui-panel__ft" *ngIf="order?.status === 2">
-      <span class="weui-badge right" (click)="receive()">确认收获</span>
+      <span class="weui-badge right" (click)="receive(order.orderno)">确认收获</span>
     </div>
   </div>
   <div class="space"></div>

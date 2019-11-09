@@ -6,11 +6,11 @@
   <div *ngFor="let item of items" class="weui-panel">
     <div class="weui-panel__bd">
       <div href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-        <div [routerLink]="['/front/item',item.productid]" class="weui-media-box__hd">
+        <div class="weui-media-box__hd">
           <img class="weui-media-box__thumb" src="{{'/api/wine' + item.headimage}}">
         </div>
         <div class="weui-media-box__bd">
-          <h4 [routerLink]="['/front/item',item.productid]" class="weui-media-box__title">{{item.productname}}</h4>
+          <h4 class="weui-media-box__title">{{item.productname}}</h4>
           <span class="right" (click)="remove(item.id)"><img src="/assets/images/home/trash.png" height="20" width="20"/></span>
           <p class="weui-media-box__desc"><em class="money">{{item.productprice}}.00</em><span
             class="units">元/瓶</span></p>

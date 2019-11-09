@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://wine.ai-fox.cn/api",
+    "target": "http://120.25.198.225:8888",
     "secure": false,
     "pathRewrite": {
       "^/api/": ""

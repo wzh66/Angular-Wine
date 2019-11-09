@@ -26,8 +26,8 @@ export class CheckoutService {
       }));
   }
 
-  get(type, key?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getPayTypes' + '&consumeType=' + type + '&key=' + (key || ''))
+  get(key?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getPayTypes'  + '&key=' + (key || ''))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

@@ -70,7 +70,7 @@ export class AdminOrderItemComponent implements OnInit {
       openId: new FormControl(this.authSvc.getOid(), [])
     });
 
-    this.checkoutSvc.get(2).subscribe(res => {
+    this.checkoutSvc.get().subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
         payTypes.push({

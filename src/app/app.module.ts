@@ -14,8 +14,8 @@ import {MsgSuccessComponent} from './pages/msg/success/success.component';
 import {MsgInfoComponent} from './pages/msg/info/info.component';
 import {MsgErrorComponent} from './pages/msg/error/error.component';
 import {MsgRedComponent} from './pages/msg/red/red.component';
-
-
+import {environment} from '../environments/environment';
+console.log(environment);
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +32,7 @@ import {MsgRedComponent} from './pages/msg/red/red.component';
     ThemeModule.forRoot(),
     ThemeModule,
   ],
-  providers: [AuthGuard, INTERCEPTORS, {provide: 'PREFIX_URL', useValue: '/api/interface/call.html?action='}],
+  providers: [AuthGuard, INTERCEPTORS, {provide: 'PREFIX_URL', useValue: environment.prefix_url}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -27,7 +27,7 @@ export class OrderService {
     }));
   }
 
-  updateOrderToComp(key, no) {
+  updateOrderToComp(key, no?) {
     return this.http.get(this.prefix_url + 'updateOrderToComp' + '&key=' + key + '&orderNo=' + no)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

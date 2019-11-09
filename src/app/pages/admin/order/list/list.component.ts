@@ -28,6 +28,7 @@ export class AdminOrderListComponent implements OnInit {
   key;
   orders = [];
   page = 1;
+  orderNo;
 
   constructor(private route: ActivatedRoute,
               private location: LocationStrategy,
@@ -73,10 +74,12 @@ export class AdminOrderListComponent implements OnInit {
     }
   }
 
-  receive() {
-    this.dialogSvc.show({title: '', content: '您确定以收到商品？', cancel: '取消', confirm: '确定'}).subscribe(value => {
+  receive(orderNo) {
+    this.dialogSvc.show({title: '', content: '您确定已收到商品？', cancel: '取消', confirm: '确定'}).subscribe(value => {
       if (value.value) {
-        console.log('收获成功');
+        this.orderSvc.updateOrderToComp(this.authSvc.getKey(), orderNo).subscribe(res => {
+          this.status = 3;
+        });
       }
     });
 

@@ -14,6 +14,7 @@ import {FooterService} from '../../../@theme/modules/footer/footer.service';
   styleUrls: ['./home.component.scss']
 })
 export class AdminHomeComponent implements OnInit {
+  key = this.authSvc.getKey();
   address;
 
   constructor(private router: Router,

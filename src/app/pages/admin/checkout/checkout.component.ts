@@ -28,6 +28,7 @@ import {StoreService} from '../../../@core/data/store.service';
 import {CheckoutService} from './checkout.service';
 import {getIndex, onBridgeReady} from '../../../utils/utils';
 import {PayDto} from '../../../@core/dto/pay.dto';
+import {logger} from 'codelyzer/util/logger';
 
 declare interface Coupon {
   text: string;
@@ -78,6 +79,8 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   sheetConfig: ActionSheetConfig = {
     title: '请选择代金券',
   } as ActionSheetConfig;
+  cashItems = [];
+  products = [];
 
   constructor(private router: Router,
               private loc: LocationStrategy,
@@ -109,11 +112,26 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       /*key: new FormControl(this.key, [Validators.required]),*/
       returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),
       deliveryType: new FormControl(1, [Validators.required]),
-      /*storeId: new FormControl('', [Validators.required]),*/
+      storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), []),
       sendTime: new FormControl('', [Validators.required]),
+      cashCardId: new FormControl('', []),
+      products: new FormControl('', [])
     });
+
+
+    if (this.storageSvc.get('cashItems')) {
+      this.cashItems = JSON.parse(this.storageSvc.get('cashItems'));
+      this.cashItems.forEach(item => {
+        const product = {
+          productId: item.productid,
+          productNum: item.product_num
+        };
+        this.products.push(product);
+        this.checkoutForm.get('products').setValue(this.products);
+      });
+    }
 
     this.loc.onPopState(state => {
       this.overlaySvc.hide();
@@ -121,9 +139,15 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
 
     this.checkoutSvc.getItems().subscribe(res => {
       this.order = res;
-      if (res.giveCashCard) {
+      if (res.giveCashCard && this.cashItems.length < 1) {
+        this.checkoutForm.get('cashCardId').setValue(res.giveCashCard.id);
         const name = res.giveCashCard.name;
-        this.dialogSvc.show({title: '', content: `<p>恭喜你获得一张${name}!</p><p>(可用于兑换商品)</p>`, cancel: '不了', confirm: '去看看'}).subscribe(value => {
+        this.dialogSvc.show({
+          title: '',
+          content: `<p>恭喜你获得一张${name}!</p><p>(可用于兑换商品)</p>`,
+          cancel: '不了',
+          confirm: '去看看'
+        }).subscribe(value => {
           if (value.value) {
             this.router.navigate(['/admin/cash']);
           }
@@ -135,7 +159,7 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       };
       this.menus.push(body);
     });
-    this.checkoutSvc.get(2).subscribe(res => {
+    this.checkoutSvc.get().subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
         payTypes.push({
@@ -254,6 +278,7 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     /*if (this.checkoutForm.invalid) {
       return false;
     }*/
+    console.log(this.checkoutForm);
     this.toastSvc.loading('结算中', 0);
     this.checkoutSvc.pay(this.checkoutForm.value).subscribe(res => {
       if (!res) {
@@ -353,6 +378,8 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.dialogSvc.destroyAll();
     this.actionSheetSvc.destroyAll();
+    this.storageSvc.remove('cashItems');
   }
 }

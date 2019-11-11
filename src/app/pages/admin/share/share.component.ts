@@ -5,6 +5,7 @@ import {DialogService} from 'ngx-weui';
 import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../auth/auth.service';
 import {UserService} from '../../../@core/data/user.service';
+
 import {H2cService} from '../../../@core/data/h2c.service';
 
 declare var QRCode: any;
@@ -33,15 +34,18 @@ export class AdminShareComponent implements OnInit {
   ngOnInit() {
     this.key = this.authSvc.getKey();
     this.userSvc.get(this.key).subscribe(res => {
-      this.webHost = res.shortLinks;
-
-      this.qrCode = new QRCode(document.getElementById('qrcode'), {
-        text: 'http://' + window.location.host + '/index?referee=' + this.authSvc.getUid(),
-        width: 256,
-        height: 256,
-        colorDark: '#000000',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
+      this.user = res;
+      console.log(this.user.level);
+      setTimeout(() => {
+        this.webHost = res.shortLinks;
+        this.qrCode = new QRCode(document.getElementById('qrcode'), {
+          text: 'http://' + window.location.host + '/index?referee=' + this.authSvc.getUid(),
+          width: 256,
+          height: 256,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        });
       });
     });
   }

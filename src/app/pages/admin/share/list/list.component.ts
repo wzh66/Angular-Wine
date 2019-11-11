@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ShareService} from '../share.service';
+import {AuthService} from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-admin-share-list',
@@ -8,12 +9,14 @@ import {ShareService} from '../share.service';
 })
 export class AdminShareListComponent implements OnInit {
   list = [];
+  key = this.authSvc.getKey();
 
-  constructor(private shareSvc: ShareService) {
+  constructor(private shareSvc: ShareService,
+              private authSvc: AuthService) {
   }
 
   ngOnInit() {
-    this.shareSvc.getList().subscribe(res => {
+    this.shareSvc.getList(this.key).subscribe(res => {
       this.list = res.list;
       console.log(this.list);
     });

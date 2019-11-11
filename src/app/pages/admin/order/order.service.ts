@@ -14,7 +14,7 @@ export class OrderService {
     return this.http.get(this.prefix_url + 'getOrders' + '&key=' + key + '&status=' + status + '&page=' + (page ? page : 1) + '&rows=' + (rows ? rows : 10));
   }
 
-  getOrderInfo(key?, no?) {
+  getOrderInfo(key, no?) {
     return this.http.get(this.prefix_url + 'orderLogisticsDetail' + '&key=' + key + '&orderNo=' + no)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

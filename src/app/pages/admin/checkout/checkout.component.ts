@@ -116,7 +116,8 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       openId: new FormControl(this.authSvc.getOid(), []),
       sendTime: new FormControl('', [Validators.required]),
       cashCardId: new FormControl('', []),
-      products: new FormControl('', [])
+      products: new FormControl('', []),
+      cashCardValue: new FormControl('', []),
     });
 
 
@@ -136,6 +137,7 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     this.checkoutSvc.getItems(this.key).subscribe(res => {
       this.order = res;
       this.checkoutForm.get('cashCardId').setValue(res.giveCashCard.id);
+      this.checkoutForm.get('cashCardValue').setValue(res.giveCashCard.amount);
       if (res.giveCashCard && this.cashItems.length < 1) {
         const name = res.giveCashCard.name;
         this.dialogSvc.show({
@@ -246,9 +248,9 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   }
 
   checkout() {
-    /*if (this.checkoutForm.invalid) {
+    if (this.checkoutForm.invalid) {
       return false;
-    }*/
+    }
     console.log(this.checkoutForm.value);
     this.toastSvc.loading('结算中', 0);
     this.checkoutSvc.pay(this.checkoutForm.value).subscribe(res => {

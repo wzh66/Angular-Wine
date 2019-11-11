@@ -105,7 +105,7 @@ export class AdminCartComponent implements OnInit {
   remove(id) {
     this.dialogSvc.show({title: '', content: '你确定要删除？', cancel: '取消', confirm: '确定'}).subscribe(value => {
       if (value.value) {
-        this.cartSvc.remove({cartId: id}).subscribe(res => {
+        this.cartSvc.remove({key: this.key, cartId: id}).subscribe(res => {
           console.log(res);
           this.getData();
         });
@@ -118,7 +118,7 @@ export class AdminCartComponent implements OnInit {
       if (value.value) {
         console.log(value);
         this.toastSvc.loading('', 0);
-        this.cartSvc.clear().subscribe(res => {
+        this.cartSvc.clear(this.key).subscribe(res => {
           this.toastSvc.hide();
           this.getData();
         });

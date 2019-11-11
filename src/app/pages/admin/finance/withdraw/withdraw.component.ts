@@ -120,4 +120,5 @@ export class AdminFinanceWithdrawComponent implements OnInit {
     console.log(item);
     this.uploader.removeFromQueue(item.item);
   }
+
 }

@@ -1,19 +1,23 @@
 <app-header [className]="''" [show]="true" [title]="'我要推广'"></app-header>
+<app-content [paddingFooter]="true" [paddingHeader]="true" >
 
-<div class="content-scrollable">
-</div>
-<div id="qrcode" class="qr-code"></div>
-<p class="weui-cell_title">我的专属推广二维码</p>
-<div class="envelope">
-  <div #target class="target form-control form-control_mobile"><span id="invite_code">{{webHost}}</span></div>
-  <div class="form-control form-control_btn">
-    <button (click)="copy()">复制链接</button>
-    <a routerLink="/admin/share/list" href="javascript:;">查看推广列表</a>
+
+  <div class="content-scrollable">
   </div>
-</div>
-<div class="weui-msg__tips-area">
-  <p class="weui-msg__tips">佣金说明： 当你的朋友在商城购买产品时，你就能获得佣金。佣金提成为商品价格的1%。</p>
-</div>
+  <div *ngIf="user?.level > 1" id="qrcode" class="qr-code"></div>
+  <div *ngIf="user?.level < 2" class="qr-blank"></div>
+  <p class="weui-cell_title">我的专属推广二维码</p>
 
+  <div class="envelope">
+    <div #target class="target form-control form-control_mobile"><span id="invite_code">{{webHost}}</span></div>
+    <div class="form-control form-control_btn">
+      <button (click)="copy()">复制链接</button>
+      <a routerLink="/admin/share/list" href="javascript:;">查看推广列表</a>
+    </div>
+  </div>
+  <div class="weui-msg__tips-area">
+    <p class="weui-msg__tips">佣金说明： 当你的朋友在商城购买产品时，你就能获得佣金。佣金提成为商品价格的1%。</p>
+  </div>
+</app-content>
 <app-footer></app-footer>
 

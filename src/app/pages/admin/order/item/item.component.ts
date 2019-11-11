@@ -61,16 +61,16 @@ export class AdminOrderItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
+    this.key = this.authSvc.getKey();
     this.checkoutForm = new FormGroup({
       orderNos: new FormControl('', [Validators.required]),
       payType: new FormControl('', [Validators.required]),
-      /*key: new FormControl(this.key, [Validators.required]),*/
+      key: new FormControl(this.key, [Validators.required]),
       /*  returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),*/
       openId: new FormControl(this.authSvc.getOid(), [])
     });
 
-    this.checkoutSvc.get().subscribe(res => {
+    this.checkoutSvc.get(this.key).subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
         payTypes.push({
@@ -85,7 +85,7 @@ export class AdminOrderItemComponent implements OnInit {
       this.checkoutForm.get('payType').setValue(this.payType.value);
     });
 
-    this.orderSvc.getOrderInfo('', this.orderNo).subscribe(res => {
+    this.orderSvc.getOrderInfo(this.key, this.orderNo).subscribe(res => {
       console.log('res:', res);
       this.order = res.order;
       this.oda = res.oda;

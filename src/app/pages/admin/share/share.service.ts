@@ -20,8 +20,8 @@ export class ShareService {
       }));
   }
 
-  getList(rows?, page?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getSpreads&rows=' + (rows ? rows : 10) + '&page=' + (page ? page : 1))
+  getList(key, rows?, page?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getSpreads' + '&key=' + key + '&rows=' + (rows ? rows : 10) + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

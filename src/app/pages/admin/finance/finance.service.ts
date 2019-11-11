@@ -17,7 +17,7 @@ export class FinanceService {
       }));
   }
 
-  getWithdrawals(key?, page?): Observable<any> {
+  getWithdrawals(key, page?): Observable<any> {
     return this.http.get(this.prefix_url + 'getMyApplymentionData' + '&key=' + key + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

@@ -45,7 +45,7 @@ export class AuthService {
       const key = this.route.snapshot.queryParams['key'];
       const id = this.route.snapshot.queryParams['id'];
       if (!openid) {// 无openid
-        window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+        window.location.href = '/api/wine/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
       } else {
         if (!key) {// 无key
           return this.router.navigate(['/auth/login'], {
@@ -112,14 +112,17 @@ export class AuthService {
         const key = this.route.snapshot.queryParams['key'];
         const id = this.route.snapshot.queryParams['id'];
         if (!openid) {// 无openid
-          window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+          window.location.href = '/api/wine/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         } else {
           if (!key) {// 无key
-            return this.router.navigate(['/admin/home'], {
-              queryParams: {
+            this.signIn({openid: openid, referee: this.referee() ? this.referee() : ''}).subscribe(res => {
+              const expires_time = Date.parse(String(new Date())) + 144000000;
+              this.storageSvc.set('accessToken', JSON.stringify({
+                key: res.result.key,
+                id: res.result.id,
                 openid: openid,
-                callbackUrl: this.router.url
-              }
+                expires_time: expires_time
+              }));
             });
             // return this.router.navigate(['/auth/login'], {queryParams: {openid: openid}});
           } else {// 有key

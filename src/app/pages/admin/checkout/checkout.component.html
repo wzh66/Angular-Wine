@@ -29,7 +29,7 @@
       <a *ngIf="store" (click)="show('store')" href="javascript:;" class="right">更换</a>
     </div>
     <div class="weui-panel__bd">
-      <a (click)="show('store')" *ngIf="store" href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+      <!--<a (click)="show('store')" *ngIf="store" href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           <img class="weui-media-box__thumb" src="{{'/api' + store.logo}}" alt="">
         </div>
@@ -37,9 +37,10 @@
           <h4 class="weui-media-box__title">{{store.storename}}</h4>
           <p class="weui-media-box__desc">{{store.address}}</p>
         </div>
-      </a>
-      <div *ngIf="!store" class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title"><em>该区域没有服务门店</em></h4>
+      </a>-->
+      <div class="weui-media-box weui-media-box_text">
+        <h4 class="weui-media-box__title">广东省广州市番禺区</h4>
+        <p class="weui-media-box__desc">东环街万博翠湖花园万豪商业街26号首层</p>
       </div>
     </div>
     <div class="weui-penal__ft">

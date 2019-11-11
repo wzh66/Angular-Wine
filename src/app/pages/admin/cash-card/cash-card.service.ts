@@ -11,8 +11,8 @@ export class CashCardService {
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient) {
   }
 
-  get(rows?, page?): Observable<any> {
-    return this.http.get(this.prefix_url + 'getCanGiveProducts' + '&rows=' + (rows ? rows : 20) + '&page=' + (page ? page : 1))
+  get(key, rows?, page?): Observable<any> {
+    return this.http.get(this.prefix_url + 'getCanGiveProducts' + '&key=' + key + '&rows=' + (rows ? rows : 20) + '&page=' + (page ? page : 1))
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);
       }));

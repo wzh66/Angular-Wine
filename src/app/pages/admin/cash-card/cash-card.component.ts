@@ -3,6 +3,7 @@ import {CashCardService} from './cash-card.service';
 import {StorageService} from '../../../@core/utils/storage.service';
 import {Location} from '@angular/common';
 import {DialogService} from 'ngx-weui';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-admin-cash-card',
@@ -11,14 +12,16 @@ import {DialogService} from 'ngx-weui';
 })
 export class AdminCashCardComponent implements OnInit {
   cashItems = [];
+  key = this.authSvc.getKey();
 
   constructor(private storageSvc: StorageService,
               private cashSvc: CashCardService,
-              private location: Location) {
+              private location: Location,
+              private authSvc: AuthService) {
   }
 
   ngOnInit() {
-    this.cashSvc.get().subscribe(res => {
+    this.cashSvc.get(this.key).subscribe(res => {
       res.list.forEach((item) => {
         item.count = 1;
       });

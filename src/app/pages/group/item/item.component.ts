@@ -31,7 +31,7 @@ export class GroupItemComponent implements OnInit {
       delay: 3000
     }
   };
-  /* key = this.authSvc.getKey();*/
+   key = this.authSvc.getKey();
   uid = this.authSvc.getUid();
   teamId = this.route.snapshot.queryParams['teamId'] || '';
   activity;
@@ -94,7 +94,7 @@ export class GroupItemComponent implements OnInit {
       });
     }
 
-    this.addressSvc.get().subscribe(res => {
+    this.addressSvc.get(this.key).subscribe(res => {
       if (res.list.length > 0) {
         this.address = res.list[0];
         const addresses = [];

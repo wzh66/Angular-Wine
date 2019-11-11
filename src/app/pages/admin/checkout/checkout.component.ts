@@ -75,12 +75,12 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     value: 0
   };
 
-  menus: any[] = [{text: '不使用代金券', value: 0}];
+  menus: any[] = [];
   sheetConfig: ActionSheetConfig = {
     title: '请选择代金券',
   } as ActionSheetConfig;
   cashItems = [];
-  products = [];
+  products = '';
 
   constructor(private router: Router,
               private loc: LocationStrategy,
@@ -106,13 +106,12 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
+    this.key = this.authSvc.getKey();
     this.checkoutForm = new FormGroup({
       payType: new FormControl('', [Validators.required]),
-      /*key: new FormControl(this.key, [Validators.required]),*/
+      key: new FormControl(this.key, [Validators.required]),
       returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),
       deliveryType: new FormControl(1, [Validators.required]),
-      storeId: new FormControl('', [Validators.required]),
       addrId: new FormControl('', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), []),
       sendTime: new FormControl('', [Validators.required]),
@@ -124,11 +123,8 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     if (this.storageSvc.get('cashItems')) {
       this.cashItems = JSON.parse(this.storageSvc.get('cashItems'));
       this.cashItems.forEach(item => {
-        const product = {
-          productId: item.productid,
-          productNum: item.product_num
-        };
-        this.products.push(product);
+        this.products = item.productid.toString() + ',' + item.product_num.toString();
+        console.log(this.products);
         this.checkoutForm.get('products').setValue(this.products);
       });
     }
@@ -137,10 +133,10 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       this.overlaySvc.hide();
     });
 
-    this.checkoutSvc.getItems().subscribe(res => {
+    this.checkoutSvc.getItems(this.key).subscribe(res => {
       this.order = res;
+      this.checkoutForm.get('cashCardId').setValue(res.giveCashCard.id);
       if (res.giveCashCard && this.cashItems.length < 1) {
-        this.checkoutForm.get('cashCardId').setValue(res.giveCashCard.id);
         const name = res.giveCashCard.name;
         this.dialogSvc.show({
           title: '',
@@ -159,7 +155,7 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       };
       this.menus.push(body);
     });
-    this.checkoutSvc.get().subscribe(res => {
+    this.checkoutSvc.get(this.key).subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
         payTypes.push({
@@ -173,7 +169,7 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       this.payType = this.payTypes[this.payTypeIndex];
       this.checkoutForm.get('payType').setValue(this.payType.value);
     });
-    this.addressSvc.get().subscribe(res => {
+    this.addressSvc.get(this.key).subscribe(res => {
       if (res.list.length > 0) {
         this.address = res.list[0];
         const addresses = [];
@@ -200,31 +196,6 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     console.log(new Date(now));
     this.pickerSvc.showDateTime('datetime', '', new Date(tomorrow), new Date(tomorrow)).subscribe((res: any) => {
       this.checkoutForm.get('sendTime').setValue(res.formatValue);
-    });
-  }
-
-  getStore() {
-    this.storeSvc.get({key: this.key, addrId: this.checkoutForm.get('addrId').value}).subscribe(_res => {
-      const stores = [];
-      _res.forEach(store => {
-        stores.push({
-          label: '[' + store.storename + ']' + store.address,
-          value: store
-        });
-      });
-      this.stores = stores;
-      if (this.stores.length < 1) {
-        this.dialogSvc.show({
-          title: '',
-          content: this.checkoutForm.get('deliveryType').value ? '该区域暂时没有开通配送服务，请另选配送地址' : '该区域暂时没有自提门店',
-          cancel: '',
-          confirm: '我知道了'
-        }).subscribe();
-      } else {
-        this.store = _res[0];
-        console.log(this.store);
-        this.checkoutForm.get('storeId').setValue(this.store.id);
-      }
     });
   }
 
@@ -278,9 +249,10 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     /*if (this.checkoutForm.invalid) {
       return false;
     }*/
-    console.log(this.checkoutForm);
+    console.log(this.checkoutForm.value);
     this.toastSvc.loading('结算中', 0);
     this.checkoutSvc.pay(this.checkoutForm.value).subscribe(res => {
+      console.log(res);
       if (!res) {
         this.toastSvc.hide();
         return false;

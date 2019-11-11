@@ -20,13 +20,7 @@ declare interface Wish {
 export class AdminCartComponent implements OnInit {
   items = [];
   total = 0;
-  wishes: Wish[] = [
-    {text: '不需要', value: 1},
-    {text: '生日快乐', value: 2},
-    {text: 'Happy Birthday', value: 3},
-    {text: '我要自己填写', value: 0}
-  ];
-
+  key;
   config: ActionSheetConfig = <ActionSheetConfig>{
     title: '请选择您要添加的祝福语',
     skin: 'ios',
@@ -51,7 +45,9 @@ export class AdminCartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.key = this.authSvc.getKey();
     this.cartForm = new FormGroup({
+      key: new FormControl(this.key, [Validators.required]),
       productId: new FormControl('', [Validators.required]),
       qty: new FormControl('', [Validators.required]),
     });
@@ -59,7 +55,7 @@ export class AdminCartComponent implements OnInit {
   }
 
   getData() {
-    this.cartSvc.get().subscribe(res => {
+    this.cartSvc.get(this.key).subscribe(res => {
       this.items = res;
       this.cartSvc.updateCount(this.items.length);
       this.getTotal();

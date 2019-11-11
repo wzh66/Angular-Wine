@@ -37,8 +37,8 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.settingForm = new FormGroup({
-      // id: new FormControl('', [Validators.required]),
-      // key: new FormControl(this.authSvc.getKey(), [Validators.required]),
+      /*id: new FormControl('', [Validators.required]),*/
+      key: new FormControl(this.authSvc.getKey(), [Validators.required]),
       addrId: new FormControl(this.id ? this.id : '', [Validators.required]),
       lnker: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(4)]),
       mobile: new FormControl('', [Validators.required]),
@@ -56,7 +56,7 @@ export class AdminSettingAddressEditComponent implements OnInit, OnDestroy {
     }
 
     if (this.id) {
-      this.addressSvc.get(this.id).subscribe(res => {
+      this.addressSvc.get(this.settingForm.get('key').value, this.id).subscribe(res => {
         this.settingForm.get('lnker').setValue(res.busMemberAddress.consignee);
         this.settingForm.get('mobile').setValue(res.busMemberAddress.phone);
         this.settingForm.get('rgnpro').setValue(res.busMemberAddress.province);

@@ -29,20 +29,20 @@ export class AdminProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
+    this.key = this.authSvc.getKey();
 
     this.profileForm = new FormGroup({
-      /*key: new FormControl(this.authSvc.getKey(), [Validators.required]),*/
+      key: new FormControl(this.authSvc.getKey(), [Validators.required]),
       username: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
       addressId: new FormControl('', [Validators.required])
     });
 
-    this.userSvc.get().subscribe(res => {
+    this.userSvc.get(this.key).subscribe(res => {
       this.profileForm.get('username').setValue(res.username);
       this.profileForm.get('phone').setValue(res.phone);
     });
-    this.addressSvc.get().subscribe(res => {
+    this.addressSvc.get(this.key).subscribe(res => {
       const addresses = [];
       console.log(res.list);
       res.list.forEach(address => {

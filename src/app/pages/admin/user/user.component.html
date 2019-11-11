@@ -1,6 +1,6 @@
 <div class="userinfo">
   <div class="user" *ngIf="user">
-    <img class="userinfo-avatar left" src="{{'/api/wine'+user.faceimg}}"/>
+    <img class="userinfo-avatar left" [src]="user.faceimg"/>
     <div class="info right">
       <p class="name">{{user.username}}<span class="grade">V{{user.level ? user.level : 0}}</span></p>
       <p class="phone">{{user.phone}}</p>

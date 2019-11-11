@@ -34,10 +34,10 @@ export class AdminSettingAddressComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
+    this.key = this.authSvc.getKey();
 
     this.settingForm = new FormGroup({
-      /*key: new FormControl(this.key, [Validators.required]),*/
+      key: new FormControl(this.key, [Validators.required]),
       addrId: new FormControl('', [Validators.required])
     });
 
@@ -45,7 +45,7 @@ export class AdminSettingAddressComponent implements OnInit {
   }
 
   getAddresses() {
-    this.addressSvc.get().subscribe(res => {
+    this.addressSvc.get(this.key).subscribe(res => {
       this.addresses = res.list;
       console.log(this.addresses);
     });

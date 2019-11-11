@@ -31,8 +31,8 @@ export class AdminShareComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
-    this.userSvc.get().subscribe(res => {
+    this.key = this.authSvc.getKey();
+    this.userSvc.get(this.key).subscribe(res => {
       this.webHost = res.shortLinks;
 
       this.qrCode = new QRCode(document.getElementById('qrcode'), {

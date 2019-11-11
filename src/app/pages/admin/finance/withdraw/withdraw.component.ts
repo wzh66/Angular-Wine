@@ -48,15 +48,14 @@ export class AdminFinanceWithdrawComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
     this.withdrawForm = new FormGroup({
-      /*key: new FormControl(this.key, [Validators.required]),*/
-      /*openId: new FormControl(this.authSvc.getOid(), [Validators.required]),*/
+      key: new FormControl(this.key, [Validators.required]),
+      openId: new FormControl(this.authSvc.getOid(), [Validators.required]),
       code: new FormControl('', [Validators.required]),
       money: new FormControl('', [Validators.required, Validators.min(0)]),
       phone: new FormControl('', [Validators.required, Validators.min(11)])
     });
-    this.userSvc.get().subscribe(res => {
+    this.userSvc.get(this.key).subscribe(res => {
       this.withdrawForm.get('phone').setValue(res.phone);
       this.withdrawForm.get('code').setValue(res.wxQRCode);
     });

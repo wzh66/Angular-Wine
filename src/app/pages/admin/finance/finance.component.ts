@@ -11,7 +11,7 @@ import {FooterService} from '../../../@theme/modules/footer/footer.service';
   styleUrls: ['./finance.component.scss']
 })
 export class AdminFinanceComponent implements OnInit {
-  /*key = this.authSvc.getKey();*/
+  key = this.authSvc.getKey();
   user;
 
   constructor(private location: LocationStrategy,
@@ -23,7 +23,7 @@ export class AdminFinanceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userSvc.get().subscribe(res => {
+    this.userSvc.get(this.key).subscribe(res => {
       this.user = res;
     });
   }

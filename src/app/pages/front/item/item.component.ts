@@ -39,7 +39,8 @@ export class FrontItemComponent implements OnInit {
               private footerSvc: FooterService,
               private cartSvc: CartService,
               private prodSvc: ProdService,
-              private router: Router) {
+              private router: Router,
+              private authSvc: AuthService) {
     footerSvc.setActive(1);
   }
 
@@ -66,6 +67,7 @@ export class FrontItemComponent implements OnInit {
   addCart(isRedirect?) {
     this.toastSvc.loading('操作中', 0);
     this.cartSvc.save({
+      key: this.authSvc.getKey(),
       productId: this.product.productid,
       qty: this.qty
     }).subscribe(res => {

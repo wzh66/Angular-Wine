@@ -1,11 +1,12 @@
 <app-header [className]="''" [show]="true" [title]="'我要推广'"></app-header>
 <app-content [paddingFooter]="true" [paddingHeader]="true" >
+  <app-msg *ngIf="user?.level === 0"
+           [msg]='{title:"",desc:"您还没有进行任何消费，消费后即可推广!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
 
-
+  <div class="share" *ngIf="user?.level > 0">
   <div class="content-scrollable">
   </div>
-  <div *ngIf="user?.level > 1" id="qrcode" class="qr-code"></div>
-  <div *ngIf="user?.level < 2" class="qr-blank"></div>
+  <div id="qrcode" class="qr-code"></div>
   <p class="weui-cell_title">我的专属推广二维码</p>
 
   <div class="envelope">
@@ -18,6 +19,7 @@
   <div class="weui-msg__tips-area">
     <p class="weui-msg__tips">佣金说明： 当你的朋友在商城购买产品时，你就能获得佣金。佣金提成为商品价格的1%。</p>
   </div>
+</div>
 </app-content>
 <app-footer></app-footer>
 

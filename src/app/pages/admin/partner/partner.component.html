@@ -1,10 +1,12 @@
 <app-header [className]="''" [show]="true" [title]="'合伙人权益'"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true">
   <app-admin-user></app-admin-user>
-  <div class="bonus">
-    <p class="this-bonus">本次分红： <span class="amount">￥158.00</span></p>
+  <app-msg *ngIf="partners.length === 0"
+           [msg]='{title:"",desc:"您还没有任何分红记录!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div class="bonus" *ngIf="partners.length > 0">
+    <p class="this-bonus">本次分红： <span class="amount">￥{{bonus?.receiveamount}}</span></p>
     <div class="record">
-      <span class="people left">分红人数: <em>10人</em></span><span class="total right">分红总额: <em>￥33336</em></span>
+      <span class="people left">分红人数: <em>{{bonus?.peoplecount}}人</em></span><span class="total right">分红总额: <em>￥{{bonus?.receiveAmount}}</em></span>
     </div>
 
     <div class="vip">

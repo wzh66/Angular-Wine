@@ -10,7 +10,7 @@ export class PartnerService {
 
   constructor(@Inject('PREFIX_URL') private prefix_url, private http: HttpClient) { }
 
-  get(key?): Observable<any> {
+  get(key): Observable<any> {
     return this.http.get(this.prefix_url + 'getInvites' + '&key=' + key)
       .pipe(observableMargeMap((res: any) => {
         return this.processResult(res);

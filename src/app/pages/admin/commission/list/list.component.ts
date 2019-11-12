@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import {AuthService} from '../../../auth/auth.service';
 import {CommissionService} from '../commission.service';
 import {DialogService, InfiniteLoaderComponent} from 'ngx-weui';
+import {ShareService} from '../../share/share.service';
 
 
 @Component({
@@ -14,51 +15,20 @@ import {DialogService, InfiniteLoaderComponent} from 'ngx-weui';
 })
 export class AdminCommissionListComponent implements OnInit {
 
-  key;
-
-  @ViewChild('comp', {static: false}) private il: InfiniteLoaderComponent;
-
-  page = 1;
-  records: any;
+  key = this.authSvc.getKey();
+  list = [];
 
   constructor(private location: Location,
               private dialogSvc: DialogService,
               private authSvc: AuthService,
-              private commissionSvc: CommissionService) {
+              private commissionSvc: CommissionService,
+              private shareSvc: ShareService) {
+    this.shareSvc.getList(this.key).subscribe(res => {
+      this.list = res.list;
+    });
   }
 
   ngOnInit() {
-    /*this.key = this.authSvc.getKey();*/
-
-    this.getData();
-  }
-
-  onSelect(tab) {
-    this.il.restart();
-    this.getData();
-  }
-
-  getData() {
-    this.commissionSvc.list(this.key, 1, this.page).subscribe(res => {
-      this.records = res;
-      console.log(this.records);
-    });
-  }
-
-  onLoadMore(comp: InfiniteLoaderComponent) {
-    observableTimer(1500).subscribe(() => {
-
-      this.page = this.page + 1;
-
-      this.commissionSvc.list(this.key, 1, this.page).subscribe(res => {
-        this.records = this.records.concat(res);
-        if (res.length < 20) {
-          comp.setFinished();
-          return;
-        }
-      });
-      comp.resolveLoading();
-    });
   }
 
   onCancel(e) {

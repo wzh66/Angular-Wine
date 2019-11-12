@@ -2,10 +2,10 @@
 <app-content [paddingHeader]="true" [paddingFooter]="true">
   <app-admin-marketing-commission></app-admin-marketing-commission>
 
-  <weui-navbar>
-    <weui-tab heading="所有">
       <div class="content">
-        <table cellpadding="0" cellspacing="0" border="0">
+        <app-msg *ngIf="list.length === 0"
+                 [msg]='{title:"",desc:"您还没有任何推广记录!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
+        <table cellpadding="0" cellspacing="0" border="0" *ngIf="list.length>0">
           <thead>
           <tr>
             <th class="grade">用户名称</th>
@@ -14,69 +14,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td class="grade">Muc豪</td>
-            <td class="num">2019-10-29 21:00:00</td>
-            <td class="consumption">￥15.00</td>
-          </tr>
-          <tr>
-            <td class="grade">沙雕</td>
-            <td class="num">2019-10-29 21:00:00</td>
-            <td class="consumption">￥15.00</td>
-          </tr>
-          <tr>
-            <td class="grade">小丸子</td>
-            <td class="num">2019-10-29 21:00:00</td>
-            <td class="consumption">￥15.00</td>
-          </tr>
-          <tr>
-            <td class="grade">Muc豪</td>
-            <td class="num">2019-10-29 21:00:00</td>
-            <td class="consumption">￥15.00</td>
-          </tr><tr>
-            <td class="grade">隔壁老王</td>
-            <td class="num">2019-10-29 21:00:00</td>
-            <td class="consumption">￥15.00</td>
-          </tr>
-
-          </tbody>
-        </table>
-      </div>
-    </weui-tab>
-    <weui-tab heading="待付款">
-      <div class="content">
-        <table cellpadding="0" cellspacing="0" border="0">
-          <thead>
-          <tr>
-            <th class="grade">用户名称</th>
-            <th class="num">加入时间</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="grade">Mike</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
-          <tr>
-            <td class="grade">Tom</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
-          <tr>
-            <td class="grade">小丸子</td>
-            <td class="num">2019-10-29 21:00:00</td>
+          <tr *ngFor="let item of list">
+            <td class="grade">{{item.username}}</td>
+            <td class="num">{{item.date | date : 'yyyy/MM/dd HH:mm:ss'}}</td>
+            <td class="consumption">￥{{item.commission}}.00</td>
           </tr>
           </tbody>
         </table>
       </div>
-    </weui-tab>
-    <weui-tab heading="已付款">
 
-    </weui-tab>
-
-    <weui-tab heading="已完成">
-
-    </weui-tab>
-  </weui-navbar>
 </app-content>
 <app-footer></app-footer>
 

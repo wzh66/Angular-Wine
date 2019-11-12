@@ -1,25 +1,23 @@
 <app-header [className]="''" [show]="true" [title]="'佣金记录'"></app-header>
-<weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
-  <app-msg *ngIf="records?.list.length < 1" (event)="onCancel($event)"
-           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
-  <div *ngIf="records?.list.length > 0" class="content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
-      <tr>
-        <th class="date">消费时间</th>
-        <th class="mobile">消费类型</th>
-        <th class="rmb">消费金额</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of records?.list">
-        <td class="date">{{item.date.split('.')[0]}}</td>
-        <td class="mobile">{{item.interfacetype}}</td>
-        <td class="rmb">￥{{item.money}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</weui-infiniteloader>
+<div class="content">
+<app-msg *ngIf="list.length === 0"
+         [msg]='{title:"",desc:"您还没有任何佣金记录!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
+<table cellpadding="0" cellspacing="0" border="0" *ngIf="list.length>0">
+  <thead>
+  <tr>
+    <th class="grade">用户名称</th>
+    <th class="num">购买时间</th>
+    <th class="consumption">获得佣金</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of list">
+    <td class="grade">{{item.username}}</td>
+    <td class="num">{{item.date | date : 'yyyy/MM/dd HH:mm:ss'}}</td>
+    <td class="consumption">￥{{item.commission}}.00</td>
+  </tr>
+  </tbody>
+</table>
+</div>
 <app-footer></app-footer>
 

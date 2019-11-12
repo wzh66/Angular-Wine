@@ -1,8 +1,10 @@
 <app-header className="''" [show]="true" [title]="'我的客户'"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true">
   <app-admin-marketing-commission></app-admin-marketing-commission>
+  <app-msg *ngIf="customs.length === 0"
+           [msg]='{title:"",desc:"您还没有任何客户!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
   <weui-navbar>
-    <weui-tab heading="一级(0)">
+    <weui-tab heading="{{custom.lowerlevel}}(0)" *ngFor="let custom of customs">
       <div class="custom">
         <table cellpadding="0" cellspacing="0" border="0">
           <thead>
@@ -13,44 +15,10 @@
           </thead>
           <tbody>
           <tr>
-            <td class="grade">Muc豪</td>
-            <td class="num">2019-10-29 21:00:00</td>
+            <td class="grade">{{custom.username}}</td>
+            <td class="num">{{custom.olddate}}</td>
           </tr>
           <tr>
-            <td class="grade">沙雕</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
-          <tr>
-            <td class="grade">小丸子</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
-
-          </tbody>
-        </table>
-      </div>
-    </weui-tab>
-    <weui-tab heading="二级(0)">
-      <div class="custom">
-        <table cellpadding="0" cellspacing="0" border="0">
-          <thead>
-          <tr>
-            <th class="grade">用户名称</th>
-            <th class="num">加入时间</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="grade">Mike</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
-          <tr>
-            <td class="grade">Tom</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
-          <tr>
-            <td class="grade">小丸子</td>
-            <td class="num">2019-10-29 21:00:00</td>
-          </tr>
           </tbody>
         </table>
       </div>

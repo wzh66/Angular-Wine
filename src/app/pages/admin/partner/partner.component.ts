@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PartnerService} from './partner.service';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-partner',
@@ -7,15 +8,19 @@ import {PartnerService} from './partner.service';
   styleUrls: ['./partner.component.scss']
 })
 export class AdminPartnerComponent implements OnInit {
-  partners;
+  partners = [];
+  key = this.authSvc.getKey();
+  bonus;
 
-  constructor(private partnerSvc: PartnerService) {
+  constructor(private partnerSvc: PartnerService,
+              private authSvc: AuthService) {
   }
 
   ngOnInit() {
-    this.partnerSvc.get().subscribe(res => {
-      this.partners= res.memberLevels;
-      console.log(this.partners);
+    this.partnerSvc.get(this.key).subscribe(res => {
+      this.partners = res.memberLevels;
+      this.bonus = res.recevie;
+      console.log(res);
     });
   }
 

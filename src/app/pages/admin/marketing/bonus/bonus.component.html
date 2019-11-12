@@ -1,7 +1,9 @@
 <app-header className="''" [show]="true" [title]="'分红记录'"></app-header>
 <app-content [paddingHeader]="true" [paddingFooter]="true">
   <app-admin-marketing-commission></app-admin-marketing-commission>
-  <div class="bonus">
+  <app-msg *ngIf="bonus.length === 0"
+           [msg]='{title:"",desc:"您还没有任何分红记录!~～",cancel:"",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div class="bonus" *ngIf="bonus.length > 0">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
       <tr>
@@ -10,34 +12,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥15.00</td>
+      <tr *ngFor="let item of bonus">
+        <td class="num">{{item.receivedate}}</td>
+        <td class="consumption">￥{{item.receiveamount}}</td>
       </tr>
-      <tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥150.00</td>
-      </tr>
-      <tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥1500.00</td>
-      </tr>
-      <tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥15000.00</td>
-      </tr><tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥15000.00</td>
-      </tr>
-      <tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥150000.00</td>
-      </tr>
-      <tr>
-        <td class="num">2019-10-29 21:00:00</td>
-        <td class="consumption">￥1500000.00</td>
-      </tr>
-
       </tbody>
     </table>
   </div>

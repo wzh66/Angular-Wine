@@ -1,12 +1,10 @@
 import {Injectable, Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
 
 import {Observable, of as observableOf} from 'rxjs';
 import {mergeMap as observableMargeMap} from 'rxjs/operators';
 
 import {formData} from '../../../utils/utils';
-import {DialogService} from 'ngx-weui';
 import {PayDto} from '../../../@core/dto/pay.dto';
 
 declare var WeixinJSBridge: any;
@@ -14,9 +12,14 @@ declare var WeixinJSBridge: any;
 @Injectable({providedIn: 'root'})
 export class CheckoutService {
   constructor(@Inject('PREFIX_URL') private prefix_url,
-              private http: HttpClient,
-              private router: Router,
-              private dialogSvc: DialogService) {
+              private http: HttpClient) {
+  }
+
+  getDeliveryRemark(key): Observable<any> {
+    return this.http.get(this.prefix_url + 'getDeliveryRemark' + '&key=' + key)
+      .pipe(observableMargeMap((res: any) => {
+        return this.processResult(res);
+      }));
   }
 
   getItems(key): Observable<any> {

@@ -3,7 +3,7 @@
   <div class="banner">
     <swiper [config]="config" [index]="1" fxFlex="auto">
           <span class="img-box swiper-slide" *ngFor="let img of imgs">
-            <img src="/api/wine{{product.headimage}}">
+            <img src="/api{{product.headimage}}">
           </span>
     </swiper>
   </div>
@@ -14,45 +14,6 @@
         <p class="weui-media-box__desc"><span><del>价格：{{product.originalprice}}</del><span>促销价：</span><em
           class="money" [innerHtml]="product.productprice"></em> 元</span></p>
       </div>
-      <!--<div class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-          规格
-        </div>
-        <div class="weui-media-box__bd">
-          <div class="pounds">
-            <div class="weui-grids">
-              <div *ngFor="let item of specs" class="weui-grid">
-                <span (click)="select(item)" class="weui-grid__label"
-                      [ngClass]="{'selected':item.id === spec.id}">{{item.count}}{{item.unit}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-          重量
-        </div>
-        <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">≈{{spec.count * 100}}g</p>
-        </div>
-      </div>-->
-      <!--<div class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-          体积
-        </div>
-        <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">≈{{spec.count}}{{spec.unit}}</p>
-        </div>
-      </div>-->
-      <!--<div class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-          温馨提示
-        </div>
-        <div class="weui-media-box__bd">
-          <p class="weui-media-box__desc">需要特别嘱咐的请添加备注信息！</p>
-        </div>
-      </div>-->
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd" style="align-self: center">
           数量
@@ -68,13 +29,6 @@
     <div class="weui-panel__hd">产品详情</div>
     <div class="weui-panel__bd">
       <div class="article weui-media-box weui-media-box_text" [innerHTML]="product.detail | formatSrc"></div>
-      <!--<div class="weui-media-box weui-media-box_text">
-        <h4 class="weui-media-box__title">品牌： 水井坊</h4>
-        <h4 class="weui-media-box__title">香型： 浓香型</h4>
-        <h4 class="weui-media-box__title">酒精度： 50-59度</h4>
-        <h4 class="weui-media-box__title">产地： 四川</h4>
-        <h4 class="weui-media-box__title">净含量： 376-500ml</h4>
-      </div>-->
     </div>
   </div>
 </app-content>

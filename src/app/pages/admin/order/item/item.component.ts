@@ -66,7 +66,7 @@ export class AdminOrderItemComponent implements OnInit {
       orderNos: new FormControl('', [Validators.required]),
       payType: new FormControl('', [Validators.required]),
       key: new FormControl(this.key, [Validators.required]),
-      /*  returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),*/
+      returnUrl: new FormControl(window.location.origin + '/msg/success?type=cart', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), [])
     });
 

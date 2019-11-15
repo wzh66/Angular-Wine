@@ -1,12 +1,5 @@
 <app-header [className]="''" [show]="true" [title]="'搜索'"></app-header>
 <div class="search-bar" style="margin-top: 55px;">
-  <app-search></app-search>
+  <app-search [word]="searchKey"></app-search>
 </div>
-<!--<div class="history">
-  <p>历史搜索</p>
-  <div class="weui-cells">
-    <div class="weui-cell weui-cell_link">白酒</div>
-    <div class="weui-cell weui-cell_link">黄酒</div>
-    <div class="weui-cell weui-cell_link">葡萄酒</div>
-  </div>
-</div>-->
+

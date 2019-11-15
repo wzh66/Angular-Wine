@@ -1,9 +1,16 @@
 <div class="userinfo">
   <div class="user" *ngIf="user">
     <img class="userinfo-avatar left" [src]="user.faceimg"/>
-    <div class="info right">
-      <p class="name">{{user.username}}<span class="grade">V{{user.level ? user.level : 0}}</span></p>
-      <p class="phone">{{user.phone}}</p>
+    <div class="info left">
+      <p class="name">{{user.username}}
+        <span class="grade">
+          <span *ngIf="user.level === 0">注册用户</span>
+          <span *ngIf="user.level === 1">金质会员</span>
+          <span *ngIf="user.level === 2">VIP会员</span>
+          <span *ngIf="user.level === 3">白金会员</span>
+          <span *ngIf="user.level === 4">至尊会员</span>
+          <span *ngIf="user.level === 5">合伙人</span>
+        </span></p>
     </div>
   </div>
   <ng-content></ng-content>

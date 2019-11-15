@@ -46,9 +46,8 @@ export class FrontItemComponent implements OnInit {
 
   ngOnInit() {
     this.prodSvc.item(this.route.snapshot.params['id']).subscribe(res => {
+      console.log(this.route);
       this.product = res.product;
-      /*this.specs = res.specs;
-      this.spec = this.specs[0];*/
     });
 
     this.directionSvc.get().subscribe(res => {

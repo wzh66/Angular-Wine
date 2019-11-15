@@ -1,5 +1,5 @@
 <app-header [className]="''" [show]="true" [title]="'我的订单'"></app-header>
-<weui-infiniteloader (loadmore)="onLoadMore($event)" #comp>
+<app-content [paddingHeader]="true" [paddingFooter]="true">
   <div class="order weui-panel weui-panel_access" style="margin-top: 0">
     <div class="weui-panel__bd">
       <div class="weui-media-box">
@@ -41,7 +41,7 @@
       <div [routerLink]="['/admin/order/item',item.orderno]" *ngFor="let item of order.goods"
         class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-          <img class="weui-media-box__thumb" src="{{'/api/wine' + item.productimg}}">
+          <img class="weui-media-box__thumb" src="{{'/api' + item.productimg}}">
         </div>
         <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title">{{item.productname}}
@@ -60,9 +60,9 @@
       </div>
     </div>
     <div class="weui-panel__ft" *ngIf="order?.status === 2">
-      <span class="weui-badge right" (click)="receive(order.orderno)">确认收获</span>
+      <span class="weui-badge right" (click)="receive(order.orderno)">确认收货</span>
     </div>
   </div>
   <div class="space"></div>
-</weui-infiniteloader>
+</app-content>
 <app-footer></app-footer>

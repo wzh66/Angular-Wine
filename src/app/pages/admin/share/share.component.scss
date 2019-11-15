@@ -6,10 +6,13 @@
   overflow: hidden;
   height: 3rem;
 }
+
 .qr-code::ng-deep {
   position: relative;
-  margin-top: 1.8rem;
-  z-index:100;
+  z-index: 100;
+  width: 2.2rem;
+  margin: 1.8rem auto 0;
+
   img {
     display: block;
     width: 2.2rem;
@@ -23,9 +26,10 @@
 .qr-code::ng-deep {
 
 }
+
 .weui-cell_title {
   position: relative;
-  z-index:120;
+  z-index: 120;
   font-size: 0.18rem;
   color: #8c8c8c;
   margin-top: -0.45rem;
@@ -33,28 +37,32 @@
   display: block;
   text-align: center;
 }
+
 .envelope {
   width: 2.4rem;
   margin: 0 auto;
   position: relative;
+
   .target {
     position: absolute;
     top: 0.7rem;
     font-size: 0.14rem;
     color: #fff;
     overflow: hidden;
-    text-align:center;
+    text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 2rem;
     left: 50%;
     margin-left: -1rem;
   }
+
   .form-control_btn {
     position: absolute;
     top: 0.2rem;
     left: 50%;
     margin-left: -0.7rem;
+
     button {
       display: block;
       width: 1.2rem;
@@ -66,7 +74,8 @@
       border: 0;
       color: #fff;
     }
-    a{
+
+    a {
       color: #676767;
       text-decoration: underline;
       text-align: center;
@@ -77,11 +86,11 @@
   }
 }
 
-.weui-msg__tips-area{
+.weui-msg__tips-area {
   position: relative;
   margin-top: 1.3rem;
 
-  .weui-msg__tips{
+  .weui-msg__tips {
     font-size: 0.14rem;
   }
 }

@@ -12,7 +12,7 @@
           <div class="weui-uploader__bd">
             <ul class="weui-uploader__files">
               <li *ngIf="withdrawForm.get('code').valid && uploader.queue.length < 1" class="weui-uploader__file"
-                  [ngStyle]="{'backgroundImage':'url(api/wine/' + withdrawForm.get('code').value + ')'}"></li>
+                  [ngStyle]="{'backgroundImage':'url(api/' + withdrawForm.get('code').value + ')'}"></li>
               <li
                 class="weui-uploader__file"
                 *ngFor="let item of uploader.queue"

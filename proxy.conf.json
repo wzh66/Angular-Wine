@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://120.25.198.225:8888",
+    "target": "http://www.qianlc.cn",
     "secure": false,
     "pathRewrite": {
       "^/api/": ""

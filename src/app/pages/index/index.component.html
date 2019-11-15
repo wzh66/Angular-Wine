@@ -52,24 +52,6 @@
     </div>
   </div>
 
-  <!--<div class="hot weui-panel">
-    <div class="weui-panel__hd"><span class="weui-badge">今日热销</span></div>
-    <div class="weui-panel__bd">
-      <div class="weui-media-box">
-        <div class="weui-media-box__bd">
-          <div class="banner">
-            <swiper *ngIf="hots.length > 0" [config]="albumConfig" [index]="1" fxFlex="auto">
-                  <span [routerLink]="['/front/item',slide.productid]" class="img-box swiper-slide"
-                        *ngFor="let slide of hots">
-                    <img src="{{'/api' + slide.headimage}}">
-                  </span>
-            </swiper>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>-->
-
   <div class="hot weui-panel">
     <div class="weui-panel__hd"><span>热销商品</span></div>
     <div class="weui-panel__bd">
@@ -77,7 +59,7 @@
         <div class="weui-media-box__bd">
           <div class="item-box">
             <div class="item-img">
-              <img src="{{'/api/wine' + item.headimage}}">
+              <img src="{{'/api' + item.headimage}}">
             </div>
             <div class="item-text">
               <span class="title">{{item.productname}}</span><span class="price">{{item.productprice}}</span><span
@@ -97,7 +79,7 @@
         <div class="item">
           <div class="item-img">
             <div class="img-box">
-              <img src="{{'/api/wine' + item.headimage}}">
+              <img src="{{'/api' + item.headimage}}">
             </div>
           </div>
           <div class="item-txt">
@@ -110,18 +92,14 @@
       </div>
     </div>
   </div>
+
+  <div class="weui-cells">
+    <div class="weui-cell">
+      <div class="weui-cell__bd" class="delivery">
+        <a href="https://m.kuaidi100.com/" target="_blank" class="search"><i class="icon-search"></i>快递查询</a>
+      </div>
+    </div>
+  </div>
 </app-content>
-
-<!--<app-fab>
-  <app-fab-trigger>
-    <button mat-fab><i class="icon-menu"></i></button>
-  </app-fab-trigger>
-
-  <app-fab-actions>
-    <button mat-mini-fab><i class="icon-add"></i></button>
-    <button mat-mini-fab><i class="icon-edit"></i></button>
-    <button mat-mini-fab><i class="icon-search"></i></button>
-  </app-fab-actions>
-</app-fab>-->
 
 <app-footer></app-footer>

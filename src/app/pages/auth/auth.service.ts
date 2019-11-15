@@ -9,7 +9,7 @@ import {Observable, of as observableOf} from 'rxjs';
 import {formData} from '../../utils/utils';
 import {StorageService} from '../../@core/utils/storage.service';
 import {UaService} from '../../@core/data/ua.service';
-import {mergeMap as observableMargeMap} from 'rxjs/operators';
+
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -45,7 +45,7 @@ export class AuthService {
       const key = this.route.snapshot.queryParams['key'];
       const id = this.route.snapshot.queryParams['id'];
       if (!openid) {// 无openid
-        window.location.href = '/api/wine/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+        window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
       } else {
         if (!key) {// 无key
           return this.router.navigate(['/auth/login'], {
@@ -103,6 +103,7 @@ export class AuthService {
   }
 
   getKey() {
+    /*this.storageSvc.remove('accessToken');*/
     // 判断accessToken是否在存并是否过期
     if (this.storageSvc.get('accessToken')) {
       return JSON.parse(this.storageSvc.get('accessToken')).key;
@@ -112,7 +113,7 @@ export class AuthService {
         const key = this.route.snapshot.queryParams['key'];
         const id = this.route.snapshot.queryParams['id'];
         if (!openid) {// 无openid
-          window.location.href = '/api/wine/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
+          window.location.href = '/api/interface/comm/auth.html?callbackUrl=' + encodeURI(window.location.href);
         } else {
           if (!key) {// 无key
             this.signIn({openid: openid, referee: this.referee() ? this.referee() : ''}).subscribe(res => {

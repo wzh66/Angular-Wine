@@ -13,9 +13,6 @@ import {AdminFinanceComponent} from './finance/finance.component';
 import {AdminFinanceWithdrawComponent} from './finance/withdraw/withdraw.component';
 import {AdminFinanceRecordsComponent} from './finance/records/records.component';
 
-import {AdminResellerComponent} from './reseller/reseller.component';
-import {AdminSellerComponent} from './seller/seller.component';
-
 import {AdminProfileComponent} from './profile/profile.component';
 
 import {AdminShareComponent} from './share/share.component';
@@ -44,8 +41,6 @@ export const ADMIN_PAGES = [
   AdminFinanceComponent,
   AdminFinanceWithdrawComponent,
   AdminFinanceRecordsComponent,
-  AdminResellerComponent,
-  AdminSellerComponent,
   AdminProfileComponent,
   AdminShareComponent,
   AdminShareListComponent,

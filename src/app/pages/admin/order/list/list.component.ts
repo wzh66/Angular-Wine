@@ -43,8 +43,8 @@ export class AdminOrderListComponent implements OnInit {
     this.key = this.authSvc.getKey();
     this.route.queryParamMap.subscribe(status => {
       this.status = this.route.snapshot.queryParams['status'] || '';
+      this.getOrders();
     });
-    this.getOrders();
   }
 
   onLoadMore(comp: InfiniteLoaderComponent) {
@@ -73,7 +73,6 @@ export class AdminOrderListComponent implements OnInit {
 
   getOrders() {
     this.orderSvc.list(this.key, this.status).subscribe(res => {
-      console.log(res);
       this.orders = res.result.list;
     });
   }

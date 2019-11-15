@@ -258,4 +258,17 @@ app-overlay {
   }
 }
 
+.delivery{
+  text-align: center;
+  font-size: 0.16rem;
+  margin:auto;
+  .search {
+    color: #000;
+    display: block;
+    padding-top: 0.08rem;
+    .icon-search{
+      padding-right: 0.06rem;
+    }
+  }
+}
 

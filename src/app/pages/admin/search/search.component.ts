@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-admin-search',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class AdminSearchComponent implements OnInit {
-
-  constructor() { }
+  searchKey: any;
+  constructor(private route: ActivatedRoute) {
+    this.searchKey = route.snapshot.queryParams.searchKey;
+  }
 
   ngOnInit() {
   }
-
 }

@@ -6,6 +6,7 @@ import {DirectionService} from '../../../@theme/animates/direction.service';
 import {FooterService} from '../../../@theme/modules/footer/footer.service';
 import {AuthService} from '../../auth/auth.service';
 import {CartService} from './cart.service';
+import {Router} from '@angular/router';
 
 declare interface Wish {
   text: string;
@@ -37,7 +38,8 @@ export class AdminCartComponent implements OnInit {
               private directionSvc: DirectionService,
               private footerSvc: FooterService,
               private authSvc: AuthService,
-              private cartSvc: CartService) {
+              private cartSvc: CartService,
+              private router: Router) {
     directionSvc.get().subscribe(res => {
       this.direction = res.direction;
     });
@@ -128,5 +130,11 @@ export class AdminCartComponent implements OnInit {
 
   onCancel() {
     this.location.back();
+  }
+
+  returnToCheckOut() {
+    if (this.items.length) {
+      this.router.navigate(['/admin/checkout']);
+    }
   }
 }

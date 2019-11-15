@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {LocationStrategy} from '@angular/common';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
@@ -26,22 +26,15 @@ import {CartService} from '../cart/cart.service';
 import {AddressService} from '../setting/address/address.service';
 import {StoreService} from '../../../@core/data/store.service';
 import {CheckoutService} from './checkout.service';
-import {getIndex, onBridgeReady} from '../../../utils/utils';
+import {getIndex} from '../../../utils/utils';
 import {PayDto} from '../../../@core/dto/pay.dto';
-import {logger} from 'codelyzer/util/logger';
 
-declare interface Coupon {
-  text: string;
-  value: number;
-}
-
-declare var qq: any;
-declare var WeixinJSBridge: any;
 
 @Component({
   selector: 'app-admin-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss']
+  styleUrls: ['./checkout.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdminCheckoutComponent implements OnInit, OnDestroy {
   key;
@@ -49,7 +42,6 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   order;
   addresses;
   address;
-  stores;
   store;
   location: any = {};
   checkoutForm: FormGroup;
@@ -70,17 +62,20 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   payType;
   showType;
   listenerTimer;
-  coupon: Coupon = {
-    text: '',
-    value: 0
-  };
+  coupon;
 
   menus: any[] = [];
   sheetConfig: ActionSheetConfig = {
     title: '请选择代金券',
   } as ActionSheetConfig;
   cashItems = [];
+  product = '';
   products = '';
+  cashPrice;
+  cashNum;
+  cashTotal;
+  cashTotals = 0;
+  deliveryRemark;
 
   constructor(private router: Router,
               private loc: LocationStrategy,
@@ -114,7 +109,6 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       deliveryType: new FormControl(1, [Validators.required]),
       addrId: new FormControl('', [Validators.required]),
       openId: new FormControl(this.authSvc.getOid(), []),
-      sendTime: new FormControl('', [Validators.required]),
       cashCardId: new FormControl('', []),
       products: new FormControl('', []),
       cashCardValue: new FormControl('', []),
@@ -123,10 +117,17 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
 
     if (this.storageSvc.get('cashItems')) {
       this.cashItems = JSON.parse(this.storageSvc.get('cashItems'));
+      console.log('cashItems:', this.cashItems);
       this.cashItems.forEach(item => {
-        this.products = item.productid.toString() + ',' + item.product_num.toString();
-        console.log(this.products);
-        this.checkoutForm.get('products').setValue(this.products);
+        if (item.product_num && item.product_num !== 0) {
+          this.product = String(item.productid) + ',' + String(item.product_num);
+          this.products = this.products.concat(this.product + ';');
+          this.cashPrice = item.productprice;
+          this.cashNum = item.product_num;
+          this.cashTotal = this.cashPrice * this.cashNum;
+          this.cashTotals = this.cashTotals + this.cashTotal;
+          this.checkoutForm.get('products').setValue(this.products);
+        }
       });
     }
 
@@ -134,8 +135,16 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
       this.overlaySvc.hide();
     });
 
+    this.checkoutSvc.getDeliveryRemark(this.key).subscribe(res => {
+      this.deliveryRemark = res;
+    });
+
     this.checkoutSvc.getItems(this.key).subscribe(res => {
       this.order = res;
+      console.log(res);
+      if (this.storageSvc.get('cashItems')) {
+        this.coupon = res.giveCashCard;
+      }
       this.checkoutForm.get('cashCardId').setValue(res.giveCashCard.id);
       this.checkoutForm.get('cashCardValue').setValue(res.giveCashCard.amount);
       if (res.giveCashCard && this.cashItems.length < 1) {
@@ -151,12 +160,8 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
           }
         });
       }
-      const body = {
-        text: res.giveCashCard.name,
-        value: res.giveCashCard.amount
-      };
-      this.menus.push(body);
     });
+
     this.checkoutSvc.get(this.key).subscribe(res => {
       const payTypes = [];
       res.forEach(item => {
@@ -187,23 +192,8 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
         addresses.push({label: '添加新地址', value: 0});
         this.addresses = addresses;
         this.checkoutForm.get('addrId').setValue(this.address.id);
-        /*this.getStore();*/
       }
     });
-  }
-
-  showDate() {
-    const now = Date.parse(new Date().toString());
-    const tomorrow = now + 24 * 60 * 60 * 1000;
-    console.log(new Date(now));
-    this.pickerSvc.showDateTime('datetime', '', new Date(tomorrow), new Date(tomorrow)).subscribe((res: any) => {
-      this.checkoutForm.get('sendTime').setValue(res.formatValue);
-    });
-  }
-
-  showOverlay() {
-    this.loc.pushState('advert', 'overlay', this.loc.path(), '');
-    this.overlaySvc.show();
   }
 
   show(type) {
@@ -213,22 +203,11 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
         if (res.value === '添加新地址') {
           this.router.navigate(['/admin/setting/address/edit/0']);
         } else {
-          // this.store = '';
-          // this.checkoutForm.get('storeId').setValue('');
-          // this.checkoutForm.get('addrId').setValue('');
           this.address = res.value;
           this.checkoutForm.get('addrId').setValue(res.value.id);
-          /*this.getStore();*/
         }
       });
-    } /*else {
-      this.pickerSvc.show([this.stores], '', [0], this.config).subscribe(res => {
-        // this.checkoutForm.get('storeId').setValue('');
-        // this.checkoutForm.get('addrId').setValue('');
-        this.store = res.value;
-        this.checkoutForm.get('storeId').setValue(res.value.id);
-      });
-    }*/
+    }
   }
 
   showPayTypes() {
@@ -248,10 +227,10 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
   }
 
   checkout() {
+    console.log(this.checkoutForm.value);
     if (this.checkoutForm.invalid) {
       return false;
     }
-    console.log(this.checkoutForm.value);
     this.toastSvc.loading('结算中', 0);
     this.checkoutSvc.pay(this.checkoutForm.value).subscribe(res => {
       console.log(res);
@@ -313,8 +292,6 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
           orderNo: res.orderNo
         };
         this.checkoutSvc.wxPay(body);
-        // this.router.navigate(['/msg/success'], {queryParams: {type: 'cart', orderNo: res.orderNo}});
-        // window.location.href = res.showMsg;
       }
       if (this.showType === 4) {
         this.toastSvc.hide();
@@ -356,4 +333,5 @@ export class AdminCheckoutComponent implements OnInit, OnDestroy {
     this.actionSheetSvc.destroyAll();
     this.storageSvc.remove('cashItems');
   }
+
 }

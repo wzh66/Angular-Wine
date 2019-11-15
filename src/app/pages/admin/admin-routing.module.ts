@@ -14,9 +14,6 @@ import {AdminFinanceComponent} from './finance/finance.component';
 import {AdminFinanceRecordsComponent} from './finance/records/records.component';
 import {AdminFinanceWithdrawComponent} from './finance/withdraw/withdraw.component';
 
-import {AdminResellerComponent} from './reseller/reseller.component';
-import {AdminSellerComponent} from './seller/seller.component';
-
 import {AdminProfileComponent} from './profile/profile.component';
 
 import {AdminShareComponent} from './share/share.component';
@@ -71,8 +68,6 @@ const routes: Routes = [
   {path: 'finance', component: AdminFinanceComponent},
   {path: 'finance/records', component: AdminFinanceRecordsComponent},
   {path: 'finance/withdraw', component: AdminFinanceWithdrawComponent},
-  {path: 'reseller', component: AdminResellerComponent},
-  {path: 'seller', component: AdminSellerComponent},
   {path: 'profile', component: AdminProfileComponent},
   {path: 'share', component: AdminShareComponent},
   {path: 'share/list', component: AdminShareListComponent},

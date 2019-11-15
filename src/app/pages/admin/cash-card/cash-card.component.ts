@@ -22,9 +22,6 @@ export class AdminCashCardComponent implements OnInit {
 
   ngOnInit() {
     this.cashSvc.get(this.key).subscribe(res => {
-      res.list.forEach((item) => {
-        item.count = 1;
-      });
       this.cashItems = res.list;
     });
   }
